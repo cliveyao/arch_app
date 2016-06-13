@@ -22,8 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 打印输出HTTP请求信息，一般用于开发调试
- * 生产环境把日志级别设定高于INFO即可屏蔽调试信息输出
+ * Printout HTTP request information , generally used for development and debugging
+ * Production logging level is set to be higher than INFO shield debugging output
  */
 public class HttpRequestLogFilter implements Filter {
 
@@ -45,14 +45,14 @@ public class HttpRequestLogFilter implements Filter {
             HttpServletRequest req = (HttpServletRequest) request;
 
             String uri = req.getRequestURI();
-            //静态资源直接跳过
+         // Static resource skip
             if (uri == null || uri.endsWith(".js") || uri.endsWith(".css") || uri.endsWith(".gif") || uri.endsWith(".png") || uri.endsWith(".jpg")
                     || uri.endsWith(".woff") || uri.endsWith(".ico")) {
                 chain.doFilter(request, reponse);
                 return;
             }
 
-            //提取verbose参数标识是否开启详细信息输出
+         // Extract verbose parameter identifies whether or not to enable verbose output
             boolean verbose = logger.isTraceEnabled() || BooleanUtils.toBoolean(req.getParameter("verbose"));
 
             Map<String, String> dataMap = ServletUtils.buildRequestInfoDataMap(req, verbose);

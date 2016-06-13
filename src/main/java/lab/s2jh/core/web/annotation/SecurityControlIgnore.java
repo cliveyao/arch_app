@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 标识忽略访问权限控制
+ *Logo Ignore Access Control
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

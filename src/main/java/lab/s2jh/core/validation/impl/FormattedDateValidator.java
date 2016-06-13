@@ -48,7 +48,7 @@ public class FormattedDateValidator implements ConstraintValidator<FormattedDate
 
     private static boolean isDate(String value, String format) {
         SimpleDateFormat sdf = null;
-        ParsePosition pos = new ParsePosition(0);//指定从所传字符串的首位开始解析  
+        ParsePosition pos = new ParsePosition(0);// Specify the first preaching from the beginning of the string parsing 
         if (StringUtils.isBlank(value)) {
             return false;
         }
@@ -59,7 +59,7 @@ public class FormattedDateValidator implements ConstraintValidator<FormattedDate
             if (date == null) {
                 return false;
             } else {
-                //更为严谨的日期,如2011-03-024认为是不合法的  
+            	// More stringent dates, such as 2011-03-024 considered illegal
                 if (pos.getIndex() > sdf.format(date).length()) {
                     return false;
                 }

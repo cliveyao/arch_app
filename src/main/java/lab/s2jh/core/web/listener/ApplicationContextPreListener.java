@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Spring容器加载“之前”的ServletContextListener
+ * Spring loaded container "before" the ServletContextListener
  */
 public class ApplicationContextPreListener implements ServletContextListener {
 
@@ -15,7 +15,7 @@ public class ApplicationContextPreListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-        //强制设置优先采用IPV4协议
+    	// Forced precedence IPV4 protocol
         logger.info("Set system property: {} = {}", "java.net.preferIPv4Stack", "true");
         System.setProperty("java.net.preferIPv4Stack", "true");
 

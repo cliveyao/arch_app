@@ -29,8 +29,8 @@ public class ActivitiController {
     protected ActivitiService activitiService;
 
     /**
-     * 流程运行图显示响应
-     * 此处采用的宽松的流程图访问控制，如果业务需要限制流程图的访问需要添加相应的控制逻辑
+     * Flow diagram shows the response
+     * Loose access control flowchart employed herein , if the business need to restrict access to the flowchart need to add the appropriate control logic
      */
     @RequestMapping(value = "/diagram", method = RequestMethod.GET)
     @ResponseBody
@@ -48,7 +48,7 @@ public class ActivitiController {
             return;
         }
 
-        // 输出资源内容到相应对象
+     // Output corresponding to the content of the resource objects
         byte[] b = new byte[1024];
         int len = -1;
         ServletOutputStream out;
@@ -61,7 +61,7 @@ public class ActivitiController {
             out.close();
         } catch (IOException e) {
             logger.error("Output process image error", e);
-            throw new WebException("流程运行图处理异常", e);
+            throw new WebException("Exception processing flow diagram", e);
         }
     }
 }

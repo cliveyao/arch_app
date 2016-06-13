@@ -54,14 +54,14 @@ public class RoleController extends BaseController<Role, Long> {
         }
     }
 
-    @MenuData("配置管理:权限管理:角色配置")
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @MenuData("Configuration Management: Rights Management : the role configuration")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "admin/auth/role-index";
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<Role> findByPage(HttpServletRequest request) {
@@ -73,27 +73,27 @@ public class RoleController extends BaseController<Role, Long> {
         return "admin/auth/role-inputTabs";
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow() {
         return "admin/auth/role-inputBasic";
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") Role entity, Model model) {
         return super.editSave(entity);
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(@RequestParam("ids") Long... ids) {
         return super.delete(ids);
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/privileges", method = RequestMethod.GET)
     public String privilegeR2sShow(@ModelAttribute("entity") Role entity, Model model) {
         Set<Long> r2PrivilegeIds = Sets.newHashSet();
@@ -107,7 +107,7 @@ public class RoleController extends BaseController<Role, Long> {
         return "admin/auth/role-privileges";
     }
 
-    @RequiresPermissions("配置管理:权限管理:角色配置")
+    @RequiresPermissions("Configuration Management: Rights Management : the role configuration")
     @RequestMapping(value = "/privileges", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult privilegeR2sSave(@ModelAttribute("entity") Role entity,

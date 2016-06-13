@@ -29,23 +29,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_Department")
-@MetaData(value = "部门")
+@MetaData(value = "department")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 public class Department extends BaseNativeEntity implements Comparable<Department> {
 
     private static final long serialVersionUID = -7634994834209530394L;
 
-    @MetaData(value = "代码", comments = "代码本身具有层级信息，用于进行从属权限控制")
+    @MetaData(value = "Code", comments = "The code itself has a hierarchical information , used for slave access control")
     @Size(min = 3)
     @Column(nullable = false, length = 255, unique = true)
     private String code;
 
-    @MetaData(value = "名称")
+    @MetaData(value = "name")
     @Column(nullable = false, length = 32)
     private String name;
 
-    @MetaData(value = "父节点")
+    @MetaData(value = "Parent")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none"))
     @JsonIgnore
@@ -72,7 +72,7 @@ public class Department extends BaseNativeEntity implements Comparable<Departmen
     }
 
     /**
-     * 计算节点所在层级，根节点以0开始
+     * Where the level of compute nodes , the root begins with 0
      * @return
      */
     @Transient

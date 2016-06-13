@@ -29,23 +29,23 @@ import com.google.common.collect.Lists;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_Privilege")
-@MetaData(value = "权限")
+@MetaData(value = "Competence")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Privilege extends BaseNativeEntity {
 
     private static final long serialVersionUID = 5139319086984812835L;
 
-    @MetaData(value = "代码")
+    @MetaData(value = "Code")
     @Column(nullable = false, length = 255, unique = true)
     private String code;
 
-    @MetaData(value = "禁用标识", tooltips = "禁用不参与权限控制逻辑")
+    @MetaData(value = "Disable Logo", tooltips = "Disable access control logic does not participate")
     private Boolean disabled = Boolean.FALSE;
 
-    @MetaData(value = "重建时间")
+    @MetaData(value = "Rebuild Time")
     private Date rebuildTime;
 
-    @MetaData(value = "角色权限关联")
+    @MetaData(value = "Association role permissions")
     @OneToMany(mappedBy = "privilege", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<RoleR2Privilege> roleR2Privileges = Lists.newArrayList();

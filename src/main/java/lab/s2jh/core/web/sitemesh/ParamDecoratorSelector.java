@@ -10,8 +10,8 @@ import org.sitemesh.content.Content;
 import org.sitemesh.webapp.WebAppContext;
 
 /**
- * 基于request的header和parameter参数decorator值进行动态定位装饰器的选择器
- * 如果decorator参数有值，则返回"/WEB-INF/views/layouts/" + decorator + ".jsp"作为目标装饰模板页面
+ * Dynamic positioning decorator choice based on header parameters and parameter values ​​decorator 's request
+ * If decorator parameter has a value, it returns "/ WEB-INF / views / layouts /" + decorator + ".jsp" as the target template page decoration
  */
 public class ParamDecoratorSelector implements DecoratorSelector<WebAppContext> {
 
@@ -25,14 +25,14 @@ public class ParamDecoratorSelector implements DecoratorSelector<WebAppContext> 
         // build decorator based on the request
         HttpServletRequest request = context.getRequest();
         String decorator = null;
-        //首先从header头信息取值
+     // First value from header header
         decorator = request.getHeader("decorator");
         if (StringUtils.isBlank(decorator)) {
-            //未取到再从参数取值
+        	// Not to be taken from the parameter values
             decorator = request.getParameter("decorator");
         }
         if (StringUtils.isNotBlank(decorator)) {
-            //按照参数值返回对应路径下面的jsp装饰模板页码
+        	// Returns the corresponding parameter values ​​in accordance with the following path decorative template jsp page
             return new String[] { "/WEB-INF/views/layouts/" + decorator + ".jsp" };
         }
 

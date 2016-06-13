@@ -25,7 +25,7 @@ public interface PrivilegeDao extends BaseDao<Privilege, Long> {
     Privilege findByCode(String code);
 
     /**
-     * 基于角色代码集合查询关联的启用状态的权限集合
+     * Set permissions enabled character set of code associated with a query -based
      * @param roleCodes
      * @return
      */

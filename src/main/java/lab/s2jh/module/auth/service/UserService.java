@@ -130,7 +130,7 @@ public class UserService extends BaseService<User, Long> {
         if (StringUtils.isNotBlank(rawPassword)) {
             String encodedPassword = encodeUserPasswd(entity, rawPassword);
             if (StringUtils.isNotBlank(entity.getPassword())) {
-                //为了便于开发调试，开发模式允许相同密码修改
+            	// To facilitate development and debugging , development model allows the same password changes
                 Validation.isTrue(DynamicConfigService.isDevMode() || !entity.getPassword().equals(encodedPassword), "变更密码不能与当前密码一样");
             }
             entity.setPassword(encodedPassword);
@@ -172,7 +172,7 @@ public class UserService extends BaseService<User, Long> {
     public void requestResetPassword(String webContextUrl, User user) {
         String email = user.getEmail();
         Assert.isTrue(StringUtils.isNotBlank(email), "User email required");
-        String suject = dynamicConfigService.getString("cfg.user.reset.pwd.notify.email.title", "申请重置密码邮件");
+        String suject = dynamicConfigService.getString("cfg.user.reset.pwd.notify.email.title", "Apply password reset message");
         UserExt userExt = user.getUserExt();
         userExt.setRandomCode(UidUtils.UID());
         userExtDao.save(userExt);
@@ -199,14 +199,14 @@ public class UserService extends BaseService<User, Long> {
             }
         }
 
-        //登录记录
+     // Login records
         UserExt userExt = user.getUserExt();
         userExt.setLogonTimes(userExt.getLogonTimes() + 1);
         userExt.setLastLogonIP(userLogonLog.getRemoteAddr());
         userExt.setLastLogonHost(userLogonLog.getRemoteHost());
         userExt.setLastLogonTime(DateUtils.currentDate());
 
-        //重置失败次数计数
+     // Reset fail count the number of times
         userExt.setLastLogonFailureTime(null);
         userExtDao.save(userExt);
         user.setLogonFailureTimes(0);

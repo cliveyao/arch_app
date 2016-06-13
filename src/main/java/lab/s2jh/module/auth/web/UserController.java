@@ -72,15 +72,15 @@ public class UserController extends BaseController<User, Long> {
         super.initPrepareModel(request, model, id);
     }
 
-    @MenuData("配置管理:权限管理:用户账号")
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @MenuData("Configuration Management: Rights Management : User accounts")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         model.addAttribute("authTypeMap", EnumUtils.getEnumDataMap(AuthTypeEnum.class));
         return "admin/auth/user-index";
     }
 
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<User> findByPage(HttpServletRequest request) {
@@ -92,7 +92,7 @@ public class UserController extends BaseController<User, Long> {
         return "admin/auth/user-inputTabs";
     }
 
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow(Model model, @ModelAttribute("entity") User entity) {
         model.addAttribute("authTypeMap", EnumUtils.getEnumDataMap(AuthTypeEnum.class));
@@ -103,20 +103,20 @@ public class UserController extends BaseController<User, Long> {
         return "admin/auth/user-inputBasic";
     }
 
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") User entity, Model model,
             @RequestParam(value = "rawPassword", required = false) String rawPassword) {
         Validation.notDemoMode();
         if (entity.isNew()) {
-            Validation.isTrue(StringUtils.isNotBlank(rawPassword), "创建用户必须设置初始密码");
+            Validation.isTrue(StringUtils.isNotBlank(rawPassword), "Create a user must set the initial password");
         }
         userService.saveCascadeR2Roles(entity, rawPassword);
-        return OperationResult.buildSuccessResult("数据保存处理完成", entity);
+        return OperationResult.buildSuccessResult("Data storage processing is completed", entity);
     }
 
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(@RequestParam("ids") Long... ids) {
@@ -124,8 +124,8 @@ public class UserController extends BaseController<User, Long> {
         return super.delete(ids);
     }
 
-    @MetaData(value = "汇总用户关联权限集合")
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @MetaData(value = "Summing the associated set of permissions")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/privileges", method = RequestMethod.GET)
     public String privileges(Model model, @ModelAttribute("entity") User entity) {
         Set<Long> r2PrivilegeIds = Sets.newHashSet();
@@ -155,21 +155,21 @@ public class UserController extends BaseController<User, Long> {
         return "admin/auth/user-privileges";
     }
 
-    @MetaData(value = "汇总用户关联菜单集合")
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @MetaData(value = "Summing up the context menu set")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/menus", method = RequestMethod.GET)
     public String menusShow(Model model) {
         return "admin/auth/user-menus";
     }
 
-    @RequiresPermissions("配置管理:权限管理:用户账号")
+    @RequiresPermissions("Configuration Management: Rights Management : User accounts")
     @RequestMapping(value = "/menus/data", method = RequestMethod.GET)
     @ResponseBody
     public Object menusData(Model model, @ModelAttribute("entity") User entity) {
         List<Map<String, Object>> items = Lists.newArrayList();
         List<NavMenuVO> navMenuVOs = menuService.processUserMenu(entity);
         for (NavMenuVO navMenuVO : navMenuVOs) {
-            //组装zTree结构数据
+            //ZTree assembly structure data
             Map<String, Object> item = Maps.newHashMap();
             item.put("id", navMenuVO.getId());
             item.put("pId", navMenuVO.getParentId());

@@ -27,20 +27,20 @@ import org.hibernate.envers.RelationTargetAuditMode;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_RoleR2Privilege", uniqueConstraints = @UniqueConstraint(columnNames = { "privilege_id", "role_id" }))
-@MetaData(value = "角色与权限关联")
+@MetaData(value = "Associated with the role and authority")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 public class RoleR2Privilege extends BaseNativeEntity {
 
     private static final long serialVersionUID = -4312077296555510354L;
 
-    /** 关联权限对象 */
+    /** Associated rights object */
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "privilege_id", nullable = false)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private Privilege privilege;
 
-    /** 关联角色对象 */
+    /** Association role objects */
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;

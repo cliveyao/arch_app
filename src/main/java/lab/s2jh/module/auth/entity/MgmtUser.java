@@ -24,18 +24,18 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_MgmtUser")
-@MetaData(value = "管理端用户信息")
+@MetaData(value = "End user management information")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MgmtUser extends BaseNativeEntity {
 
     private static final long serialVersionUID = 512335968914828057L;
 
-    @MetaData(value = "登录账号对象")
+    @MetaData(value = "Login account objects")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @MetaData(value = "所属部门")
+    @MetaData(value = "Sector")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "department_id")
     private Department department;

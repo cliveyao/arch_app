@@ -78,7 +78,7 @@ public class ActivitiService {
     private ProcessEngineFactoryBean processEngine;
 
     /**
-     * 基于业务主键构建流程实例运行图
+     * Construction based natural key process instance diagram
      * @param bizKey
      * @return
      */
@@ -88,7 +88,7 @@ public class ActivitiService {
     }
 
     /**
-     * 基于ProcessInstanceId删除流程
+     * Based ProcessInstanceId removal process
      * @param bizKey
      * @return
      */
@@ -98,7 +98,7 @@ public class ActivitiService {
     }
 
     /**
-     * 基于业务主键删除流程
+     *Based on natural key removal process
      * @param bizKey
      * @return
      */
@@ -110,7 +110,7 @@ public class ActivitiService {
     }
 
     /**
-     * 基于业务主键删除流程
+     * Based on natural key removal process
      * @param bizKey
      * @return
      */
@@ -120,13 +120,13 @@ public class ActivitiService {
     }
 
     /**
-     * 基于processInstance删除流程
+     * Based processInstance removal process
      * @param bizKey
      * @return
      */
     public void deleteProcessInstanceByProcessInstance(ProcessInstance processInstance, String message) {
         if (processInstance != null) {
-            //try-catch处理，避免由于更新版本导致遗留的脏数据获取对象处理失败导致无法删除
+        	// Try-catch process , resulting in an updated version avoid dirty data get left unable to delete the object processing failures
             try {
                 Object val = runtimeService.getVariable(processInstance.getProcessInstanceId(), BPM_ENTITY_VAR_NAME);
                 if (val != null && val instanceof BpmTrackable) {
@@ -143,7 +143,7 @@ public class ActivitiService {
     }
 
     /**
-     * 基于流程实例ID构建流程实例运行图
+     * Based on Business Process instance ID process instance diagram
      * @param processInstanceId
      * @return
      */
@@ -160,7 +160,7 @@ public class ActivitiService {
         ProcessDefinitionEntity processDefinition = (ProcessDefinitionEntity) repositoryService.getProcessDefinition(processInstance
                 .getProcessDefinitionId());
         List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstance.getProcessInstanceId());
-        // 使用spring注入引擎请使用下面的这行代码
+     // Use spring injection engine Please use the following line of code
         Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
 
         List<String> highLightedFlows = getHighLightedFlows(processDefinition, processInstance.getProcessInstanceId());
@@ -217,8 +217,8 @@ public class ActivitiService {
     }
 
     /**
-     * 基于业务主键查询正在运行的流程实例
-     * @param entity 流程业务对象
+     * Based process instance natural key running queries
+     * @param Entity processes the business object
      * @return
      */
     public ProcessInstance findRunningProcessInstance(BpmTrackable entity) {
@@ -228,14 +228,14 @@ public class ActivitiService {
     }
 
     /**
-     * 查询业务对象当前活动任务名称
-     * @param bizKey 启动流程的业务主键
+     * Query business objects currently active task name
+     * @param BizKey start the process of natural key
      * @return
      */
     public String findActiveTaskNames(String bizKey) {
         Assert.notNull(bizKey);
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceBusinessKey(bizKey).singleResult();
-        //流程已完结，直接返回null
+     // Process has ended , the direct return null
         if (processInstance == null) {
             return "END";
         }
@@ -252,9 +252,9 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据当前任务ID，查询可以驳回的任务节点  
-     *   
-     * @param taskId 当前任务ID  
+     *According to the current task ID, the query may reject the task node
+     *
+     * @param TaskId current task ID
      */
     public List<ActivityImpl> findBackActivities(String taskId) {
         List<ActivityImpl> rtnList = iteratorBackActivity(taskId, findActivitiImpl(taskId, null), new ArrayList<ActivityImpl>(),
@@ -263,17 +263,17 @@ public class ActivitiService {
     }
 
     /**  
-     * 返回指定目标活动节点  
-     *   
-     * @param taskId 当前任务ID  
-     * @param activityId 返回节点活动ID  
-     * @param variables 流程存储参数  
+     * Returns targeting the active node
+     *
+     * @param TaskId current task ID
+     * @param ActivityId return node activity ID
+     * @param Variables stored in the process parameters
      * @throws Exception  
      */
     public void backActivity(String taskId, String activityId, Map<String, Object> variables) {
         Assert.notNull(activityId, "Back target process activity id required");
 
-        // 查找所有并行任务节点，同时驳回    
+     // Find all the nodes in parallel tasks at the same time rejected
         List<Task> taskList = findTaskListByKey(findProcessInstanceByTaskId(taskId).getId(), findTaskById(taskId).getTaskDefinitionKey());
         for (Task task : taskList) {
             commitProcess(task.getId(), variables, activityId);
@@ -281,10 +281,10 @@ public class ActivitiService {
     }
 
     /**  
-     * 返回指定目标活动节点  
-     *   
-     * @param taskId 当前任务ID  
-     * @param activityId 返回节点活动ID  
+     * Returns targeting the active node
+     *
+     * @param TaskId current task ID
+     * @param ActivityId return node activity ID
      * @throws Exception  
      */
     public void backActivity(String taskId, String activityId) {
@@ -292,15 +292,15 @@ public class ActivitiService {
     }
 
     /**  
-     * 清空指定活动节点流向  
-     *   
-     * @param activityImpl 活动节点  
-     * @return 节点流向集合  
+     * Empty specify the active node flows
+     *
+     * @param ActivityImpl active node
+     * @return Node flow collection
      */
     private List<PvmTransition> clearTransition(ActivityImpl activityImpl) {
-        // 存储当前节点所有流向临时变量    
+    	// Store the current node all the flow of temporary variables
         List<PvmTransition> oriPvmTransitionList = new ArrayList<PvmTransition>();
-        // 获取当前节点所有流向，存储到临时变量，然后清空    
+     // Get the current node to all flows stored in the temporary variable , and then emptied
         List<PvmTransition> pvmTransitionList = activityImpl.getOutgoingTransitions();
         for (PvmTransition pvmTransition : pvmTransitionList) {
             oriPvmTransitionList.add(pvmTransition);
@@ -311,25 +311,25 @@ public class ActivitiService {
     }
 
     /**  
-     * @param taskId 当前任务ID  
-     * @param variables 流程变量  
-     * @param activityId 流程转向执行任务节点ID<br>此参数为空，默认为提交操作  
+     *@param taskId current task ID
+     * @param Variables Process variables
+     * @param ActivityId process to implementation task node ID <br> this parameter is empty , the default for commit
      * @throws Exception  
      */
     private void commitProcess(String taskId, Map<String, Object> variables, String activityId) {
         if (variables == null) {
             variables = new HashMap<String, Object>();
         }
-        // 跳转节点为空，默认提交操作    
+     // Jump node is empty , the default commit operation
         if (StringUtils.isEmpty(activityId)) {
             taskService.complete(taskId, variables);
-        } else {// 流程转向操作    
+        } else {// Process steering operation
             turnTransition(taskId, activityId, variables);
         }
     }
 
     /**  
-     * 中止流程(特权人直接审批通过等)  
+     * Abort the process ( direct approval by the privileged people , etc. )
      *   
      * @param taskId  
      */
@@ -339,10 +339,10 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据流入任务集合，查询最近一次的流入任务节点  
-     *   
-     * @param processInstance 流程实例  
-     * @param tempList 流入任务集合  
+     * According to flow into a collection of tasks , accessing the latest inflow task node
+     *
+     * @param ProcessInstance process instance
+     * @param TempList flows into a collection of tasks
      * @return  
      */
     private ActivityImpl filterNewestActivity(ProcessInstance processInstance, List<ActivityImpl> tempList) {
@@ -378,24 +378,24 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据任务ID和节点ID获取活动节点 <br>  
-     *   
-     * @param taskId 任务ID  
-     * @param activityId 活动节点ID<br>如果为null或""，则默认查询当前活动节点 <br>如果为"end"，则查询结束节点 <br>  
+     * Get active node ID according to the task ID and node <br>
+     *
+     * @param TaskId task ID
+     * @param ActivityId active node ID <br> If null or "" , the default query the current active node <br> If "end", the end of the query nodes <br> 
      *   
      * @return  
      * @throws Exception  
      */
     private ActivityImpl findActivitiImpl(String taskId, String activityId) {
-        // 取得流程定义    
+    	// Get the process definition
         ProcessDefinitionEntity processDefinition = findProcessDefinitionEntityByTaskId(taskId);
 
-        // 获取当前活动节点ID    
+     // Get the current active node ID
         if (StringUtils.isEmpty(activityId)) {
             activityId = findTaskById(taskId).getTaskDefinitionKey();
         }
 
-        // 根据流程定义，获取该流程实例的结束节点    
+     // According to the process definition, to obtain the end nodes of the process instance
         if (activityId.toUpperCase().equals("END")) {
             for (ActivityImpl activityImpl : processDefinition.getActivities()) {
                 List<PvmTransition> pvmTransitionList = activityImpl.getOutgoingTransitions();
@@ -405,22 +405,22 @@ public class ActivitiService {
             }
         }
 
-        // 根据节点ID，获取对应的活动节点    
+     // A node ID, to obtain the corresponding active node
         ActivityImpl activityImpl = ((ProcessDefinitionImpl) processDefinition).findActivity(activityId);
 
         return activityImpl;
     }
 
     /**  
-     * 查询指定任务节点的最新记录  
-     *   
-     * @param processInstance 流程实例  
+     * Latest record query specified task node
+     *
+     * @param ProcessInstance process instance
      * @param activityId  
      * @return  
      */
     private HistoricActivityInstance findHistoricUserTask(ProcessInstance processInstance, String activityId) {
         HistoricActivityInstance rtnVal = null;
-        // 查询当前流程实例审批结束的历史节点    
+     // Query the current approval process instances end node history
         List<HistoricActivityInstance> historicActivityInstances = historyService.createHistoricActivityInstanceQuery().activityType("userTask")
                 .processInstanceId(processInstance.getId()).activityId(activityId).finished().orderByHistoricActivityInstanceEndTime().desc().list();
         if (historicActivityInstances.size() > 0) {
@@ -431,9 +431,9 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据当前节点，查询输出流向是否为并行终点，如果为并行终点，则拼装对应的并行起点ID  
-     *   
-     * @param activityImpl 当前节点  
+     * According to the current node , whether parallel query output flows end , if the parallel end , the assembly corresponding parallel start ID
+     *
+     * @param ActivityImpl current node
      * @return  
      */
     private String findParallelGatewayId(ActivityImpl activityImpl) {
@@ -442,7 +442,7 @@ public class ActivitiService {
             TransitionImpl transitionImpl = (TransitionImpl) pvmTransition;
             activityImpl = transitionImpl.getDestination();
             String type = (String) activityImpl.getProperty("type");
-            if ("parallelGateway".equals(type)) {// 并行路线    
+            if ("parallelGateway".equals(type)) {// Parallel route
                 String gatewayId = activityImpl.getId();
                 String gatewayType = gatewayId.substring(gatewayId.lastIndexOf("_") + 1);
                 if ("END".equals(gatewayType.toUpperCase())) {
@@ -454,35 +454,35 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据任务ID获取流程定义  
-     *   
-     * @param taskId  
-     *            任务ID  
+     *Get process definition based on the task ID
+     *
+     * @param TaskId
+     * Task ID
      * @return  
      * @throws Exception  
      */
     private ProcessDefinitionEntity findProcessDefinitionEntityByTaskId(String taskId) {
-        // 取得流程定义    
+    	// Get the process definition
         return (ProcessDefinitionEntity) ((RepositoryServiceImpl) repositoryService).getDeployedProcessDefinition(findTaskById(taskId)
                 .getProcessDefinitionId());
     }
 
     /**  
-     * 根据任务ID获取对应的流程实例  
-     *   
-     * @param taskId 任务ID  
+     * Get the corresponding process instance based on the task ID
+     *
+     * @param TaskId task ID
      * @return  
      * @throws Exception  
      */
     private ProcessInstance findProcessInstanceByTaskId(String taskId) {
-        // 找到流程实例    
+    	// Find the process instance
         return runtimeService.createProcessInstanceQuery().processInstanceId(findTaskById(taskId).getProcessInstanceId()).singleResult();
     }
 
     /**  
-     * 根据任务ID获得任务实例  
-     *   
-     * @param taskId 任务ID  
+     * According to the task get task instance ID
+     *
+     * @param TaskId task ID
      * @return  
      * @throws Exception  
      */
@@ -491,7 +491,7 @@ public class ActivitiService {
     }
 
     /**  
-     * 根据流程实例ID和任务key值查询所有同级任务集合  
+     *All similar set of tasks based on task and process instance ID key value query
      *   
      * @param processInstanceId  
      * @param key  
@@ -502,111 +502,111 @@ public class ActivitiService {
     }
 
     /**  
-     * 迭代循环流程树结构，查询当前节点可驳回的任务节点  
-     *   
-     * @param taskId 当前任务ID  
-     * @param currActivity 当前活动节点  
-     * @param rtnList 存储回退节点集合  
-     * @param tempList 临时存储节点集合（存储一次迭代过程中的同级userTask节点）  
-     * @return 回退节点集合  
+     * Iteration loop process tree , check the current task node node rebuttable
+     *
+     * @param TaskId current task ID
+     * @param CurrActivity current active node
+     * @param RtnList storage node-set rollback
+     * @param TempList temporary storage node-set ( stored iteration process userTask sibling node )
+     * @return Node-set rollback
      */
     private List<ActivityImpl> iteratorBackActivity(String taskId, ActivityImpl currActivity, List<ActivityImpl> rtnList, List<ActivityImpl> tempList) {
-        // 查询流程定义，生成流程树结构    
+    	// Query process definition generation process tree
         ProcessInstance processInstance = findProcessInstanceByTaskId(taskId);
 
-        // 当前节点的流入来源    
+     // The current flowing into the source node
         List<PvmTransition> incomingTransitions = currActivity.getIncomingTransitions();
-        // 条件分支节点集合，userTask节点遍历完毕，迭代遍历此集合，查询条件分支对应的userTask节点    
+     // Conditional branch node set , userTask node traversal is complete, iterate over this collection , the query conditional branch node corresponding userTask
         List<ActivityImpl> exclusiveGateways = new ArrayList<ActivityImpl>();
-        // 并行节点集合，userTask节点遍历完毕，迭代遍历此集合，查询并行节点对应的userTask节点    
+     // Set parallel nodes , userTask node traversal is complete, iterate over this collection , query parallelism node node corresponding userTask
         List<ActivityImpl> parallelGateways = new ArrayList<ActivityImpl>();
-        // 遍历当前节点所有流入路径    
+     // Traverse all the current node inflow path
         for (PvmTransition pvmTransition : incomingTransitions) {
             TransitionImpl transitionImpl = (TransitionImpl) pvmTransition;
             ActivityImpl activityImpl = transitionImpl.getSource();
             String type = (String) activityImpl.getProperty("type");
             /**  
-             * 并行节点配置要求：<br>  
-             * 必须成对出现，且要求分别配置节点ID为:XXX_start(开始)，XXX_end(结束)  
+             *Parallel node configuration requirements : <br>
+             * Must be paired , and the requirements are configured node ID : XXX_start ( Start ), XXX_end ( end )  
              */
-            if ("parallelGateway".equals(type)) {// 并行路线    
+            if ("parallelGateway".equals(type)) {// Parallel route   
                 String gatewayId = activityImpl.getId();
                 String gatewayType = gatewayId.substring(gatewayId.lastIndexOf("_") + 1);
-                if ("START".equals(gatewayType.toUpperCase())) {// 并行起点，停止递归    
+                if ("START".equals(gatewayType.toUpperCase())) {// Parallel start , stop recursion
                     return rtnList;
-                } else {// 并行终点，临时存储此节点，本次循环结束，迭代集合，查询对应的userTask节点    
+                } else {// End parallel temporarily stores this node , the end of this cycle , iterative set of query nodes corresponding userTask
                     parallelGateways.add(activityImpl);
                 }
-            } else if ("startEvent".equals(type)) {// 开始节点，停止递归    
+            } else if ("startEvent".equals(type)) {// Start node , stop the recursion  
                 return rtnList;
-            } else if ("userTask".equals(type)) {// 用户任务    
+            } else if ("userTask".equals(type)) {// User tasks
                 tempList.add(activityImpl);
-            } else if ("exclusiveGateway".equals(type)) {// 分支路线，临时存储此节点，本次循环结束，迭代集合，查询对应的userTask节点    
+            } else if ("exclusiveGateway".equals(type)) {// Branch routes , this temporary store node , the end of this cycle , iterative set of query nodes corresponding userTask
                 currActivity = transitionImpl.getSource();
                 exclusiveGateways.add(currActivity);
             }
         }
 
         /**  
-         * 迭代条件分支集合，查询对应的userTask节点  
+         * Iterative conditional branch collections, queries corresponding node userTask
          */
         for (ActivityImpl activityImpl : exclusiveGateways) {
             iteratorBackActivity(taskId, activityImpl, rtnList, tempList);
         }
 
         /**  
-         * 迭代并行集合，查询对应的userTask节点  
+         * Iterative parallel collections, queries corresponding node userTask 
          */
         for (ActivityImpl activityImpl : parallelGateways) {
             iteratorBackActivity(taskId, activityImpl, rtnList, tempList);
         }
 
         /**  
-         * 根据同级userTask集合，过滤最近发生的节点  
+         * According to the same level userTask collection , filtering nodes recent
          */
         currActivity = filterNewestActivity(processInstance, tempList);
         if (currActivity != null) {
-            // 查询当前节点的流向是否为并行终点，并获取并行起点ID    
+            // Check whether the current node is the end flows to parallel and parallel to obtain a starting point ID    
             String id = findParallelGatewayId(currActivity);
-            if (StringUtils.isEmpty(id)) {// 并行起点ID为空，此节点流向不是并行终点，符合驳回条件，存储此节点    
+            if (StringUtils.isEmpty(id)) {// Parallel start ID is empty , this node is not parallel flows end , in line with the conditions rejected , this storage node    
                 rtnList.add(currActivity);
-            } else {// 根据并行起点ID查询当前节点，然后迭代查询其对应的userTask任务节点    
+            } else {// Query the current node according to the parallel starting point ID, then the corresponding iterative query task node userTask    
                 currActivity = findActivitiImpl(taskId, id);
             }
 
-            // 清空本次迭代临时集合    
+         // Clear this iteration Temporary collection
             tempList.clear();
-            // 执行下次迭代    
+         // Execute the next iteration
             iteratorBackActivity(taskId, currActivity, rtnList, tempList);
         }
         return rtnList;
     }
 
     /**  
-     * 还原指定活动节点流向  
-     *   
-     * @param activityImpl 活动节点  
-     * @param oriPvmTransitionList 原有节点流向集合  
+     * Restore specified active node flows
+     *
+     * @param ActivityImpl active node
+     * @param OriPvmTransitionList original flow collection node  
      */
     private void restoreTransition(ActivityImpl activityImpl, List<PvmTransition> oriPvmTransitionList) {
-        // 清空现有流向    
+    	// Clear existing flow
         List<PvmTransition> pvmTransitionList = activityImpl.getOutgoingTransitions();
         pvmTransitionList.clear();
-        // 还原以前流向    
+     // Restore previous flow
         for (PvmTransition pvmTransition : oriPvmTransitionList) {
             pvmTransitionList.add(pvmTransition);
         }
     }
 
     /**  
-     * 反向排序list集合，便于驳回节点按顺序显示  
+     * Reverse sort list collection , displayed in order to facilitate dismissed node
      *   
      * @param list  
      * @return  
      */
     private List<ActivityImpl> reverList(List<ActivityImpl> list) {
         List<ActivityImpl> rtnList = new ArrayList<ActivityImpl>();
-        // 由于迭代出现重复数据，排除重复    
+        // Since iteration duplicate data , eliminate duplicate 
         for (int i = list.size(); i > 0; i--) {
             if (!rtnList.contains(list.get(i - 1)))
                 rtnList.add(list.get(i - 1));
@@ -615,37 +615,37 @@ public class ActivitiService {
     }
 
     /**  
-     * 流程转向操作  
-     *   
-     * @param taskId 当前任务ID  
-     * @param activityId 目标节点任务ID  
-     * @param variables 流程变量  
+     * Process steering operation
+     *
+     * @param TaskId current task ID
+     * @param ActivityId target node task ID
+     * @param Variables Process variables
      * @throws Exception  
      */
     private void turnTransition(String taskId, String activityId, Map<String, Object> variables) {
-        // 当前节点    
+    	// Current node  
         ActivityImpl currActivity = findActivitiImpl(taskId, null);
-        // 清空当前流向    
+     // Clear the current flow
         List<PvmTransition> oriPvmTransitionList = clearTransition(currActivity);
 
-        // 创建新流向    
+     // Create a new flow
         TransitionImpl newTransition = currActivity.createOutgoingTransition();
-        // 目标节点    
+     // Target node    
         ActivityImpl pointActivity = findActivitiImpl(taskId, activityId);
-        // 设置新流向的目标节点    
+     // Set the target node of the new flows
         newTransition.setDestination(pointActivity);
 
-        // 执行转向任务    
+     // Perform tasks steering
         taskService.complete(taskId, variables);
-        // 删除目标节点新流入    
+     // Delete the target node of the new inflows
         pointActivity.getIncomingTransitions().remove(newTransition);
 
-        // 还原以前流向    
+     // Restore previous flow
         restoreTransition(currActivity, oriPvmTransitionList);
     }
 
     /**
-     * 按照流程定义Key启动最新版本流程实例
+     *Start the latest version of the process in accordance with the process definition instance Key
      * @param processDefinitionKey
      * @param businessKey
      * @param variables
@@ -657,7 +657,7 @@ public class ActivitiService {
     }
 
     /**
-     * 按照流程定义Key启动最新版本流程实例
+     * Start the latest version of the process in accordance with the process definition instance Key
      * @param processDefinitionKey
      * @param businessKey
      * @param entity
@@ -666,7 +666,7 @@ public class ActivitiService {
     public void startProcessInstanceByKey(String processDefinitionKey, BpmTrackable entity) {
         identityService.setAuthenticatedUserId(AuthContextHolder.getAuthSysUserUid());
         Map<String, Object> variables = Maps.newHashMap();
-        //追加当前实体对象追加到流程变量
+     // Append the current entity object is added to the process variable
         variables.put(BPM_ENTITY_VAR_NAME, entity);
         runtimeService.startProcessInstanceByKey(processDefinitionKey, entity.getBpmBusinessKey(), variables);
         String activeTaskNames = findActiveTaskNames(entity.getBpmBusinessKey());
@@ -674,7 +674,7 @@ public class ActivitiService {
     }
 
     /**
-     * 完成任务
+     * mission accomplished
      * @param taskId
      * @param variables
      * @return
@@ -695,7 +695,7 @@ public class ActivitiService {
     }
 
     /**
-     * 基于表单数据完成任务
+     * Forms-based data to complete the task
      * @param taskId
      * @param formProperties
      * @return
@@ -713,10 +713,10 @@ public class ActivitiService {
     }
 
     /**
-     * 查询用户指定任务
-     * @param authenticatedUserId 登录账号，AuthContextHolder.getAuthSysUserUid()
-     * @param bizKey 业务键
-     * @param taskDefinitionKey Task定义的ID Key
+     * Discover user-specified task
+     * @param AuthenticatedUserId login account , AuthContextHolder.getAuthSysUserUid ()
+     * @param BizKey business key
+     * @param TaskDefinitionKey Task definition ID Key
      * @return 
      */
     public Task findTask(String authenticatedUserId, String bizKey, String taskDefinitionKey) {

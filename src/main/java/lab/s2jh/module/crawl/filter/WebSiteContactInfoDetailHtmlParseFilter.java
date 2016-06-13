@@ -15,7 +15,7 @@ import com.sun.org.apache.xpath.internal.XPathAPI;
 
 public class WebSiteContactInfoDetailHtmlParseFilter extends AbstractHtmlParseFilter {
 
-    private static final String[] keywords = { "热线", "地址", "邮箱", "邮编", "邮政编码", "传真", "Email", "QQ", "Q l Q" };
+    private static final String[] keywords = { " Hotline" , " address", " email ", " Zip", " zip code", " fax", "Email", "QQ", "Q l Q" };
 
     @Override
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) throws TransformerException {
@@ -41,35 +41,35 @@ public class WebSiteContactInfoDetailHtmlParseFilter extends AbstractHtmlParseFi
             for (int i = 0; i < textNodes.getLength(); i++) {
                 Node node = textNodes.item(i);
                 String text = node.getTextContent();
-                if (text.indexOf("热线：") > -1 || text.indexOf("热线:") > -1 || text.indexOf("电话：") > -1 || text.indexOf("电话:") > -1) {
+                if (text.indexOf("hotline:") > -1 || text.indexOf("hotline:") > -1 || text.indexOf("phone:") > -1 || text.indexOf("phone:") > -1) {
                     Node totalTextNode = node;
                     int level = 1;
                     String contactInfo = null;
                     do {
                         contactInfo = totalTextNode.getTextContent();
                         int matchCount = 0;
-                        if (contactInfo.indexOf("地址") > -1) {
+                        if (contactInfo.indexOf("address") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("热线") > -1) {
+                        if (contactInfo.indexOf("hotline") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("电话") > -1) {
+                        if (contactInfo.indexOf("phone") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("邮箱") > -1) {
+                        if (contactInfo.indexOf("mailbox") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("邮编") > -1) {
+                        if (contactInfo.indexOf("Zip Code") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("邮政编码") > -1) {
+                        if (contactInfo.indexOf("Zip code") > -1) {
                             matchCount++;
                         }
-                        if (contactInfo.indexOf("传真") > -1) {
+                        if (contactInfo.indexOf("fax") > -1) {
                             matchCount++;
                         }
-                        //匹配两项就算有效
+                     // Valid even if two matches
                         if (level == 1 && matchCount >= 3) {
                             break;
                         }
@@ -138,7 +138,7 @@ public class WebSiteContactInfoDetailHtmlParseFilter extends AbstractHtmlParseFi
         if (StringUtils.isNotBlank(allContactInfo)) {
             allContactInfo = allContactInfo.trim();
             allContactInfo = ExtStringUtils.cutRedundanceStr(allContactInfo, 1024);
-            parsedDBObject.put("联系我们信息", allContactInfo);
+            parsedDBObject.put("Contact Information", allContactInfo);
             logger.debug("Parsed contact info: {}", allContactInfo);
         }
         return parsedDBObject;

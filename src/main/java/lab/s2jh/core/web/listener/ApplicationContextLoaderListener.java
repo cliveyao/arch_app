@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.ContextLoaderListener;
 
 /**
- * 简单扩展Spring标准的ContextLoaderListener，以便兼容共享jar部署模式
+ * Spring simple extension of the standard ContextLoaderListener, for compatibility mode shared jar deployment
  */
 public class ApplicationContextLoaderListener extends ContextLoaderListener {
 

@@ -8,8 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * 标识实体会进行BPM流程处理过程回调，写入当前业务对象所处的工作流节点
- * 一般在实体定义private String activeTaskName属性，然后生成对应的setter和getter方式即可
+ *BPM process identifies the entity will conduct the process callbacks , 
+ *which writes business object nodes in the current workflow
+ * General entities defined in private String activeTaskName property, 
+ * and then generate the corresponding setter and getter way to
  */
 public interface BpmTrackable {
 

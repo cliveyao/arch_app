@@ -40,22 +40,22 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
 
     private final static Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-    /** 子类指定泛型对应的实体Service接口对象 */
+    /** Subclass DOE Service interface objects corresponding generic */
     abstract protected BaseService<T, ID> getEntityService();
 
-    /** 实体泛型对应的Class定义 */
+    /** Class definition entities corresponding generic */
     protected Class<T> entityClass;
 
-    /** 主键泛型对应的Class定义 */
+    /** Corresponding to the primary key generic definition of Class */
     protected Class<ID> entityIdClass;
 
     /**
-     * 初始化构造方法，计算相关泛型对象
+     * Initialization constructor , generic computing related objects
      */
     @SuppressWarnings("unchecked")
     public BaseController() {
         super();
-        // 通过反射取得Entity的Class.
+         // Get the Entity Class by reflection .
         try {
             Object genericClz = getClass().getGenericSuperclass();
             if (genericClz instanceof ParameterizedType) {
@@ -68,18 +68,18 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     }
 
     /**
-     * 将id=123格式的字符串id参数转换为ID泛型对应的主键变量实例
-     * 另外，页面也会以Struts标签获取显示当前操作对象的ID值
-     * @return ID泛型对象实例
+     * String id parameter id = 123 format into a generic ID corresponding primary key instance variables
+     * In addition , the page will take a Struts tag obtain the current operation target ID value is displayed
+     * @return ID generic object instantiation
      */
     public ID getId(HttpServletRequest request) {
         return getId(request, "id");
     }
 
     /**
-     * 将指定参数转换为ID泛型对应的主键变量实例
-     * 另外，页面也会以Struts标签获取显示当前操作对象的ID值
-     * @return ID泛型对象实例
+     * The specified parameters into generic ID corresponding primary key instance variables
+     * In addition , the page will take a Struts tag obtain the current operation target ID value is displayed
+     * @return ID generic object instantiation
      */
     @SuppressWarnings("unchecked")
     public ID getId(HttpServletRequest request, String paramName) {
@@ -133,14 +133,16 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     }
 
     protected OperationResult delete(ID[] ids, EntityProcessCallbackHandler<T> handler) {
-        //删除失败的id和对应消息以Map结构返回，可用于前端批量显示错误提示和计算表格组件更新删除行项
+    	// Delete the failed id and the corresponding return messages Map structure 
+    	//can be used to display error messages and the front end of batch computing 
+    	//Spreadsheet Component Update Delete Line Items
         Map<ID, String> errorMessageMap = Maps.newLinkedHashMap();
 
         Set<T> enableDeleteEntities = Sets.newHashSet();
         Collection<T> entities = getEntityService().findAll(ids);
         for (T entity : entities) {
             String msg = null;
-            //回调接口调用，比如以内部类方式传入对象是否可删除的检测逻辑
+         // Callback interface calls , such as internal incoming class manner whether the object can be deleted detection logic
             if (handler != null) {
                 try {
                     handler.processEntity(entity);
@@ -154,9 +156,9 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
                 errorMessageMap.put(entity.getId(), msg);
             }
         }
-        //对于批量删除,循环每个对象调用Service接口删除,则各对象删除事务分离
-        //这样可以方便某些对象删除失败不影响其他对象删除
-        //如果业务逻辑需要确保批量对象删除在同一个事务则请子类覆写调用Service的批量删除接口
+        // For the bulk delete , loop over each object is called Service Interface delete , then each separate transaction object deletion
+        // Delete some objects so you can easily fail without affecting other objects deleted
+        // If you need to make sure the business logic batch delete objects in the same transaction then please call the Service subclasses override batch delete interfaces
         for (T entity : enableDeleteEntities) {
             try {
                 getEntityService().delete(entity);
@@ -181,11 +183,11 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     protected T initPrepareModel(HttpServletRequest request, Model model, ID id) {
         T entity = null;
         if (id != null && StringUtils.isNotBlank(id.toString())) {
-            //如果是以POST方式请求数据，则获取Detach状态的对象，其他则保留Session方式以便获取Lazy属性
+        	// If the data is a POST request , obtain Detach state object , the other way in order to retain the Session Gets Lazy property
             if (request.getMethod().equalsIgnoreCase("POST")) {
                 entity = buildDetachedBindingEntity(id);
             }
-            //如果子类没有给出detach的对象，则依然采用非detach模式查询返回对象
+         // If the child class does not detach objects are given , will remain non- detach mode query returns the object
             if (entity == null) {
                 entity = getEntityService().findOne(id);
             }
@@ -204,7 +206,8 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     }
 
     /**
-     * 如果子类需要一对多关联对象批量处理，则在子类返回定制的detach对象
+     * If the child class needs many associated objects batch processing, in the sub-class
+     *  return custom detach objects
      * @param id
      * @return
      */
@@ -213,8 +216,11 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     }
 
     /**
-     * 为了防止用户恶意传入数据修改不可访问的属性，采用白名单机制，只有在该方法中定义的属性才会进行自动绑定
-     * 请记住把所有表单元素涉及到属性添加到此方法的setAllowedFields列表中，否则会出现页面数据没有正确保存到数据库
+     * In order to prevent a malicious user to modify the incoming data inaccessible property 
+     * whitelist mechanism , only the properties defined in this process will be automatically
+     *  bound
+     * Remember all the form elements to the properties added to this method setAllowedFields 
+     * list , there would be page data is not saved correctly to the database
      */
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -227,18 +233,18 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
     }
 
     /**
-     * 子类额外追加过滤限制条件的入口方法，一般基于当前登录用户强制追加过滤条件
-     * 注意：凡是基于当前登录用户进行的控制参数，一定不要通过页面请求参数方式传递，存在用户篡改请求数据访问非法数据的风险
-     * 因此一定要在Controller层面通过覆写此回调函数或自己的业务方法中强制追加过滤条件
-     * @param filters 已基于Request组装好查询条件的集合对象
+     * Subclass extra additional filter restrictions entrance method , generally based on the currently logged-in user to force an additional filter
+     * Note : all control parameters based on the currently logged on user, must not tamper with the data access request data transfer request parameter illegal adoption page , there is a risk of the user
+     * Therefore, we must at Controller level by overwriting callback function or their business methods to force additional filters
+     * @param Filters are assembled based on the query conditions Request collection object
      */
     protected void appendFilterProperty(GroupPropertyFilter groupPropertyFilter) {
 
     }
 
     /**
-     * 对于一些复杂处理逻辑需要基于提交数据服务器校验后有提示警告信息需要用户二次确认
-     * 判断当前表单是否已被用户confirm确认OK
+     * For some complex processing logic required to submit data on the server after checking prompted a warning message requires the user to confirm the secondary
+     * Determine whether the current form has been confirmed that the user confirm OK
      */
     protected boolean postNotConfirmedByUser(HttpServletRequest request) {
         return !BooleanUtils.toBoolean(request.getParameter("_serverValidationConfirmed_"));

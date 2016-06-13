@@ -36,8 +36,8 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import com.google.common.collect.Maps;
 
 /**
- * 全局的异常解析处理器
- * 注入contentNegotiationManager，判断根据不同请求类型构造对应的数据格式响应，如JSON或JSP页面
+ * Global exception parsing processor
+ * Injection contentNegotiationManager, depending on the type of request is determined in response to construct a data format , such as JSON or JSP page
  */
 public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptionResolver, Ordered {
 
@@ -46,14 +46,14 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
     private ContentNegotiationManager contentNegotiationManager;
 
     public int getOrder() {
-        //优先执行
+    	// Takes precedence
         return Integer.MIN_VALUE;
     }
 
     /**
-     * <p>注入contentNegotiationManager，判断根据不同请求类型构造对应的数据格式响应，如JSON或JSP页面<p>
-     * <p>根据不同异常类型，做一定的错误消息友好转义处理，区分控制不同异常是否需要进行logger日志记录<p>
-     * <p>logger记录时把相关请求数据基于MDC方式记录下来，以便问题排查<p>
+     * <P> injection contentNegotiationManager, depending on the type of request is determined in response to construct a data format , such as JSON or JSP page <p>
+     * <P> Depending on the type of exception , do some error message and friendly escaped , to distinguish between different control whether an exception is required logger logging <p>
+     * <P> when the associated request data logger recording mode based MDC recorded for troubleshooting <p>
      */
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object aHandler, Exception e) {
 
@@ -61,17 +61,17 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
         if (e instanceof HttpRequestMethodNotSupportedException) {
-            //HTTP请求方式不对
+        	// HTTP request wrong way
             errorMessage = e.getMessage();
             httpStatus = HttpStatus.BAD_REQUEST;
 
-            //此时还未到Controller方法，无法基于ResponseBody注解判断响应类型，则基于contentNegotiationManager进行判断
+            // This time not to the Controller method can not be judged based on ResponseBody annotation type of response , the judge based contentNegotiationManager
             try {
-                //先处理特定类型相应
+            	// First deal with a specific type of the corresponding
                 ServletWebRequest webRequest = new ServletWebRequest(request);
                 List<MediaType> mediaTypes = contentNegotiationManager.resolveMediaTypes(webRequest);
                 for (MediaType mediaType : mediaTypes) {
-                    //JSON类型请求响应
+                    // JSON response to the type of request
                     if (mediaType.equals(MediaType.APPLICATION_JSON)) {
                         ModelAndView mv = new ModelAndView();
                         MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -90,24 +90,24 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             }
 
         } else if (e instanceof UnauthenticatedException) {
-            //未登录访问，转向登录界面
-            errorMessage = "访问需要登录";
+        	// Not logged access to the login screen
+            errorMessage = "Access requires login";
             httpStatus = HttpStatus.UNAUTHORIZED;
         } else if (e instanceof UnauthorizedException) {
             //访问受限或无权限访问，转向403提示页面
-            errorMessage = "访问未授权";
+            errorMessage = "Unauthorized access";
             httpStatus = HttpStatus.FORBIDDEN;
         } else {
 
-            //构建和记录友好和详细的错误信息及消息
-            //生成一个异常流水号，追加到错误消息上显示到前端用户，用户反馈问题时给出此流水号给运维或开发人员快速定位对应具体异常细节
+        	// Build and record -friendly and detailed error information and message
+            // Generates an exception serial number , to display the front-end user is appended to the error message , the user is given feedback to the operation and maintenance issues with this serial number or developers to quickly locate the corresponding specific exception details
             String exceptionCode = BaseRuntimeException.buildExceptionCode();
-            //标记有些校验类型异常无需调用logger对象写入日志
+             // Check mark some type of exception without calling logger object is written to the log
             boolean skipLog = false;
             String errorTitle = exceptionCode + ": ";
-            errorMessage = errorTitle + "系统运行错误，请联系管理员！";
+            errorMessage = errorTitle + "System operation errors, please contact the administrator !";
 
-            //先判断明确子类异常，优先匹配后则终止其他判断
+         // First determine clearly a subclass is terminated after another judge take precedence match
             boolean continueProcess = true;
             if (continueProcess) {
                 DuplicateTokenException ex = parseSpecException(e, DuplicateTokenException.class);
@@ -119,7 +119,7 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             }
 
             if (continueProcess) {
-                //业务校验失败异常，直接反馈校验提示信息即可
+            	// Check fails abnormal operations , direct feedback to check message
                 ValidationException ex = parseSpecException(e, ValidationException.class);
                 if (ex != null) {
                     continueProcess = false;
@@ -130,7 +130,7 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             }
 
             if (continueProcess) {
-                //框架定义的基类运行异常
+            	// Framework defines the base class for abnormal operation
                 BaseRuntimeException ex = parseSpecException(e, BaseRuntimeException.class);
                 if (ex != null) {
                     continueProcess = false;
@@ -139,24 +139,24 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             }
 
             if (continueProcess) {
-                //对一些数据库异常进行友好转义处理，以便前端用户可以理解
+            	// Some exception friendly database escaping , so that the front-end user can understand
                 SQLException ex = parseSpecException(e, SQLException.class);
                 if (ex != null) {
                     continueProcess = false;
                     String sqlMessage = ex.getMessage();
                     if (sqlMessage != null && (sqlMessage.indexOf("FK") > -1 || sqlMessage.startsWith("ORA-02292"))) {
-                        errorMessage = "该数据已被关联使用：" + sqlMessage;
+                        errorMessage = "This data has been used in association :" + sqlMessage;
                         skipLog = true;
                     } else if (sqlMessage != null
                             && (sqlMessage.indexOf("Duplicate") > -1 || sqlMessage.indexOf("UNIQUE") > -1 || sqlMessage.startsWith("ORA-02292"))) {
-                        errorMessage = "违反唯一性约束：" + sqlMessage;
+                        errorMessage = "The only constraint violation :" + sqlMessage;
                         skipLog = true;
                     }
                 }
             }
 
             if (!skipLog) {
-                //以logger的MDC模式记录组装的字符串信息
+            	// Logger to record the MDC model assembled string information
                 MDC.setContextMap(ServletUtils.buildRequestInfoDataMap(request, true));
                 logger.error(errorMessage, e);
                 MDC.clear();
@@ -165,9 +165,9 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             }
         }
 
-        //设置http status错误代码，如jqGrid等组件是基于此代码来标识请求处理成功与否
+     // Set error http status code is based on components such as jqGrid this code to identify the success of request processing
         response.setStatus(httpStatus.value());
-        //其余按照标准的error-page处理
+     // The rest according to the standard error-page treatment
         request.setAttribute("javax.servlet.error.message", errorMessage);
 
         boolean json = false;
@@ -193,7 +193,7 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             return mv;
         } else {
             if (httpStatus.equals(HttpStatus.UNAUTHORIZED)) {
-                //记录当前请求信息，登录完成后直接转向登录之前URL
+            	// Record before the current request information directly to the login after the registration is completed URL
                 WebUtils.saveRequest(request);
                 String view = null;
                 String path = request.getServletPath();
@@ -212,8 +212,8 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
     }
 
     /**
-     * 取当前异常及递归其root case示例，判定是否特定异常类型的示例或子类示例
-     * 如果是则直接返回强制类型转换后的异常示例，否则返回null
+     * Take the current exception and recursively its root case examples , it is determined whether a sample or sub- class example of a particular type of exception
+     * If it is then returned directly cast after abnormal sample , otherwise return null
      */
     @SuppressWarnings("unchecked")
     private <X> X parseSpecException(Exception e, Class<X> clazz) {

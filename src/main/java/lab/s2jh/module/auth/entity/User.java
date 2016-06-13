@@ -47,86 +47,86 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_User", uniqueConstraints = @UniqueConstraint(columnNames = { "authUid", "authType" }))
-@MetaData(value = "登录认证账号信息")
+@MetaData(value = "Login authentication account information")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 public class User extends BaseNativeEntity {
 
     private static final long serialVersionUID = 8728775138491827366L;
 
-    @MetaData(value = "账号全局唯一标识", comments = "同时作为SYS类型用户登录密码的SALT")
+    @MetaData(value = "Account globally unique identifier", comments = "At the same time as the SYS user types a password to log SALT")
     @Column(length = 64, nullable = false, unique = true)
     private String authGuid;
 
-    @MetaData(value = "账号类型所对应唯一标识")
+    @MetaData(value = "Account type corresponds to a unique identifier")
     @Column(length = 64, nullable = false)
     private String authUid;
 
-    @MetaData(value = "账号类型")
+    @MetaData(value = "Account Types")
     @Column(length = 8, nullable = false)
     @Enumerated(EnumType.STRING)
     private AuthTypeEnum authType = AuthTypeEnum.SYS;
 
-    @MetaData(value = "管理授权", tooltips = "标识用户是否可访问管理端")
+    @MetaData(value = "Authorization Management", tooltips = "Identifies whether the user can access the management side")
     private Boolean mgmtGranted = Boolean.FALSE;
 
-    @MetaData(value = "真实姓名")
+    @MetaData(value = "actual name")
     @Column(length = 128)
     private String trueName;
 
-    @MetaData(value = "登录后友好显示昵称")
+    @MetaData(value = "After logging -friendly display nickname")
     @Column(length = 128)
     private String nickName;
 
-    @MetaData(value = "SYS自建类型用户的密码", comments = "加密算法：MD5({authGuid}+原始密码)")
+    @MetaData(value = "SYS user password self type", comments = "Encryption Algorithm : MD5 ({authGuid} + original password )")
     @JsonIgnore
     private String password;
 
-    @MetaData(value = "电子邮件", tooltips = "请仔细填写，可用于系统通知邮件发送，找回密码等功能")
+    @MetaData(value = "e-mail", tooltips = "Please fill can be used to send e-mail notification system , retrieve password function")
     @Email
     private String email;
 
-    @MetaData(value = "移动电话", tooltips = "请仔细填写，可用于系统通知短信发送，找回密码等功能")
+    @MetaData(value = "mobile phone", tooltips = "Please fill in , the system can be used to send notification messages , retrieve password function")
     private String mobile;
 
-    @MetaData(value = "REST访问Token")
+    @MetaData(value = "REST Access Token")
     private String accessToken;
 
-    @MetaData(value = "访问Token过期时间")
+    @MetaData(value = "Access Token expires")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     private Date accessTokenExpireTime;
 
-    @MetaData(value = "账户未锁定标志", tooltips = "账号锁定后无法登录")
+    @MetaData(value = "The account is not locked flag", tooltips = "Unable to login account locked")
     private Boolean accountNonLocked = Boolean.TRUE;
 
-    @MetaData(value = "失效日期", tooltips = "设定账号访问系统的失效日期，为空表示永不失效")
+    @MetaData(value = "Expiration date", tooltips = "Setting account expiration date to access the system , empty means never fail")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     private Date accountExpireTime;
 
-    @MetaData(value = "账户密码过期时间", tooltips = "到期后强制用户登录成功后必须修改密码", comments = "比如用于初始化密码时设置当前时间，这样用户下次登录成功后则强制用户必须修改密码。")
+    @MetaData(value = "Password expiration", tooltips = "You must modify the password after the expiration of forcing the user to log on successfully", comments = "For example, set the password used to initialize the current time, so that next time the user after successful login force the user must change the password.")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     private Date credentialsExpireTime;
 
-    @MetaData(value = "最近认证失败次数", comments = "认证失败累加，成功后清零。达到设定失败次数后锁定帐号，防止无限制次数尝试猜测密码")
+    @MetaData(value = "Recently the number of authentication failure", comments = "Authentication failed accumulate, cleared successfully . After reaching the set number of failed locks the account to prevent unlimited number of times to try to guess passwords")
     private Integer logonFailureTimes = 0;
 
-    @MetaData(value = "角色关联")
+    @MetaData(value = "Associated with the role")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @JsonIgnore
     private List<UserR2Role> userR2Roles;
 
-    @MetaData(value = "扩展信息对象")
+    @MetaData(value = "Extended information object")
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @PrimaryKeyJoinColumn(foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
     @JsonView(JsonViews.Admin.class)
     @NotAudited
     private UserExt userExt;
 
-    @MetaData(value = "已关联角色主键集合", comments = "辅助属性：用于页面表单标签进行数据绑定")
+    @MetaData(value = "Linked role of the primary key set", comments = "Auxiliary attributes: page form label for data binding")
     @Transient
     @Getter(AccessLevel.NONE)
     @JsonIgnore
@@ -144,13 +144,13 @@ public class User extends BaseNativeEntity {
 
     public static enum AuthTypeEnum {
 
-        @MetaData(value = "自建账号")
+        @MetaData(value = "Self Account")
         SYS,
 
-        @MetaData(value = "QQ互联")
+        @MetaData(value = "QQ network")
         QQ,
 
-        @MetaData(value = "新浪微博")
+        @MetaData(value = "Sina Weibo")
         WB;
 
     }
@@ -161,7 +161,7 @@ public class User extends BaseNativeEntity {
         return authType + "_" + authUid;
     }
 
-    @MetaData(value = "用户标识别名", comments = "用户在多个终端登录，需要一个标识同一个身份以便多终端推送消息")
+    @MetaData(value = "User ID aliases", comments = "Users log on multiple terminals , it requires an identity with a multi-terminal identity to push messages")
     @Transient
     public String getAlias() {
         return authType + "_" + authUid;

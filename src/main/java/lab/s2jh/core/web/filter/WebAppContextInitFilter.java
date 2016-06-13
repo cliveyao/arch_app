@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
 /**
- * 通过过滤器基于request对象初始化并缓存记录当前应用上下文路径
+ * Through a filter based on object initialization request and record the current application context path cache
  */
 public class WebAppContextInitFilter implements Filter {
 
@@ -55,9 +55,9 @@ public class WebAppContextInitFilter implements Filter {
                 sb.append(request.getContextPath());
                 contextPath = sb.toString();
             }
-            //当前应用的完整上下文路径，一般用于邮件、短信等需要组装完整访问路径之用
+         // Full context path of the current application , generally used for e-mail, text messaging and other needs of the assembly with the full access path
             WEB_CONTEXT_FULL_URL = contextPath;
-            //设置当前WEB_ROOT根目录到配置属性以便在单纯的Service运行环境取到应用根目录获取WEB-INF下相关资源
+         // Set the current directory to the root WEB_ROOT configuration property in order to get a simple Service operating environment to get the application root directory under WEB-INF Related Resources
             WEB_CONTEXT_REAL_PATH = request.getServletContext().getRealPath("/");
             logger.info("Init setup WebApp Context Info: ", WEB_CONTEXT_FULL_URL);
             logger.info(" - WEB_CONTEXT_FULL_URL: {}", WEB_CONTEXT_FULL_URL);

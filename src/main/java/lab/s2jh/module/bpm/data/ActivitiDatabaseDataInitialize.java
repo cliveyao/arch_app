@@ -12,7 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
- * Activiti数据库基础数据初始化处理器
+ * Activiti database initialization data base processor
  */
 public class ActivitiDatabaseDataInitialize {
 
@@ -28,12 +28,12 @@ public class ActivitiDatabaseDataInitialize {
             connection = dataSource.getConnection();
 
             try {
-                //尝试执行查询，如果异常则说明没有初始化
+            	// Try to execute the query , if the exception is not initialized Description
                 connection.prepareStatement("select count(1) from ACT_ID_USER").execute();
                 logger.info("Table ACT_ID_USER exist, skipped.");
             } catch (Exception e) {
                 logger.info("VIEW ACT_ID_USER NOT exist, Initializing Activiti Identity DDL...");
-                //根据不同数据库类型执行不同初始化SQL脚本
+             // Initialize SQL script to perform different types depending on the database
                 ClassPathResource resource = new ClassPathResource("lab/s2jh/module/bpm/data/ddl_activiti.sql");
                 ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator(resource);
                 resourceDatabasePopulator.populate(connection);

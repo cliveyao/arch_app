@@ -27,18 +27,18 @@ import org.hibernate.envers.Audited;
 @Entity
 @Table(name = "auth_UserR2Role", uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "role_id" }))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "登录账号与角色关联")
+@MetaData(value = "Login account associated with the role")
 @Audited
 public class UserR2Role extends BaseNativeEntity {
 
     private static final long serialVersionUID = -1727859177925448384L;
 
-    @MetaData(value = "登录账号对象")
+    @MetaData(value = "Login account objects")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @MetaData(value = "关联角色对象")
+    @MetaData(value = "Association role objects")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;

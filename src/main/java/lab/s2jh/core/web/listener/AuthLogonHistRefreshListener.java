@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 通过监听器更新相关登录记录的登录时间
+ * Update login records related to the listener through the login time
  */
 public class AuthLogonHistRefreshListener implements HttpSessionListener, ServletContextListener {
 
@@ -37,7 +37,7 @@ public class AuthLogonHistRefreshListener implements HttpSessionListener, Servle
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        //基于Shiro判断session是否已登录过，由于未提供public常量访问因此直接参考HttpServletSession取代码中字符串
+     // Based Shiro determine whether the session has been logged in before, because there were no public access so the constant direct reference to the code string take HttpServletSession
         if (session.getAttribute("org.apache.shiro.web.session.HttpServletSession.HOST_SESSION_KEY") != null) {
             String sessionId = session.getId();
             UserLogonLogService userLogonLogService = SpringContextHolder.getBean(UserLogonLogService.class);

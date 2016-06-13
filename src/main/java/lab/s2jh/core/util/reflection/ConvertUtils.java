@@ -19,10 +19,10 @@ public class ConvertUtils {
 	}
 
 	/**
-	 * 提取集合中的对象的属性(通过getter函数), 组合成List.
-	 * 
-	 * @param collection 来源集合.
-	 * @param propertyName 要提取的属性名.
+	 *Attribute extraction collection objects ( via getter function ) , combined into a List.
+	 *
+	 * @param Collection source collection .
+	 * @param PropertyName attribute names to be extracted .
 	 */
 	@SuppressWarnings("unchecked")
 	public static List convertElementPropertyToList(final Collection collection, final String propertyName) {
@@ -40,11 +40,11 @@ public class ConvertUtils {
 	}
 
 	/**
-	 * 提取集合中的对象的属性(通过getter函数), 组合成由分割符分隔的字符串.
-	 * 
-	 * @param collection 来源集合.
-	 * @param propertyName 要提取的属性名.
-	 * @param separator 分隔符.
+	 * Extract objects in a collection of properties ( through getter function ) , a combination of strings separated by a delimiter .
+	 *
+	 * @param Collection source collection .
+	 * @param PropertyName attribute names to be extracted .
+	 * @param Separator separator.
 	 */
 	@SuppressWarnings("unchecked")
 	public static String convertElementPropertyToString(final Collection collection, final String propertyName,
@@ -54,10 +54,10 @@ public class ConvertUtils {
 	}
 
 	/**
-	 * 转换字符串到相应类型.
-	 * 
-	 * @param value 待转换的字符串.
-	 * @param toType 转换目标类型.
+	 * Convert a string to the appropriate type.
+	 *
+	 * @param Value to be converted string.
+	 * @param ToType conversion target type.
 	 */
 	public static Object convertStringToObject(String value, Class<?> toType) {
 	    if(StringUtils.isBlank(value)){
@@ -71,7 +71,7 @@ public class ConvertUtils {
 	}
 
 	/**
-	 * 定义日期Converter的格式: yyyy-MM-dd 或 yyyy-MM-dd HH:mm:ss
+	 * Custom Date Converter format : yyyy-MM-dd or yyyy-MM-dd HH: mm: ss
 	 */
 	private static void registerDateConverter() {
 		DateConverter dc = new DateConverter();

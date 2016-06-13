@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * 用于Object到JSON序列化的对象结构体定义
+ * For Object to JSON serialized object structure definition
  */
 @Getter
 @Setter
@@ -24,40 +24,40 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_NULL)
 public class OperationResult {
 
-    //全局成功标识代码
+	// Global success identification code
     public final static String SUCCESS = "100000";
 
-    //全局未知错误标识代码
+ // Global unknown error identification code
     public final static String FAILURE = "999999";
 
-    /** 标识操作结果类型 */
+    /**Identifies the type of operation result */
     public enum OPERATION_RESULT_TYPE {
-        @MetaData(value = "成功", comments = "操作处理成功。前端一般是绿色的短暂气泡提示")
+        @MetaData(value = "success", comments = "Handling success . Green tip is generally short-lived bubble tips")
         success,
 
-        @MetaData(value = "警告", comments = "偶尔用于标识业务处理基本完成，但是其中存在一些需要注意放在message或data中的提示信息。前端一般是黄色的气泡提示")
+        @MetaData(value = "warning", comments = "Occasionally it is used to identify business process is substantially complete , but there are some which need to pay attention on the message or data in the message. Usually the tip is yellow bubble tips")
         warning,
 
-        @MetaData(value = "失败", comments = "操作处理失败。前端一般是红色的长时间或需要用户主动关闭的气泡提示")
+        @MetaData(value = "failure", comments = "Operation failed. Usually the tip is red for a long time or require users to actively turn off the bubble tips")
         failure,
 
-        @MetaData(value = "确认", comments = "本次提交中止，反馈用户进行确认。前端一般会弹出一个供用户'确认'操作的对话框，然后用户主动确认之后会自动再次发起请求并跳过确认检查进行后续业务处理")
+        @MetaData(value = "confirm", comments = "The abort Submit feedback for user confirmation . Automatically initiates a request again after a tip will pop up for the general user 'OK' dialog boxes are presented , and then the user take the initiative to identify and skip validation checks subsequent business processes")
         confirm
     }
 
-    /** 返回success或failure操作标识 */
+    /**Returns success or failure identification operation */
     private String type;
 
-    /** 成功：100000，其他标识错误 */
+    /** Success: 100000 other identification error */
     private String code;
 
-    /** 国际化处理的返回JSON消息正文，一般用于提供failure错误消息 */
+    /** Internationalization process returns JSON message body , for providing general failure error message */
     private String message;
 
-    /** 补充的业务数据 */
+    /**Supplementary service data */
     private Object data;
 
-    /** 标识redirect路径 */
+    /**Logo redirect path */
     private String redirect;
 
     public static OperationResult buildSuccessResult(String message, Object data) {

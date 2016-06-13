@@ -32,52 +32,52 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_SignupUser")
-@MetaData(value = "自助注册账号数据")
+@MetaData(value = "Self- registered account data")
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 public class SignupUser extends BaseNativeEntity {
 
     private static final long serialVersionUID = -1802915812231452200L;
 
-    @MetaData(value = "账号全局唯一标识", comments = "同时作为SYS类型用户登录密码的SALT")
+    @MetaData(value = "Account globally unique identifier", comments = "At the same time as the SYS user types a password to log SALT")
     @Column(length = 64, nullable = false, unique = true)
     private String authGuid;
 
-    @MetaData(value = "登录账号")
+    @MetaData(value = "Login account")
     @Size(min = 3, max = 30)
     @Column(length = 128, unique = true, nullable = false)
     private String authUid;
 
-    @MetaData(value = "登录密码")
+    @MetaData(value = "login password")
     @Column(updatable = false, length = 128, nullable = false)
     private String password;
 
-    @MetaData(value = "真实姓名")
+    @MetaData(value = "actual name")
     @Column(length = 64)
     private String trueName;
 
-    @MetaData(value = "昵称")
+    @MetaData(value = "nickname")
     @Column(length = 64)
     private String nickName;
 
-    @MetaData(value = "电子邮件")
+    @MetaData(value = "e-mail")
     @Email
     @Column(length = 128)
     private String email;
 
-    @MetaData(value = "移动电话", tooltips = "请仔细填写，可用于系统通知短信发送，找回密码等功能")
+    @MetaData(value = "mobile phone", tooltips = "Please fill in , the system can be used to send notification messages , retrieve password function")
     private String mobile;
 
-    @MetaData(value = "注册时间")
+    @MetaData(value = "Registration time")
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     private Date signupTime;
 
-    @MetaData(value = "备注说明")
+    @MetaData(value = "instruction manual")
     @Column(length = 3000)
     private String remarkInfo;
 
-    @MetaData(value = "审核处理时间")
+    @MetaData(value = "Audit processing time")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     private Date auditTime;

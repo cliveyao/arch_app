@@ -29,40 +29,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "auth_UserExt")
-@MetaData(value = "用户扩展信息对象")
+@MetaData(value = "Extended user information object")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class UserExt extends BaseEntity<Long> {
 
     private static final long serialVersionUID = 8977448800400578128L;
 
-    @MetaData(value = "共享主键", comments = "对应主对像ID")
+    @MetaData(value = "Shared primary key", comments = "Corresponding to the main image on the ID")
     @Id
     @Column(length = 128)
     @JsonProperty
     private Long id;
 
-    @MetaData(value = "注册时间")
+    @MetaData(value = "Registration time")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     private Date signupTime;
 
-    @MetaData(value = "最后登录时间")
+    @MetaData(value = "last login time")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_TIME_FORMAT)
     private Date lastLogonTime;
 
-    @MetaData(value = "最后登录IP")
+    @MetaData(value = "Last Login IP")
     private String lastLogonIP;
 
-    @MetaData(value = "最后登录主机名")
+    @MetaData(value = "Last Login hostname")
     private String lastLogonHost;
 
-    @MetaData(value = "总计登录次数")
+    @MetaData(value = "Total number of logins")
     private Integer logonTimes = 0;
 
-    @MetaData(value = "最近认证失败时间")
+    @MetaData(value = "Recently authentication failure time")
     private Date lastLogonFailureTime;
 
-    @MetaData(value = "随机数", comments = "用于找回密码设定的随机UUID字符串")
+    @MetaData(value = "random number", comments = "Random UUID string used to retrieve the password set")
     private String randomCode;
 }

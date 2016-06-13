@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 /**
- * label-value形式数据解析，一般用于关联对象的列表输出显示
+ * label-value in the form of data analysis is generally associated with an object list for display output
  *
  */
 public class EntityIdDisplaySerializer extends JsonSerializer<PersistableEntity<? extends Serializable>> {

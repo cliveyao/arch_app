@@ -55,42 +55,42 @@ public class SignupUserController extends BaseController<SignupUser, Long> {
         super.initPrepareModel(request, model, id);
     }
 
-    @MenuData("配置管理:权限管理:注册用户管理")
-    @RequiresPermissions("配置管理:权限管理:注册用户管理")
+    @MenuData("Configuration Management: Rights Management : Registered User Management")
+    @RequiresPermissions("Configuration Management: Rights Management : Registered User Management")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/auth/signupUser-index";
     }
 
-    @RequiresPermissions("配置管理:权限管理:注册用户管理")
+    @RequiresPermissions("Configuration Management: Rights Management : Registered User Management")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<SignupUser> findByPage(HttpServletRequest request) {
         return super.findByPage(SignupUser.class, request);
     }
 
-    @RequiresPermissions("配置管理:权限管理:注册用户管理")
+    @RequiresPermissions("Configuration Management: Rights Management : Registered User Management")
     @RequestMapping(value = "/audit", method = RequestMethod.GET)
     public String auditShow(Model model, @ModelAttribute("entity") SignupUser entity) {
         User user = new User();
         user.setMgmtGranted(true);
-        //默认6个月后密码失效，到时用户登录强制要求重新设置密码
+        //The default password expires after six months , when a user logs mandatory password reset
         user.setCredentialsExpireTime(new DateTime().plusMonths(6).toDate());
         entity.setUser(user);
         model.addAttribute("roles", roleService.findAllCached());
         return "admin/auth/signupUser-audit";
     }
 
-    @RequiresPermissions("配置管理:权限管理:注册用户管理")
+    @RequiresPermissions("Configuration Management: Rights Management : Registered User Management")
     @RequestMapping(value = "/audit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult auditSave(@ModelAttribute("entity") SignupUser entity, Model model) {
         Validation.notDemoMode();
         signupUserService.auditNewUser(entity);
-        return OperationResult.buildSuccessResult("数据保存处理完成", entity);
+        return OperationResult.buildSuccessResult("Data storage processing is completed", entity);
     }
 
-    @RequiresPermissions("配置管理:权限管理:注册用户管理")
+    @RequiresPermissions("Configuration Management: Rights Management : Registered User Management")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(@RequestParam("ids") Long... ids) {
@@ -99,7 +99,7 @@ public class SignupUserController extends BaseController<SignupUser, Long> {
             @Override
             public void processEntity(SignupUser entity) throws EntityProcessCallbackException {
                 if (entity.getAuditTime() != null) {
-                    throw new EntityProcessCallbackException("已审核数据不允许删除");
+                    throw new EntityProcessCallbackException("We have reviewed the data can not be deleted");
                 }
             }
         });

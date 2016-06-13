@@ -18,7 +18,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.google.common.collect.Maps;
 
 /**
- * Spring容器加载“之后”的ServletContextListener
+ * Spring loaded container "after" ServletContextListene
  */
 public class ApplicationContextPostListener implements ServletContextListener {
 
@@ -38,15 +38,15 @@ public class ApplicationContextPostListener implements ServletContextListener {
             String appName = sc.getServletContextName();
             logger.info("[{}] init context ...", appName);
 
-            //构建版本
+            // Builds
             sc.setAttribute("build_version", new Boolean(DynamicConfigService.getBuildVersion()));
 
             DynamicConfigService dynamicConfigService = SpringContextHolder.getBean(DynamicConfigService.class);
             Map<String, Object> globalCfg = Maps.newHashMap();
             sc.setAttribute(Application_Configuation_Value_Key, globalCfg);
-            //系统标题
+            // System Title
             globalCfg.put("cfg_system_title", dynamicConfigService.getString("cfg_system_title"));
-            //开发模式boolean参数
+           // Development mode boolean parameter
             globalCfg.put("dev_mode", new Boolean(dynamicConfigService.getString("dev_mode")));
 
             Map<String, Object> globalConstant = Maps.newHashMap();
