@@ -1,111 +1,107 @@
-## 项目简介
+## Project Description
 
-集结最新主流时尚开源技术的面向互联网Web应用的整合前端门户站点、HTMl5移动站点及后端管理系统一体的的基础开发框架，提供一个J2EE相关主流开源技术架构整合及一些企业应用基础通用功能和组件的设计实现的最佳实践和原型参考。
+Integration of front-end portal sites on the Internet for Web Applications build mainstream fashion latest open source technology , infrastructure development framework HTMl5 mobile site and back-end management system integration , providing a major source J2EE related technology architecture to integrate enterprise applications , and some basic common features and components best practices and reference design prototype implementation.
 
-### 项目托管同步更新站点列表：
+### Projects hosted synchronization update site list :
 
-**https://github.com/xautlx/s2jh4net**
+** Https: //github.com/xautlx/s2jh4net**
 
-**http://git.oschina.net/xautlx/s2jh4net**
+** Http: //git.oschina.net/xautlx/s2jh4net**
 
-### 个人空间： http://my.oschina.net/s2jh
+### Personal Space : http://my.oschina.net/s2jh
 
-> **提示**：为了方便用户区分链接资源是外部和内部，文档特别以![link](http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/docs/markdown/images/link.gif)标识：链接前面有此图标说明是外部链接，如果你已经熟悉相关概念可以忽略点击；没有此标识说明是文档内部链接，建议点击访问以完整查阅项目文档。
+> ** Tip **: In order to link the user to distinguish between external and internal resources, particularly in the document [link] (http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/! docs / markdown / images / link.gif) ID: link icon in front of this note is an external link if you are already familiar with the concept of negligible click; no explanation is this identification document internal links, it is recommended to click through to a complete inspection project documentation.
 
-## 框架特色
+## Frame Features
 
-* 面向主流企业级WEB应用系统的界面和常用基础功能设计实现
-* 主体基于主流的（Spring MVC + Spring3 + Hibernate4/MyBatis3）架构
-* 引入JPA、Spring-Data-JPA提升持久层架构规范性和开发效率
-* 基于流行JQuery/Bootstrap等UI框架和插件整合，良好的浏览器兼容性和移动设备访问支持
-* 提供一个基础的代码生成框架，简化实现快速基本的CRUD功能开发
-* 基于Maven的项目和组件依赖管理模式，便捷高效的与持续集成开发集成
+* Common interface and basic functionality designed for mainstream enterprise application system to achieve WEB
+* Based on the mainstream body (Spring MVC + Spring3 + Hibernate4 / MyBatis3) architecture
+* The introduction of JPA, Spring-Data-JPA persistence layer to enhance the regulatory framework and development efficiency
+* Based on the popular JQuery / Bootstrap framework and plug-ins and other UI integration, good browser compatibility and support for mobile devices
+* Provide a basis for code generation framework, simplifying basic CRUD functions for fast development
+* Maven-based project management and components depend, convenient and efficient, integrated and sustainable integrated development
 
-## 技术架构
+## Technology Architecture
 
-* [技术列表](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/技术列表.md) - 框架主要技术(Java/Web/Tool)组件列表介绍
-* [技术特性](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/技术特性.md) - 主要技术选型和设计说明
-* [异常处理](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/异常处理.md) - 介绍框架的异常处理的策略设计
-* [移动支持](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/移动支持.md) - 以Android为例的Web App与Native App整合应用
+* [Technology List] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ technology list .md) - Technical Framework (Java / Web / Tool) Component List introduction
+* [Technical features] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ technical characteristics .md) - Technical Selection and description
+* [Exception handling] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ exception handling .md) - describes exception handling framework strategy design
+* [Mobile support] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ mobile support .md) - Case Web App to Android Native App Integration and Application
 
-## 开发指南
+## Development Guide
+* [Development configuration] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ development configuration .md) - based development environment configuration instructions
+* [Engineering Structures] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ engineering structures .md) - the code for the entire project structure is described schematically
+* [Code Generator] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ code generation .md) - CURD basic framework for code generation tool
+* [Basic Functions] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ basic functions .md) - has been achieved on the basis of the framework Features Description
+* [UI assembly] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/UI assembly .md) - Framework UI component design ideas and usage demo
+* [Spreadsheet Component] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ Spreadsheet Component .md) - Powerful Grid Spreadsheet Component Extended enhanced
+* [Forms Control] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ form controls .md) - describes the Web development process design the main form processing
 
-* [开发配置](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/开发配置.md) - 开发基础环境配置说明
-* [工程结构](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/工程结构.md) - 对整个项目工程代码结构进行概要性介绍
-* [代码生成](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/代码生成.md) - 用于基本CURD框架代码生成的工具
-* [基础功能](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/基础功能.md) - 框架已经实现的基础功能介绍说明
-* [UI组件](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/UI组件.md)    - 框架UI组件设计思路和用法演示
-* [表格组件](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/表格组件.md) - 功能强大的Grid表格组件扩展增强
-* [表单控制](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/表单控制.md) - 介绍Web开发过程最主要的表单处理设计
+> Since the project uses Lombok and other plug-in, if you want to get the git project code into the development environment, be sure to browse documents in advance [development configuration] (https://github.com/xautlx/s2jh4net/blob/master/src/main / webapp / docs / markdown / development configuration .md) for the IDE, Lombok and other plug-in configuration, otherwise it will be out a lot of compilation errors.
 
-> 由于项目采用了Lombok等插件，如果你想把git获取工程代码导入开发环境，请一定提前浏览文档 [开发配置](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/开发配置.md) 为IDE进行Lombok等插件配置，否则会出一大堆编译错误。
+## Core modules
+* [Data base] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ basic data .md) - Introduction and framework for the development of test data data base design ideas
+* [Audit data] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ data auditing .md) - Change Audit records based on Hibernate Envers components to achieve business data
+* [Scheduled Tasks] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ scheduled tasks .md) - Quartz component implementation plan based on the configuration monitoring and management tasks
+* [Reptile Data Acquisition] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/ reptile data acquisition .md) - Reference Nutch achieve a lightweight Web management reptile data acquisition analysis module
 
-## 核心模块
+> In order to facilitate the development process reference project directly related to the development of a reference guide and sample documents to run embedded applications deployment, the specific content can be viewed online, as shown schematically screenshot Snapshot section.
 
-* [基础数据](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/基础数据.md) - 介绍框架对于基础数据及开发测试数据的设计思路
-* [数据审计](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/数据审计.md) - 基于Hibernate Envers组件实现业务数据变更审计记录
-* [计划任务](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/计划任务.md) - 基于Quartz组件实现计划任务的配置监控管理
-* [爬虫数据采集](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/爬虫数据采集.md) - 参考Nutch实现一个Web管理的轻量级爬虫数据采集解析模块
+## Online demo
 
-> 为了便于开发过程参考，项目直接把开发相关的参考样例和指南文档嵌入到运行部署应用中，具体内容可在线浏览，如下图Snapshot部分截图示意。
+** Http: //101.200.31.248: 8080 / s2jh4net / admin **
 
-## 在线演示
+Front-end portals and HTML5 mobile site currently less content, the main demonstration focused on the management side. Account: admin, password: admin123, or simply click the "super administrator" login link.
 
-**http://101.200.31.248:8080/s2jh4net/admin**
+Online demo site is low with a single point of Ali cloud server outage situation may slow access or update. Meanwhile, in order to prevent arbitrary data changes cause a system crash, individual features enabled demo disable control.
+Recommendations refer to [ development configuration ] (https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/%E5%BC%80%E5%8F%91%E9%85 % 8D% E7% BD% AE.md) locally run the full experience.
 
-前端门户和HTML5移动站点目前内容较少，主要演示集中在管理端。账号：admin，密码：admin123，或直接点击右下方的“超级管理员”登录链接即可。
+> The latest project to build automated continuous integration status Travis-CI Status: (https [[Build Status] (https://travis-ci.org/xautlx/s2jh4net.svg?branch=master)!]: // Travis-ci. org / xautlx / s2jh4net)
 
-在线演示站点为单点低配阿里云服务器，可能存在访问缓慢情况或更新时中断。同时为了防止随意数据变更导致系统崩溃，对个别功能启用了演示禁用控制。
+## Screenshot Gallery
 
-建议可参考 [开发配置](https://github.com/xautlx/s2jh4net/blob/master/src/main/webapp/docs/markdown/%E5%BC%80%E5%8F%91%E9%85%8D%E7%BD%AE.md) 在本地运行完整体验。
+! [Ui-signin] (http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/docs/markdown/images/img-0065.jpg)
 
-> 项目最新自动化持续集成构建状态 Travis-CI Status: [![Build Status](https://travis-ci.org/xautlx/s2jh4net.svg?branch=master)](https://travis-ci.org/xautlx/s2jh4net)
-
-## 截图展示
-
-![ui-signin](http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/docs/markdown/images/img-0065.jpg)
-
-![ui-example](http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/docs/markdown/images/ui-example.jpg)
+! [Ui-example] (http://git.oschina.net/xautlx/s2jh4net/raw/master/src/main/webapp/docs/markdown/images/ui-example.jpg)
 
 ## S2JH4Net vs S2JH
 
-**重要提示：** 由于个人精力有限，目前主要重心都已放在S2JH4Net版本更新维护，原有S2JH版本已基本暂停更新！
+** Important: ** Due to limited personal energy , are currently the main focus on S2JH4Net maintenance update version , the original version has been basically suspended S2JH updated !
+This project S2JH (https://github.com/xautlx/s2jh or http://git.oschina.net/xautlx/s2jh) project Brothers project , the main difference profile :
 
-此项目为 S2JH （ https://github.com/xautlx/s2jh 或 http://git.oschina.net/xautlx/s2jh ） 项目的兄弟项目，主要差异简介：
+* S2jh based Struts2, s2jh4net based on Spring MVC
+* S2jh4net s2jh only in the original basis for enterprise application development , the reorganization module and support structures to support the typical Internet sites and HTML5 mobile site development ;
+* In order to simplify the development and building of complexity, reducing the use of dynamic Web project model of a single all-in-one no longer complex Maven modular layout ( but Maven dependency management and build or retention ) ;
+* Entity object attribute defines the use of Lombok to simplify the cumbersome getter and setter definitions ;
+* JPA Hibernate and MyBatis application integration ;
+* Permission to use the framework of Apache Shiro;
+* Automatic generation based annotation defined menu , permissions and other data base configuration database using Java coding define basic data , discard the previous SQL script way ; while the development of coding , while the implementation of the project ;
 
-* s2jh基于Struts2，s2jh4net基于Spring MVC
-* s2jh4net在原有s2jh只面向企业应用系统开发的基础上，重新组织模块和结构来支持典型的互联网站点以及HTML5移动站点开发的支持；
-* 为了简化开发和构建的复杂度，还原采用单一all-in-one的动态Web工程模式，不再进行复杂的Maven模块化布局（但是Maven进行依赖管理和构建还是保留）；
-* 实体对象属性定义采用了Lombok来简化繁琐的getter和setter定义；
-* JPA Hibernate和MyBatis整合应用；
-* 权限框架改用Apache Shiro；
-* 自动基于注解定义的菜单、权限等数据生成数据库基础配置，采用Java编码方式定义基础数据，抛弃之前的SQL脚本方式；一边开发编码，一边项目实施；
+### License Description
 
-### 许可说明
+* Free License
 
-* 免费许可
+The project code in addition to src / main / webapp / assets directory under the admin / app and w / app directory two small amount of confusion in the relevant Javascript code provided, its Yu Kaiyuan, while retaining the identity of the source of information on the project and to assure this project under the premise of unauthorized sales practices, can in any way free free use: open-source, non-open source, commercial and non-commercial.
 
-本项目代码除src/main/webapp/assets目录下admin/app和w/app两个目录下少量相关Javascript代码以混淆方式提供外，其余开源，在保留标识本项目来源信息以及保证不对本项目进行非授权的销售行为的前提下，可以以任意方式自由免费使用：开源、非开源、商业及非商业。
+If the project you have any technical questions or Issue feedback, discussion groups can be added QQ group: 303 438 676 or submit a question to the project site Issue or Git platform:
+http://www.oschina.net/p/s2jh4net, http://git.oschina.net/xautlx/s2jh4net/issues, https://github.com/xautlx/s2jh4net/issues
 
-若对项目有任何技术问题或Issue反馈，可加QQ群讨论组：303438676 或提交到项目站点提问或Git平台的Issue：
-http://www.oschina.net/p/s2jh4net , http://git.oschina.net/xautlx/s2jh4net/issues , https://github.com/xautlx/s2jh4net/issues
+* Service charges
 
-* 收费服务
-
-如果你还有兴趣在现有开放资源基础上进一步获取完整源码/提供定制的扩展实现/技术咨询服务/毕业设计指导/二次开发项目指导等方面的合作意向，可联系 E-Mail: s2jh-dev@hotmail.com 或 QQ: 2414521719 (加Q请注明：s2jh4net) 洽谈。[上述个人联系方式为收费服务渠道，恕不提供免费咨询]
+If you are still interested in a collaboration to further obtain complete source / provide custom extension implementation / technical advisory services / guidance of graduate / secondary development guidance based on existing open source and other aspects, contact E-Mail: s2jh- dev@hotmail.com or QQ: 2414521719 (please specify plus Q: s2jh4net) negotiations. [Personal Information for the above-mentioned charge service channels, without providing free advice]
 
 
-### 参考引用
+### References
 
-欢迎关注作者其他项目：
 
-* [Nutch 2.X AJAX Plugins (Active)](https://github.com/xautlx/nutch-ajax) -  基于Apache Nutch 2.3和Htmlunit, Selenium WebDriver等组件扩展，实现对于AJAX加载类型页面的完整页面内容抓取，以及特定数据项的解析和索引
+Welcome to Follow On other projects:
 
-* [S2JH4Net (Active)](https://github.com/xautlx/s2jh4net) -  基于Spring MVC+Spring+JPA+Hibernate的面向互联网及企业Web应用开发框架
+* [Nutch 2.X AJAX Plugins (Active)] (https://github.com/xautlx/nutch-ajax) - Based on Apache Nutch 2.3 and Htmlunit, Selenium WebDriver components such as expansion , to achieve the type of the page AJAX loading Full Page content crawling, and parse and index -specific data items
 
-* [S2JH (Deprecated)](https://github.com/xautlx/s2jh) -  基于Struts2+Spring+JPA+Hibernate的面向企业Web应用开发框架
+* [S2JH4Net (Active)] (https://github.com/xautlx/s2jh4net) - Based on Spring MVC + Spring + JPA + Hibernate oriented Internet and enterprise Web application development framework
+
+* [S2JH (Deprecated)] (https://github.com/xautlx/s2jh) - Based on Struts2 + Spring + JPA + Hibernate enterprise -oriented Web Application Development Framework
  
-* [Nutch 1.X AJAX Plugins (Deprecated)](https://github.com/xautlx/nutch-htmlunit) -  基于Apache Nutch 1.X和Htmlunit的扩展实现AJAX页面爬虫抓取解析插件
+* [Nutch 1.X AJAX Plugins (Deprecated)] (https://github.com/xautlx/nutch-htmlunit) - Based on Apache Nutch 1.X and implement AJAX page Htmlunit extended reptiles crawl resolution plug
  
-* [12306 Hunter (Deprecated)](https://github.com/xautlx/12306-hunter) - （功能已失效不可用，不过还可以当作Swing开发样列参考只用）Java Swing C/S版本12306订票助手，用处你懂的
-
+* [12306 Hunter (Deprecated)] (https://github.com/xautlx/12306-hunter) - ( function has failed unavailable, but you can also develop as a Swing -like column reference only ) Java Swing C / S version 12306 booking Assistant, you know usefulness
