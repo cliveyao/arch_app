@@ -11,10 +11,10 @@
 	<sql id="sqlReadableMessages">
 		<!-- Published -->
 		(m.publishTime is not null and m.publishTime&lt;=#{now})
-		<!-- 未过期的 -->
+		<!-- Unexpired-->
 		and (m.expireTime is null or m.expireTime > #{now})
 		and ( 
-		<!-- 公告类型 -->
+		<!-- Notice type -->
 		(m.targetUser_id is null
 		<if test="siteShow!=null">
 			and (m.siteShow = #{siteShow})
@@ -23,7 +23,7 @@
 			and (m.mgmtShow = #{mgmtShow})
 		</if>
 		)
-		<!-- 用户类型消息 -->
+		<!-- Users type messages -->
 		or (m.targetUser_id = #{user.id})
 		)
 	</sql>
@@ -37,7 +37,7 @@
 		mr.readUser_id=#{user.id})
 	</sql>
 
-	<!-- 用户个人未读信息个数 -->
+	<!-- The number of personal unread messages -->
 	<select id="findCountToRead" resultType="Integer">
 		select count(1) from sys_NotifyMessage m
 		<where>
@@ -46,7 +46,7 @@
 		</where>
 	</select>
 
-	<!-- 用户个人信息列表 -->
+	<!-- Personal Information List -->
 	<select id="findPageToUser" resultMap="pageResultMap">
 		select m.*,mr.lastReadTime as lastReadTime from sys_NotifyMessage m left
 		outer join

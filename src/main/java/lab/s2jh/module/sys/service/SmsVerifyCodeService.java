@@ -42,19 +42,20 @@ public class SmsVerifyCodeService extends BaseService<SmsVerifyCode, Long> {
     }
 
     /**
-     * 基于手机号码生成6位随机验证码
-     * @param mobileNum 手机号码
-     * @return 6位随机数
+     * Phone-based random number generator 6 codes
+     * @param MobileNum phone number
+     * @return 6 -bit random number
      */
     public String generateSmsCode(HttpServletRequest request, String mobileNum, boolean mustExist) {
         if (mustExist && dynamicConfigService.getBoolean(GlobalConstant.cfg_public_send_sms_disabled, false)) {
-            throw new ServiceException("非注册手机号短信发送功能已暂停");
+            throw new ServiceException("Non-registered phone number sending text messages has been suspended");
         }
 
         SmsVerifyCode smsVerifyCode = smsVerifyCodeDao.findByMobileNum(mobileNum);
         boolean updateCode = false;
         if (smsVerifyCode == null) {
-            //要求手机号之前必须已经成功验证过
+
+        	// Must have successfully verified before the phone number requested
             if (mustExist && !DynamicConfigService.isDevMode()) {
                 throw new ServiceException("手机号无效");
             }
@@ -63,18 +64,21 @@ public class SmsVerifyCodeService extends BaseService<SmsVerifyCode, Long> {
             smsVerifyCode = new SmsVerifyCode();
             smsVerifyCode.setMobileNum(mobileNum);
         } else {
-            //已过期
+
+        	//expired
             if (DateUtils.currentDate().after(smsVerifyCode.getExpireTime())) {
                 updateCode = true;
             }
         }
 
-        //如果需要更新则刷新验证码，否则直接返回之前未过期的验证码
+
+     // If you need to update the verification code refresh , otherwise not expired before direct return codes
         if (updateCode) {
             String code = RandomStringUtils.randomNumeric(6);
             smsVerifyCode.setCode(code);
             smsVerifyCode.setGenerateTime(DateUtils.currentDate());
-            //5分钟有效期
+
+         // 5 minutes Validity
             smsVerifyCode.setExpireTime(new DateTime(smsVerifyCode.getGenerateTime()).plusMinutes(VERIFY_CODE_LIVE_MINUTES).toDate());
             smsVerifyCodeDao.save(smsVerifyCode);
         }
@@ -83,25 +87,28 @@ public class SmsVerifyCodeService extends BaseService<SmsVerifyCode, Long> {
     }
 
     /**
-     * 验证手机验证码有效性
-     * @param mobileNum 手机号码
-     * @param code 验证码
-     * @return 布尔类型是否有效
+     * Phone verification codes effectiveness
+     * @param MobileNum phone number
+     * @param Code verification code
+     * @return Boolean whether effective
      */
     public boolean verifySmsCode(HttpServletRequest request, String mobileNum, String code) {
-        //如果是开发模式，则123456作为默认验证码始终通过，方便开发测试
+
+    	// If the development mode, as the default codes 123456 through always , facilitate the development of Test
         if (DynamicConfigService.isDevMode()) {
             if ("123456".equals(code)) {
                 return true;
             }
         }
         SmsVerifyCode smsVerifyCode = smsVerifyCodeDao.findByMobileNum(mobileNum);
-        //未找到记录验证码
+
+     // Record the codes found
         if (smsVerifyCode == null) {
             return false;
         }
         Date now = DateUtils.currentDate();
-        //验证码已过期
+
+     // Code expired
         if (smsVerifyCode.getExpireTime().before(now)) {
             return false;
         }
@@ -118,7 +125,7 @@ public class SmsVerifyCodeService extends BaseService<SmsVerifyCode, Long> {
     }
 
     /**
-     * 定时把超时的验证码移除  
+     * The timing of the verification code timeout removed
      */
     //@Scheduled(fixedRate = 60 * 60 * 1000)
     public void removeExpiredDataTimely() {

@@ -95,18 +95,20 @@ public class MenuService extends BaseService<Menu, Long> {
     }
 
     /**
-     * 计算用户的有权限的菜单列表
+     * Calculate the user's menu list has permissions
      * @return
      */
     public List<NavMenuVO> processUserMenu(User user) {
-        //获取所有有效的菜单集合
+
+    	// Get all valid menu set
         List<NavMenuVO> navMenuVOs = findAvailableNavMenuVOs();
         List<UserR2Role> userR2Roles = user.getUserR2Roles();
         Set<String> userRoles = Sets.newHashSet();
         Set<String> userPrivileges = Sets.newHashSet();
         for (UserR2Role userR2Role : userR2Roles) {
             Role role = userR2Role.getRole();
-            //如果是超级管理员直接返回所有有效菜单
+
+         // If a Super Administrator return directly to all active menu
             if (role.getCode().equals(AuthUserDetails.ROLE_SUPER_USER)) {
                 return navMenuVOs;
             }
@@ -117,16 +119,19 @@ public class MenuService extends BaseService<Menu, Long> {
             }
         }
         if (Boolean.TRUE.equals(user.getMgmtGranted())) {
-            //管理端登录来源
+
+        	// End management Log Source
             userRoles.add(AuthUserDetails.ROLE_MGMT_USER);
         } else {
-            // 普通前端登录来源
+
+        	// Common source tip Login
             userRoles.add(AuthUserDetails.ROLE_SITE_USER);
         }
 
         List<NavMenuVO> userNavMenuVOs = Lists.newArrayList();
 
-        //计算用户有访问权限的菜单列表
+
+     // Calculate the user has access to the menu list
         for (NavMenuVO navMenuVO : navMenuVOs) {
             Menu menu = findOne(navMenuVO.getId());
             if (StringUtils.isNotBlank(menu.getUrl())) {
@@ -213,11 +218,13 @@ public class MenuService extends BaseService<Menu, Long> {
                     }
                 }
             }
-            //添加用户显示菜单项
+
+         // Add a user to display the menu items
             userNavMenuVOs.add(navMenuVO);
         }
 
-        //移除没有子项的父项
+
+     // Remove no child 's parent
         removeEmptyParentItem(userNavMenuVOs);
 
         if (logger.isDebugEnabled()) {

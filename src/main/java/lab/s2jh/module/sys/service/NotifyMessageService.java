@@ -45,8 +45,8 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
     }
 
     /**
-     * 查询用户未读公告消息个数
-     * @param user 当前登录用户
+     * Query User Bulletin number of messages unread
+     * @param User currently logged on user
      */
     @Transactional(readOnly = true)
     public Long findCountToRead(User user, String platform, String... tags) {
@@ -68,8 +68,8 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
     }
 
     /**
-     * 查询公告消息
-     * @param user 当前登录用户
+     * Discover news bulletin
+     * @param User currently logged on user
      */
     @Transactional(readOnly = true)
     public List<NotifyMessage> findEffectiveMessages(User user, String platform, String... tags) {
@@ -81,12 +81,13 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
             return scopeEffectiveMessages;
         }
 
-        //可参考 http://docs.jpush.io/server/rest_api_v3_push/#audience
-        //每种类型的值都是数组（Array），数组里多个值之间隐含的关系是是 OR，即取并集。但 tag_and 不同，其数组里多个值之间是 AND 关系，即取交集。
-        //4 种类型至少需要有其一。如果值数组长度为 0，表示该类型不存在。
-        //这几种类型可以并存。并存时多项的隐含关系是 AND，即取交集。
 
-        //基于audienceXXX判断当前用户公告列表
+     // Refer http://docs.jpush.io/server/rest_api_v3_push/#audience
+             // Value of each type of both arrays (Array), an array of a plurality of values ​​implicit in the relationship between yes yes OR, that is, take the union . But tag_and different and multiple values ​​among its array AND relationship , which intersected .
+             // 4 types need at least one. If the value of the array length is zero, indicating that the type does not exist .
+             // These types can coexist . When the coexistence of multiple implicit relationship is AND, that is intersected .
+
+             // AudienceXXX judgment based on the current user bulletin listing
 
         scopeEffectiveMessages = filterByPlatform(effectiveMessages, platform);
         if (CollectionUtils.isEmpty(scopeEffectiveMessages)) {
@@ -215,8 +216,8 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
     }
 
     /**
-     * 查询公告消息
-     * @param user 当前登录用户
+     * Discover news bulletin
+     * @param User currently logged on user
      */
     @Transactional(readOnly = true)
     public List<NotifyMessage> findStatedEffectiveMessages(User user, String platform, Boolean readState, String... tags) {
@@ -269,7 +270,7 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
     }
 
     /**
-     * 定时更新公告消息生效状态
+     * Regularly updated news bulletin into force status
      */
     @Scheduled(fixedRate = 5 * 60 * 1000)
     public void updateTobeEffectiveMessagesTimely() {
@@ -281,11 +282,13 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
             Date now = DateUtils.currentDate();
             for (NotifyMessage notifyMessage : notifyMessages) {
                 Boolean oldState = notifyMessage.getEffective();
-                //当前时间已过计划发布时间，则置为生效
+
+             // Current plans to release time has elapsed time, set to take effect
                 if (now.after(notifyMessage.getPublishTime())) {
                     notifyMessage.setEffective(Boolean.TRUE);
                 }
-                //当前时间已过计划过期时间，则置为失效
+
+             // The current plan expires time has passed , set to fail
                 if (notifyMessage.getExpireTime() != null && now.after(notifyMessage.getExpireTime())) {
                     notifyMessage.setEffective(Boolean.FALSE);
                 }
@@ -300,7 +303,7 @@ public class NotifyMessageService extends BaseService<NotifyMessage, Long> {
     }
 
     /**
-     * 消息推送处理
+     * Push message processing
      * @param entity
      */
     public void pushMessage(NotifyMessage entity) {

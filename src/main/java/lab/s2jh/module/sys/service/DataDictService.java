@@ -37,8 +37,8 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 基于主键返回对应的数据字典子集合
-     * @param id 主键
+     * Returns the corresponding data dictionary -based subset of the primary key
+     * @param Id primary key
      * @return
      */
     @Transactional(readOnly = true)
@@ -47,9 +47,9 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 基于主键返回对应的数据字典子集合
-     * @param id 主键
-     * @param withFlatChildren 是否已扁平化结构关联返回子节点数据
+     * Returns the corresponding data dictionary -based subset of the primary key
+     * @param Id primary key
+     Whether the association * @param withFlatChildren flat structure returns the child node data
      * @return
      */
     @Transactional(readOnly = true)
@@ -58,8 +58,8 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 直接基于根节点primaryKey返回对应的数据字典集合
-     * @param primaryKey 根节点primaryKey
+     * Based directly on the root primaryKey returns the corresponding set of data dictionary
+     * @param PrimaryKey the root primaryKey
      * @return
      */
     @Transactional(readOnly = true)
@@ -68,9 +68,9 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 直接基于根节点primaryKey返回对应的数据字典集合
-     * @param primaryKey 根节点primaryKey
-     * @param withFlatChildren 是否已扁平化结构关联返回子节点数据
+     * Based directly on the root primaryKey returns the corresponding set of data dictionary
+     * @param PrimaryKey the root primaryKey
+     Whether the association * @param withFlatChildren flat structure returns the child node data
      * @return
      */
     @Transactional(readOnly = true)
@@ -96,9 +96,9 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 直接基于根节点primaryKey返回对应的Map结构key-value数据
-     * 注意：如果关联返回子节点，请确保所有节点的primaryKey唯一性，否则出现数据不可预期的覆盖问题
-     * @param primaryKey 根节点primaryKey
+     * Map directly returns the corresponding key-value data structure based on the root primaryKey
+     * Note : If the association to return the child nodes, make sure primaryKey uniqueness of all nodes , otherwise the data can not be expected to cover a problem
+     * @param PrimaryKey the root primaryKey
      * @return
      */
     @Transactional(readOnly = true)
@@ -107,9 +107,9 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 基于主键返回对应的Map结构key-value数据
-     * 注意：如果关联返回子节点，请确保所有节点的primaryKey唯一性，否则出现数据不可预期的覆盖问题
-     * @param id 主键
+     * Based on the primary key returns the corresponding key-value data structure Map
+     * Note : If the association to return the child nodes, make sure primaryKey uniqueness of all nodes , otherwise the data can not be expected to cover a problem
+     * @param Id primary key
      * @return
      */
     @Transactional(readOnly = true)
@@ -118,10 +118,10 @@ public class DataDictService extends BaseService<DataDict, Long> {
     }
 
     /**
-     * 直接基于根节点primaryKey返回对应的Map结构key-value数据
-     * 注意：如果关联返回子节点，请确保所有节点的primaryKey唯一性，否则出现数据不可预期的覆盖问题
-     * @param primaryKey 根节点primaryKey
-     * @param withFlatChildren 是否已扁平化结构关联返回子节点数据
+     * Map directly returns the corresponding key-value data structure based on the root primaryKey
+     * Note : If the association to return the child nodes, make sure primaryKey uniqueness of all nodes , otherwise the data can not be expected to cover a problem
+     * @param PrimaryKey the root primaryKey
+     Whether the association * @param withFlatChildren flat structure returns the child node data
      * @return
      */
     @Transactional(readOnly = true)
