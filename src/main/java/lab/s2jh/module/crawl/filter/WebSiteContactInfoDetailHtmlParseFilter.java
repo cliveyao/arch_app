@@ -89,7 +89,7 @@ public class WebSiteContactInfoDetailHtmlParseFilter extends AbstractHtmlParseFi
 
         if (StringUtils.isBlank(allContactInfo)) {
             Node navNode = null;
-            NodeList nodes = XPathAPI.selectNodeList(df, "//A[contains(text(),'首页')]");
+            NodeList nodes = XPathAPI.selectNodeList(df, "//A[contains(text(),'Home')]");
             if (nodes != null && nodes.getLength() > 0) {
                 for (int i = nodes.getLength(); i > 0; i--) {
                     if (navNode != null) {
@@ -99,7 +99,7 @@ public class WebSiteContactInfoDetailHtmlParseFilter extends AbstractHtmlParseFi
                     Node loopNode = node;
                     do {
                         String text = loopNode.getTextContent();
-                        if (text.indexOf("联系我们") > -1 || text.indexOf("联系方式") > -1) {
+                        if (text.indexOf("contact us") > -1 || text.indexOf("Contact information") > -1) {
                             navNode = loopNode;
                             break;
                         }

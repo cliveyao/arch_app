@@ -12,12 +12,12 @@ var AdminGlobal = function() {
 							success : function(d) {
 								var e = d.data;
 								if (e > 0) {
-									var f = "<a href='javascripts:;' rel='address:/admin/profile/notify-message?readed=no|未读公告信息列表'>您有 "
-											+ e + " 条未读公告信息</a>";
+									var f = "<a href='javascripts:;' rel='address:/admin/profile/notify-message?readed=no|Unread announcement list '> you "
+											+ e + " Unread post information</a>";
 									$(".message-info", b).html(f);
 									$(".badge", b).html(e).show()
 								} else {
-									var f = "<a href='javascripts:;' rel='address:/admin/profile/notify-message|公告信息列表'>暂无未读，点击查看公告信息列表</a>";
+									var f = "<a href='javascripts:;' rel='address:/admin/profile/notify-message|Announcement List '> No unread , click to see a list of information bulletin</a>";
 									$(".message-info", b).html(f);
 									$(".badge", b).html(0).hide()
 								}
@@ -35,12 +35,12 @@ var AdminGlobal = function() {
 							success : function(d) {
 								var e = d.data;
 								if (e > 0) {
-									var f = "<a href='javascripts:;' rel='address:/admin/profile/user-message?readed=no|未读个人消息列表'>您有 "
-											+ e + " 条未读个人消息</a>";
+									var f = "<a href='javascripts:;' rel='address:/admin/profile/user-message?readed=no|Unread personal message list '> you "
+											+ e + " Unread personal message</a>";
 									$(".message-info", c).html(f);
 									$(".badge", c).html(e).show()
 								} else {
-									var f = "<a href='javascripts:;' rel='address:/admin/profile/user-message|个人消息列表'>暂无未读，点击查看个人消息列表</a>";
+									var f = "<a href='javascripts:;' rel='address:/admin/profile/user-message|Personal Message List '> No unread , click to see a list of personal messages</a>";
 									$(".message-info", c).html(f);
 									$(".badge", c).html(0).hide()
 								}
@@ -81,7 +81,7 @@ var AdminGlobal = function() {
 				})
 			});
 			$("#a-logout").click(function() {
-				bootbox.confirm("确认注销登录吗？", function(i) {
+				bootbox.confirm("Confirm you log off？", function(i) {
 					if (i) {
 						window.location.href = WEB_ROOT + "/admin/logout"
 					}
@@ -448,7 +448,7 @@ var AdminGlobal = function() {
 			b = WEB_ROOT + b;
 			var h = m.split(":");
 			var d = h[h.length - 1];
-			var m = '<li><a href="#/dashboard" class="btn-dashboard"><i class="fa fa-home"></i> 首页 </a></li> ';
+			var m = '<li><a href="#/dashboard" class="btn-dashboard"><i class="fa fa-home"></i> Home </a></li> ';
 			var f = $("#layout-nav");
 			f.find("> li:not(.btn-group)").remove();
 			$

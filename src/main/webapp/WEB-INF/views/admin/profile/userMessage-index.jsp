@@ -12,34 +12,34 @@
 				data-div-search=".profile-user-message-List">
 				<div class="btn-group">
 					<a class="btn btn-default ${empty param.readed?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/user-message|个人消息列表'>全部</a> <a
+						rel='address:/admin/profile/user-message|Personal message list'>Complete</a> <a
 						class="btn btn-default ${param.readed=='no'?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/user-message?readed=no|未读个人消息列表'>未读</a> <a
+						rel='address:/admin/profile/user-message?readed=no|Unread personal messages list '> Unread</a> <a
 						class="btn btn-default ${param.readed=='yes'?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/user-message?readed=yes|已读个人消息列表'>已读</a>
+						rel='address:/admin/profile/user-message?readed=yes|Read a list of personal messages '> Read</a>
 				</div>
 				<div class="form-group">
 					<div class="controls controls-clearfix">
-						<input type="text" name="search['CN_title']" class="form-control input-medium" placeholder="消息标题...">
+						<input type="text" name="search['CN_title']" class="form-control input-medium" placeholder="Message title ...">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="controls controls-clearfix">
-						<input type="text" name="search['CN_message']" class="form-control input-medium" placeholder="消息内容...">
+						<input type="text" name="search['CN_message']" class="form-control input-medium" placeholder="Message content ...">
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label">发布日期</label>
+					<label class="control-label">Release date</label>
 					<div class="controls">
 						<input type="text" name="search['EQ_createdDate']" class="form-control input-small" data-picker="date">
 					</div>
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Charles &nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Heavy &nbsp; Set
 					</button>
 				</div>
 

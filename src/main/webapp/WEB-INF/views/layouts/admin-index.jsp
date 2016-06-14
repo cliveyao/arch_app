@@ -12,7 +12,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
-<title>${applicationScope.cfg.cfg_system_title}管理平台</title>
+<title>${applicationScope.cfg.cfg_system_title}Management Platform</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 <meta content="" name="description" />
@@ -35,7 +35,7 @@
 		<div class="header-inner">
 			<!-- BEGIN LOGO -->
 			<a class="navbar-brand" href="${ctx}/admin" style="width: 500px; padding-top: 12px; padding-left: 10px"><font
-				color="white" size="+2">${applicationScope.cfg.cfg_system_title} 管理平台</font></a>
+				color="white" size="+2">${applicationScope.cfg.cfg_system_title} Management Platform</font></a>
 			<!-- END LOGO -->
 			<!-- BEGIN RESPONSIVE MENU TOGGLER -->
 			<a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <img
@@ -72,7 +72,7 @@
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
 				<li class="dropdown" id="header_notification_bar"><a href="javascript:;" class="dropdown-toggle"
 					data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
-					rel="address:/admin/profile/notify-message|公告信息列表"> <i class="fa fa-bullhorn"></i> <span class="badge"
+					rel="address:/admin/profile/notify-message|Announcement List"> <i class="fa fa-bullhorn"></i> <span class="badge"
 						style="display: none"></span>
 				</a>
 					<ul class="dropdown-menu extended notification">
@@ -83,7 +83,7 @@
 				<!-- BEGIN INBOX DROPDOWN -->
 				<li class="dropdown" id="header_inbox_bar"><a href="javascript:;" class="dropdown-toggle"
 					data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
-					rel="address:/admin/profile/user-message|个人消息列表"> <i class="fa fa-envelope"></i> <span class="badge"
+					rel="address:/admin/profile/user-message|Personal message list"> <i class="fa fa-envelope"></i> <span class="badge"
 						style="display: none"></span>
 				</a>
 					<ul class="dropdown-menu extended inbox">
@@ -93,15 +93,15 @@
 
 				<!-- BEGIN USER LOGIN DROPDOWN -->
 				<li class="dropdown user" style="padding-top: 5px; margin-right: 25px"><a href="javascripts:;"
-					rel="address:/admin/profile/edit|个人配置" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+					rel="address:/admin/profile/edit|Personal configuration" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
 					data-close-others="true"><span class="username"><shiro:principal property="nickName" />(<shiro:principal
 								property="authUid" />)</span> <i class="fa fa-angle-down"></i> </a>
 					<ul class="dropdown-menu">
-						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> 全屏显示</a></li>
-						<li><a href="${ctx}/admin/profile/password" data-toggle="modal-ajaxify" data-modal-size="600px" title="修改密码"><i
-								class="fa fa-key"></i> 修改密码</a></li>
+						<li><a href="javascript:;" id="trigger_fullscreen"><i class="fa fa-move"></i> full-screen display</a></li>
+						<li><a href="${ctx}/admin/profile/password" data-toggle="modal-ajaxify" data-modal-size="600px" title="change Password"><i
+								class="fa fa-key"></i> change Password</a></li>
 						<li class="divider"></li>
-						<li><a id="a-logout" href="javascript:;"><i class="fa fa-sign-out"></i> 注销登录</a></li>
+						<li><a id="a-logout" href="javascript:;"><i class="fa fa-sign-out"></i>logout</a></li>
 					</ul></li>
 				<!-- END USER LOGIN DROPDOWN -->
 			</ul>
@@ -115,7 +115,7 @@
 			<div class="toggler-close"></div>
 			<div class="theme-options">
 				<div class="theme-option theme-colors clearfix">
-					<span>颜色样式</span>
+					<span>Color Style</span>
 					<ul>
 						<li class="color-black current color-default" data-style="default"></li>
 						<li class="color-blue" data-style="blue"></li>
@@ -126,38 +126,42 @@
 					</ul>
 				</div>
 				<div class="theme-option">
-					<span>页面布局</span> <select class="layout-option form-control input-small"
+					<span>Page Layout</span> <select class="layout-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_page']}">
-						<option value="fluid" selected="selected">扩展</option>
-						<option value="boxed">收缩</option>
+						<option value="fluid" selected="selected">Spread</option>
+						<option value="boxed">shrink</option>
 					</select>
 				</div>
 				<div class="theme-option">
-					<span>页面头部</span> <select class="header-option form-control input-small"
+					<span>Page header</span> <select class="header-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_header']}">
-						<option value="fixed">固定</option>
-						<option value="default" selected="selected">自动</option>
+						
+						<Option value = "fixed"> Fixed </ option>
+						<Option value = "default" selected = "selected"> Auto </ option>
 					</select>
 				</div>
 				<div class="theme-option">
-					<span>页面底部</span> <select class="footer-option form-control input-small"
+					<span>Bottom of the page</span> <select class="footer-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_footer']}">
-						<option value="fixed">固定</option>
-						<option value="default" selected="selected">自动</option>
+						
+<Option value = "fixed"> Fixed </ option>
+<Option value = "default" selected = "selected"> Auto </ option>
 					</select>
 				</div>
 				<div class="theme-option">
-					<span>右键菜单</span> <select class="context-menu-option form-control input-small"
+					<span>Right menu</span> <select class="context-menu-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_context_menu']}">
-						<option value="enable" selected="selected">启用</option>
-						<option value="disable">禁用</option>
+						
+<Option value = "enable" selected = "selected"> Enable </ option>
+<Option value = "disable"> Disable </ option>
 					</select>
 				</div>
 				<div class="theme-option">
-					<span>表格布局</span> <select class="grid-shrink-option form-control input-small"
+					<span>Table layout</span> <select class="grid-shrink-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_grid_shrink']}">
-						<option value="auto">自动</option>
-						<option value="true" selected="selected">收缩</option>
+						
+<Option value = "auto"> Auto </ option>
+<Option value = "true" selected = "selected"> shrink </ option>
 					</select>
 				</div>
 			</div>
@@ -183,8 +187,8 @@
 						<div class="sidebar-search">
 							<div class="form-container">
 								<div class="input-box">
-									<a href="javascript:;" class="remove"></a> <input type="text" name="search" placeholder="菜单项快速查询过滤..." value=""
-										title="试试输入菜单名称拼音首字母" /> <input type="button" class="submit" value=" " />
+									<a href="javascript:;" class="remove"></a> <input type="text" name="search" placeholder="Quick Search Filter menu item ..." value=""
+										title="Enter the name of the menu to try first letter of alphabet" /> <input type="button" class="submit" value=" " />
 								</div>
 							</div>
 						</div> <!-- END RESPONSIVE QUICK SEARCH FORM -->
@@ -204,7 +208,7 @@
 							<li class="btn-group" style="right: 0px;">
 								<button data-close-others="true" data-delay="1000" data-toggle="dropdown" class="btn default dropdown-toggle"
 									type="button">
-									<span><i class="fa fa-reorder"></i> 访问列表</span> <i class="fa fa-angle-down"></i>
+									<span><i class="fa fa-reorder"></i> Access List</span> <i class="fa fa-angle-down"></i>
 								</button>
 								<ul role="menu" class="dropdown-menu">
 								</ul>
@@ -212,7 +216,7 @@
 									<i class="fa fa-times"></i>
 								</button>
 							</li>
-							<li><a class="btn-dashboard" href="#/dashboard"><i class="fa fa-home"></i> 首页 </a></li>
+							<li><a class="btn-dashboard" href="#/dashboard"><i class="fa fa-home"></i> Home </a></li>
 						</ul>
 						<div class="tab-content">
 							<div id="tab_content_dashboard"></div>
@@ -241,7 +245,7 @@
 		<div class="hide">
 			<form class="form-horizontal" id="singleFileUploadForm" enctype="multipart/form-data" method="post">
 				<input type="file" name="fileUpload" />
-				<button type="submit" class="btn">提交</button>
+				<button type="submit" class="btn">submit</button>
 			</form>
 		</div>
 
@@ -251,7 +255,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-						<h4 class="modal-title">文件上传</h4>
+						<h4 class="modal-title">File Upload</h4>
 					</div>
 					<div class="modal-body">
 						<form id="fileupload" enctype="multipart/form-data" method="POST">
@@ -259,14 +263,14 @@
 							<div class="row fileupload-buttonbar">
 								<div class="col-lg-7">
 									<!-- The fileinput-button span is used to style the file input field as button -->
-									<span class="btn green fileinput-button"> <i class="fa fa-plus"></i> <span>添加文件...</span> <input
+									<span class="btn green fileinput-button"> <i class="fa fa-plus"></i> <span>add files...</span> <input
 										type="file" multiple="" name="files">
 									</span>
 									<button class="btn blue start" type="submit">
-										<i class="fa fa-upload"></i> <span>开始上传</span>
+										<i class="fa fa-upload"></i> <span>Start upload</span>
 									</button>
 									<button class="btn yellow cancel" type="reset">
-										<i class="fa fa-ban"></i> <span>取消上传</span>
+										<i class="fa fa-ban"></i> <span>Cancel upload</span>
 									</button>
 									<!-- The loading indicator is shown during file processing -->
 									<span class="fileupload-loading"></span>
@@ -287,8 +291,8 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn default" data-dismiss="modal">取消</button>
-						<button type="submit" class="btn blue btn-add">添加</button>
+						<button type="button" class="btn default" data-dismiss="modal">cancel</button>
+						<button type="submit" class="btn blue btn-add">Add to</button>
 					</div>
 				</div>
 				<!-- /.modal-content -->
@@ -297,7 +301,7 @@
 		</div>
 		<!-- END FileUpload FORM -->
 
-		<button type="button" class="btn " id="btn-profile-param" title="点击收藏记忆当前表单元素数据" style="display: none">
+		<button type="button" class="btn " id="btn-profile-param" title="Click favorite memory elements of the current form data" style="display: none">
 			<i class="fa fa-heart-o"></i>
 		</button>
 	</div>
