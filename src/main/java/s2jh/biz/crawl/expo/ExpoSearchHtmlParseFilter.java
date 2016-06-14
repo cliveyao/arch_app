@@ -30,7 +30,7 @@ public class ExpoSearchHtmlParseFilter extends ExpoBaseHtmlParseFilter {
                 }
             }
 
-            //注入下一页
+           
             Node nextPageNode = selectSingleNode(doc, "//*[@id='ctl00_MainPageHolder_webPage']/a[contains(text(),'下一页')]");
             if (nextPageNode != null) {
                 String nextPageUrl = getNodeAttribute(nextPageNode, "href");

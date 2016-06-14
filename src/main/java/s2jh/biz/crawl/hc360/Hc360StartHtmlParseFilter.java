@@ -20,7 +20,7 @@ public class Hc360StartHtmlParseFilter extends Hc360BaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment df = parse(pageText);
 
-        Node parentNode = selectSingleNode(df, "//DIV[@class='item_marketplace_L' and contains(H2,'工程机械')]");
+        Node parentNode = selectSingleNode(df, "//DIV[@class='item_marketplace_L' and contains(H2,'Construction Machinery')]");
         if (parentNode != null) {
             NodeList nodeList = selectNodeList(parentNode, ".//dd/a");
             if (nodeList != null && nodeList.getLength() > 0) {

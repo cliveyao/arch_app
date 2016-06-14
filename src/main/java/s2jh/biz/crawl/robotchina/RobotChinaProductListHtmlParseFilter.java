@@ -21,7 +21,7 @@ public class RobotChinaProductListHtmlParseFilter extends AbstractHtmlParseFilte
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取产品列表信息
+        
         NodeList nodes = selectNodeList(doc, "//DIV[@class='thumb']/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -30,7 +30,7 @@ public class RobotChinaProductListHtmlParseFilter extends AbstractHtmlParseFilte
             }
         }
 
-        //获取下一页信息
+        
         Node node = selectSingleNode(doc, "//DIV[@class='pages']/a[@class='next']");
         if (node != null) {
             String href = getXPathAttribute(node, "./", "href");

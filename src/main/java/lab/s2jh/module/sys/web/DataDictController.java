@@ -41,8 +41,8 @@ public class DataDictController extends BaseController<DataDict, Long> {
         return dataDictService;
     }
 
-    @MenuData("配置管理:系统管理:数据字典")
-    @RequiresPermissions("配置管理:系统管理:数据字典")
+    @MenuData("Configuration Management: System Administration : Data Dictionary")
+    @RequiresPermissions("Configuration Management: System Administration : Data Dictionary")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/sys/dataDict-index";
@@ -56,36 +56,38 @@ public class DataDictController extends BaseController<DataDict, Long> {
         super.appendFilterProperty(groupPropertyFilter);
     }
 
-    @RequiresPermissions("配置管理:系统管理:数据字典")
+    @RequiresPermissions("Configuration Management: System Administration : Data Dictionary")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<DataDict> findByPage(HttpServletRequest request) {
         return super.findByPage(DataDict.class, request);
     }
 
-    @RequiresPermissions("配置管理:系统管理:数据字典")
+    @RequiresPermissions("Configuration Management: System Administration : Data Dictionary")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow() {
         return "admin/sys/dataDict-inputBasic";
     }
 
-    @RequiresPermissions("配置管理:系统管理:数据字典")
+    @RequiresPermissions("Configuration Management: System Administration : Data Dictionary")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") DataDict entity, Model model) {
         return super.editSave(entity);
     }
 
-    @RequiresPermissions("配置管理:系统管理:数据字典")
+    @RequiresPermissions("Configuration Management: System Administration : Data Dictionary")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(HttpServletRequest request, @ModelAttribute("entity") DataDict entity) {
-        //基于提交请求参数判断用户是否已经进行确认过，如果否则进行后续的业务逻辑校验及反馈提示，如果已确认则直接通过
+
+    	// Parameter is determined based on whether the user submits a request has been confirmed , if otherwise subsequent business logic validation and feedback suggests that if confirmed directly by
         if (postNotConfirmedByUser(request)) {
             List<DataDict> children = entity.getChildren();
-            //反馈信息待用户进行confirm确认，如果用户确认OK则自动再次发起请求
+
+         // User feedback information to be confirm confirm confirm OK if the user is automatically initiated the request again
             if (CollectionUtils.isNotEmpty(children)) {
-                return OperationResult.buildConfirmResult("如果删除当前项目将递归删除所有子项");
+                return OperationResult.buildConfirmResult("If you delete the current project will recursively delete all the children");
             }
         }
         return super.delete(entity.getId());
@@ -97,7 +99,7 @@ public class DataDictController extends BaseController<DataDict, Long> {
         super.initPrepareModel(request, model, id);
     }
 
-    @MetaData(value = "级联子数据集合")
+    @MetaData(value = "Cascade sub-data collection")
     @RequestMapping(value = "/children", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, String> children(HttpServletRequest request, @RequestParam(value = "id") Long id) {

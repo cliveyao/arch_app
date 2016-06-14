@@ -9,10 +9,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * 基于Spring MVC Test的Controller测试基类.
- * @see http://docs.spring.io/spring/docs/current/spring-framework-reference/html/testing.html#spring-mvc-test-framework
- *   
- * 子类需要定义applicationContext文件的位置, 如:
+ * Spring MVC Test of the Controller base class based on test .
+ * @see Http://docs.spring.io/spring/docs/current/spring-framework-reference/html/testing.html#spring-mvc-test-framework
+ *
+ * Subclasses need to define the location applicationContext file , such as:
  * @ContextConfiguration(locations = { "classpath*:/context/spring-bpm.xml" })
  * 
  */

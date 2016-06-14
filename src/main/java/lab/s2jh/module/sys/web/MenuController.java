@@ -52,8 +52,8 @@ public class MenuController extends BaseController<Menu, Long> {
         return menuService.findDetachedOne(id, "parent");
     }
 
-    @MenuData("配置管理:系统管理:菜单配置")
-    @RequiresPermissions("配置管理:系统管理:菜单配置")
+    @MenuData("Configuration Management: System Administration : Configuration Menu")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration Menu")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/sys/menu-index";
@@ -67,14 +67,14 @@ public class MenuController extends BaseController<Menu, Long> {
         super.appendFilterProperty(groupPropertyFilter);
     }
 
-    @RequiresPermissions("配置管理:系统管理:菜单配置")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration Menu")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<Menu> findByPage(HttpServletRequest request) {
         return super.findByPage(Menu.class, request);
     }
 
-    @RequiresPermissions("配置管理:系统管理:菜单配置")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration Menu")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") Menu entity, Model model) {
@@ -82,7 +82,7 @@ public class MenuController extends BaseController<Menu, Long> {
         return super.editSave(entity);
     }
 
-    @RequiresPermissions("配置管理:系统管理:菜单配置")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration Menu")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(@RequestParam("id") Long... id) {
@@ -96,7 +96,8 @@ public class MenuController extends BaseController<Menu, Long> {
         List<Map<String, Object>> items = Lists.newArrayList();
         List<NavMenuVO> navMenuVOs = menuService.findAvailableNavMenuVOs();
         for (NavMenuVO navMenuVO : navMenuVOs) {
-            //组装zTree结构数据
+
+        	// Data structure assembled zTree
             Map<String, Object> item = Maps.newHashMap();
             item.put("id", navMenuVO.getId());
             item.put("pId", navMenuVO.getParentId());

@@ -20,14 +20,15 @@ public class AmacDetailHtmlParseFilter extends AmacBaseHtmlParseFilter {
         DocumentFragment df = parse(pageText);
         StringBuffer sb = new StringBuffer();
 
-        //第三行带二维码的，特殊处理
+
+     // The third row with a two-dimensional code , special treatment
         String temp = getXPathValue(df, "/html/body/div/div[2]/div/table/tbody/tr[3]/td[1]");
         String key_row2 = temp.substring(0, temp.length() - 1);
         String value_row2 = getXPathValue(df, "//*[@id=\"complaint1\"]");
         putKeyValue(parsedDBObject, key_row2, value_row2);
 
         NodeList nodeList = selectNodeList(df, "/html/body/div/div[2]/div/table/tbody/tr");
-        //每行有两条数据
+     // Each line has two data
         Integer[] rows = { 6, 9, 10, 11, 12 };
         List<Integer> list = Arrays.asList(rows);
         if (nodeList != null && nodeList.getLength() > 0) {
@@ -55,7 +56,7 @@ public class AmacDetailHtmlParseFilter extends AmacBaseHtmlParseFilter {
                 sb.append("(" + getXPathValue(node, "./td[2]") + ")");
             }
         }
-        putKeyValue(parsedDBObject, "高管", sb.toString());
+        putKeyValue(parsedDBObject, "Executives", sb.toString());
         return parsedDBObject;
     }
 

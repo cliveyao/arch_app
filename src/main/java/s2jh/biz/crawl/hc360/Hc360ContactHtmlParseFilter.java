@@ -48,10 +48,10 @@ public class Hc360ContactHtmlParseFilter extends Hc360BaseHtmlParseFilter {
                     String linkman = getXPathValue(fristNode, "./a/span");
                     String title = getXPathValue(fristNode, "./span[1]");
                     if (StringUtils.isNotBlank(linkman)) {
-                        putKeyValue(parsedDBObject, "联系人", linkman);
+                        putKeyValue(parsedDBObject, "Contacts", linkman);
                     }
                     if (StringUtils.isNotBlank(title)) {
-                        putKeyValue(parsedDBObject, "职务", title);
+                        putKeyValue(parsedDBObject, "Post", title);
                     }
                 }
             }

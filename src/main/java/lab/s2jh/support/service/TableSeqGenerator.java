@@ -24,7 +24,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 /**
- * 参考Hibernate的TableGenerator原理实现一个定制的业务流水号生成器
+ * Hibernate's reference TableGenerator principle to achieve a custom business serial number generator
  * 
  * TableSeqGenerator seqGenerator = new TableSeqGenerator("ORDER_ID", 1000, 100);
  * Long nextVal = seqGenerator.generate(dataSource);
@@ -41,8 +41,8 @@ public class TableSeqGenerator {
 
     /**
      * 
-     * @param key 流水号类型唯一标识,如ORDER_ID
-     * @param dialect 数据库方言
+     * @param key serial number that uniquely identifies the type , such as ORDER_ID
+     * @param Dialect database dialect
      * @param initialValue
      * @param incrementSize
      */
@@ -108,7 +108,8 @@ public class TableSeqGenerator {
             this.initialValue = initialValue;
             this.incrementSize = incrementSize;
 
-            //获取方言类型和对象
+
+         // Get dialect types and objects
             HibernateJpaVendorAdapter jpaVendorAdapter = SpringContextHolder.getBean(HibernateJpaVendorAdapter.class);
             Dialect dialect = (Dialect) ClassUtils.newInstance((String) jpaVendorAdapter.getJpaPropertyMap().get(Environment.DIALECT));
 

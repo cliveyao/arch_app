@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>辅助管理功能</title>
+<title>Assistant management functions</title>
 </head>
 <body>
 	<div class="row">
@@ -14,7 +14,7 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 缓存管理
+						<i class="fa fa-reorder"></i> Cache Management
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -25,13 +25,13 @@
 						action='${ctx}/admin/util/cache-clear' method="post" data-editrulesurl="false">
 						<div class="form-body" style="min-height: 250px">
 							<div class="note note-info">
-								<p>为了系统运行效率，系统会基于Hibernate和Spring的Cache支持尽可能缓存数据</p>
-								<p>此功能主要用于直接修改数据库数据后，通知缓存框架移除选取范围的缓存数据从而加载最新数据库数据.</p>
-							</div>
+								<P> In order to run the system efficiency , the system will be based on Hibernate and Spring Cache cache data possible support </ p>
+					<P> This feature is mainly used to directly modify the database data, the notice to remove the cached data caching framework of the selection thus loading the latest database data . </ P>
 						</div>
+											</div>
 						<div class="form-actions right">
 							<button class="btn blue" type="submit">
-								<i class="fa fa-check"></i> 刷新清空全部缓存数据
+								<i class="fa fa-check"></i> Empty refresh all cached data
 							</button>
 						</div>
 					</form>
@@ -42,7 +42,8 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 动态更新Logger日志级别
+						<i class="fa fa-reorder"></i> 
+Dynamic Update Logger log level
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -53,13 +54,12 @@
 						action='${ctx}/admin/util/logger-update' method="post" data-editrulesurl="false">
 						<div class="form-body" style="min-height: 250px">
 							<div class="note note-info">
-								<p>此功能主要用于在应用运行过程中动态修改Logger日志级别从而实现在线Debug调试系统日志信息以便实时进行一些线上问题分析排查.</p>
-								<p class="text-warning">在调低日志级别问题排查完毕后，最好把日志级别调整回预设较高级别以避免大量日志信息影响系统运行效率</p>
-							</div>
+									<P> This feature is mainly used in the application process to be dynamically modify Logger log level in order to achieve online Debug debugging system log information for real-time analysis of a number of online troubleshooting problems . </ P>
+									<P class = "text-warning"> in the lower log level troubleshooting is completed, it is best to adjust the log level back to the default high level in order to avoid a lot of log information affecting system operation efficiency </ p>							</div>
 							<div class="form-group">
 								<label class="control-label">Logger Name</label>
 								<div class="controls">
-									<input type="text" name="loggerName" class="form-control" placeholder="root，特定package名称，特定logger名称等">
+									<input type="text" name="loggerName" class="form-control" placeholder="root，Specific package name , specific logger name, etc.">
 								</div>
 							</div>
 							<div class="form-group">
@@ -79,7 +79,7 @@
 						</div>
 						<div class="form-actions right">
 							<button class="btn blue" type="submit">
-								<i class="fa fa-check"></i> 动态更新Logger日志级别
+								<i class="fa fa-check"></i> Dynamic Update Logger log level
 							</button>
 						</div>
 					</form>
@@ -92,7 +92,8 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 负载均衡验证
+						<i class="fa fa-reorder"></i> 
+Verify load balancing
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -100,9 +101,9 @@
 				</div>
 				<div class="portlet-body">
 					<div class="note note-info">
-						<p>提供基本的HTTP Request和Session信息显示页面，用于在集群环境Failover切换不同主机检查确认服务是否正常，检查Session复制配置是否有效的实现了Session属性数据的无缝复制切换。</p>
-					</div>
-					<a class="btn blue" href="${ctx}/admin/util/load-balance-test" target="_blank">点击显示负载均衡信息页面</a>
+					
+<P> provide basic HTTP Request and Session information display pages , for a clustered environment Failover switch between different hosts Check service is normal, check Session replication configuration is effective to achieve a seamless handover of data replication Session property . </ P>					</div>
+					<a class="btn blue" href="${ctx}/admin/util/load-balance-test" target="_blank">Click to display load balancing information page</a>
 				</div>
 			</div>
 		</div>
@@ -110,7 +111,7 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> Druid数据源监控
+						<i class="fa fa-reorder"></i> Druid data source monitoring
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -118,9 +119,8 @@
 				</div>
 				<div class="portlet-body">
 					<div class="note note-info">
-						<p>本项目采用由阿里开发维护的Druid数据库连接池。Druid能够提供强大的监控和扩展功能。Druid内置提供了一个StatViewServlet用于展示Druid的统计信息。</p>
-					</div>
-					<a class="btn blue" href="${ctx}/druid/" target="_blank">点击访问Druid数据源监控页面</a>
+						<P> This project uses developed by Ali maintained Druid database connection pool. Druid can provide powerful monitoring and extensions. Druid built a StatViewServlet provide statistics to show for the Druid . </ P>					</div>
+					<a class="btn blue" href="${ctx}/druid/" target="_blank">Click here to visit Druid data source monitoring page</a>
 				</div>
 			</div>
 		</div>
@@ -131,7 +131,7 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 系统时间临时设置
+						<i class="fa fa-reorder"></i> Temporarily set the system time
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -142,12 +142,12 @@
 						action='${ctx}/admin/util/systime/setup' method="post" data-editrulesurl="false">
 						<div class="form-body" style="min-height: 250px">
 							<div class="note note-info">
-								<p>此功能主要用于在开发测试阶段，临时“篡改”调整系统当前时间信息，以模拟系统运行在一段时间之后，然后执行定时任务等操作。</p>
-								<p>调整系统时间会导致整个系统一直处于一个固定的设定时间，不会往前继续推进。因此，临时操作完成后及时“恢复系统时间”以恢复当前实时系统时间。</p>
-								<p>为了避免遗忘执行手工恢复操作，在“临时调整系统时间”操作后，默认在10分钟后强制恢复为当前系统时间。</p>
+								<P> This function is primarily used in the development and testing phase, the temporary " tampering " Adjusting the current time information system to simulate the operation of the system after a period of time , and then perform regular tasks and other operations . </ P>
+<P> adjust the system time can cause the entire system has been fixed at a set time , we will not continue to advance forward . Therefore, the temporary operation is completed in time " to restore the system time " to restore the real-time current system time . </ P>
+<P> To avoid forgetting to perform manual recovery operation , in the " temporary adjust the system time" action , by default after 10 minutes forced back to the current system time. </ P>
 							</div>
 							<div class="form-group">
-								<label class="control-label">指定临时系统时间</label>
+								<label class="control-label">Specifies a temporary system time</label>
 								<div class="controls">
 									<input type="text" name="time" class="form-control" data-picker="date-time" required="true">
 								</div>
@@ -155,10 +155,10 @@
 						</div>
 						<div class="form-actions right">
 							<button class="btn blue" type="submit">
-								<i class="fa fa-check"></i> 临时调整系统时间
+								<i class="fa fa-check"></i> Temporary adjust the system time
 							</button>
 							<button class="btn blue btn-post-url" type="button" data-url="${ctx}/admin/util/systime/reset"
-								data-confirm="false">恢复系统时间</button>
+								data-confirm="false">Recovery System Time</button>
 						</div>
 					</form>
 				</div>
@@ -168,7 +168,7 @@
 			<div class="portlet box grey">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 消息服务监听器控制
+						<i class="fa fa-reorder"></i> Message Service listener control
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -179,15 +179,16 @@
 						action='${ctx}/admin/util/systime/setup' method="post" data-editrulesurl="false">
 						<div class="form-body" style="min-height: 250px">
 							<div class="note note-info">
-								<p>在开发dev_mode=true运行模式下，为了避免相互争夺接收消息，默认关闭消息监听服务。</p>
-								<p>在开发和测试过程中，根据需要人工控制开启或关闭监听服务。</p>
+								<P> In the development dev_mode = true mode of operation , in order to avoid competing with each other to receive a message , the message listener service is disabled by default . </ P>
+<P> In the development and testing process, according to need manual control to open or close monitoring services . </ P>
 							</div>
 						</div>
 						<div class="form-actions right">
 							<button class="btn blue btn-post-url" type="button"
-								data-url="${ctx}/admin/util/brokered-message/listener-state?state=startup" data-confirm="false">启动监听服务</button>
+								data-url="${ctx}/admin/util/brokered-message/listener-state?state=startup" data-confirm="false">Start listening service</button>
 							<button class="btn blue btn-post-url" type="button"
-								data-url="${ctx}/admin/util/brokered-message/listener-state?state=shutdown" data-confirm="false">关闭监听服务</button>
+								data-url="${ctx}/admin/util/brokered-message/listener-state?state=shutdown" data-confirm="false">
+Close monitoring services</button>
 						</div>
 					</form>
 				</div>

@@ -69,21 +69,21 @@ public class NotifyMessageController extends BaseController<NotifyMessage, Long>
         super.initPrepareModel(request, model, id);
     }
 
-    @MenuData("配置管理:系统管理:公告管理")
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @MenuData("Configuration Management: System Administration : Management Bulletin")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/sys/notifyMessage-index";
     }
 
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<NotifyMessage> findByPage(HttpServletRequest request) {
         return super.findByPage(NotifyMessage.class, request);
     }
 
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow(Model model) {
         model.addAttribute("platformMap", EnumUtils.getEnumDataMap(NotifyMessagePlatformEnum.class));
@@ -91,24 +91,24 @@ public class NotifyMessageController extends BaseController<NotifyMessage, Long>
         return "admin/sys/notifyMessage-inputBasic";
     }
 
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") NotifyMessage entity, Model model) {
         return super.editSave(entity);
     }
 
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult delete(@ModelAttribute("entity") NotifyMessage entity, Model model) {
         Integer readCount = notifyMessageReadService.countByNotifyMessage(entity);
-        Validation.isTrue(readCount <= 0, "该公告已经被阅读，不能被删除");
+        Validation.isTrue(readCount <= 0, "The notice has been read , can not be deleted");
         notifyMessageService.delete(entity);
         return OperationResult.buildSuccessResult();
     }
 
-    @RequiresPermissions("配置管理:系统管理:公告管理")
+    @RequiresPermissions("Configuration Management: System Administration : Management Bulletin")
     @RequestMapping(value = "/read-list", method = RequestMethod.GET)
     @ResponseBody
     public Page<NotifyMessageRead> readList(HttpServletRequest request) {

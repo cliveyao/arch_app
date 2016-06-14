@@ -8,25 +8,25 @@ public class NavMenuVO implements Serializable {
 
     private static final long serialVersionUID = 9047695739997529718L;
 
-    @MetaData(value = "编号")
+    @MetaData(value = "Id")
     private Long id;
 
-    @MetaData(value = "父编号")
+    @MetaData(value = "Parent ID")
     private Long parentId;
 
-    @MetaData(value = "菜单名称")
+    @MetaData(value = "Menu Name")
     private String name;
 
-    @MetaData(value = "菜单路径")
+    @MetaData(value = "Menu Path")
     private String path;
 
-    @MetaData(value = "菜单URL")
+    @MetaData(value = "Menu URL")
     private String url;
 
-    @MetaData(value = "图标样式")
+    @MetaData(value = "Icon style")
     private String style;
 
-    @MetaData(value = "展开标识", tooltips = "是否默认展开菜单组")
+    @MetaData(value = "Expand logo", tooltips = "Expand the menu if the default group")
     private Boolean initOpen = Boolean.FALSE;
 
     public String getPath() {

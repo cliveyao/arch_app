@@ -14,13 +14,13 @@ public class YibiaoEnterpriseHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取“公司介绍”的链接
-        Node introduce = selectSingleNode(doc, "//div[@id='menu']//a[SPAN='公司介绍']");
+        
+        Node introduce = selectSingleNode(doc, "//div[@id='menu']//a[SPAN='Company Profile']");
         String introduceURL = getXPathAttribute(introduce, "./", "href");
         webPage.addOutlink(introduceURL);
 
-        //获取“联系方式”的链接
-        Node contact = selectSingleNode(doc, "//div[@id='menu']//a[SPAN='联系方式']");
+        
+        Node contact = selectSingleNode(doc, "//div[@id='menu']//a[SPAN='Contact information']");
         String contactURL = getXPathAttribute(contact, "./", "href");
         webPage.addOutlink(contactURL);
         return null;

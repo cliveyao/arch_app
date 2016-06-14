@@ -19,22 +19,22 @@ public class RobotChinaEnterpriseHtmlParseFilter extends RobotChinaBaseHtmlParse
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取联系方式
-        Node contact = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'联系方式')]");
+       
+        Node contact = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'Contact information')]");
         if (contact != null) {
             String href = getNodeAttribute(contact, "href");
             webPage.addOutlink(href);
         }
 
-        //获取产品信息 
-        Node sell = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'产品')]");
+        
+        Node sell = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'product')]");
         if (sell != null) {
             String href = getNodeAttribute(sell, "href");
             webPage.addOutlink(href);
         }
 
-        //获取公司介绍
-        Node introduce = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'公司介绍')]");
+        
+        Node introduce = selectSingleNode(doc, "//*[@id='menu']//a[contains(SPAN,'Company Profile')]");
         if (introduce != null) {
             String href = getNodeAttribute(introduce, "href");
             webPage.addOutlink(href);

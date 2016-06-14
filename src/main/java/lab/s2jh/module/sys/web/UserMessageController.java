@@ -38,21 +38,21 @@ public class UserMessageController extends BaseController<UserMessage, Long> {
         super.initPrepareModel(request, model, id);
     }
 
-    @MenuData("配置管理:系统管理:消息管理")
-    @RequiresPermissions("配置管理:系统管理:消息管理")
+    @MenuData("Configuration Management: System Administration : Messaging Management")
+    @RequiresPermissions("Configuration Management: System Administration : Messaging Management")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/sys/userMessage-index";
     }
 
-    @RequiresPermissions("配置管理:系统管理:消息管理")
+    @RequiresPermissions("Configuration Management: System Administration : Messaging Management")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<UserMessage> findByPage(HttpServletRequest request) {
         return super.findByPage(UserMessage.class, request);
     }
 
-    @RequiresPermissions("配置管理:系统管理:消息管理")
+    @RequiresPermissions("Configuration Management: System Administration : Messaging Management")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow(Model model) {
         return "admin/sys/userMessage-inputBasic";

@@ -34,7 +34,7 @@ public class RobotChinaContactHtmlParseFilter extends RobotChinaBaseHtmlParseFil
                 if (img != null) {
                     String src = getNodeAttribute(img, "src");
                     if (src.startsWith("http://www.robot-china.com/extend/image.php")) {
-                        if ("电子邮件".equals(name)) {
+                        if ("e-mail".equals(name)) {
                             String ocrResult = processOCR(url, src, false);
                             if (StringUtils.isNotBlank(ocrResult)) {
                                 putKeyValue(parsedDBObject, name, ocrResult);
@@ -48,12 +48,12 @@ public class RobotChinaContactHtmlParseFilter extends RobotChinaBaseHtmlParseFil
                     }
                 } else {
                     String value = getXPathValue(node, "./td[2]");
-                    if ("公司网址".equals(name)) {
+                    if ("company website".equals(name)) {
                         Node site = selectSingleNode(node, ".//A[1]");
                         if (site != null) {
                             putKeyValue(parsedDBObject, name, getNodeText(site));
                         }
-                    } else if (!"即时通讯".equals(name) && !"在线状态".equals(name)) {
+                    } else if (!"Chat".equals(name) && !"Online".equals(name)) {
                         putKeyValue(parsedDBObject, name, value);
                     }
                 }

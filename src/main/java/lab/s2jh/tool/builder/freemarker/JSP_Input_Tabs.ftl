@@ -10,7 +10,7 @@
 	<div class="tabbable tabbable-custom tabbable-secondary">
 		<ul class="nav nav-tabs" data-active="${r"${param._tab_active}"}">
 			<li class="tools pull-right"><a href="javascript:;" class="btn default reload"><i class="fa fa-refresh"></i></a></li>
-			<li><a data-toggle="tab" href="${r"${ctx}"}/admin${model_path}/${entity_name_field_line}/edit?id=${r"${param.id}"}&clone=${r"${param.clone}"}">基本信息</a></li>
+			<li><a data-toggle="tab" href="${r"${ctx}"}/admin${model_path}/${entity_name_field_line}/edit?id=${r"${param.id}"}&clone=${r"${param.clone}"}">Basic Information</a></li>
 		</ul>
 	</div>
 </body>

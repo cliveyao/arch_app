@@ -20,7 +20,7 @@ public class YzStartHtmlParseFilter extends YzBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //直辖市、港澳台
+       
         {
             NodeList nodeList = selectNodeList(doc, "//DIV[@class='terms']/A");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -31,7 +31,7 @@ public class YzStartHtmlParseFilter extends YzBaseHtmlParseFilter {
                 }
             }
         }
-        //省市
+        
         {
             NodeList nodeList = selectNodeList(doc, "//DL[@class='terms']/DD/A");
             if (nodeList != null && nodeList.getLength() > 0) {

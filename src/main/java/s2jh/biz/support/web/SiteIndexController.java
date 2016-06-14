@@ -81,18 +81,19 @@ public class SiteIndexController extends BaseController<SiteUser, Long> {
         if (smsVerifyCodeService.verifySmsCode(request, mobile, smsCode)) {
             User user = userService.findByAuthTypeAndAuthUid(AuthTypeEnum.SYS, mobile);
             if (user == null) {
-                return OperationResult.buildFailureResult("号码尚未注册", "NoUser");
+                return OperationResult.buildFailureResult("Number is not registered", "NoUser");
             }
             if (StringUtils.isBlank(newpasswd)) {
-                return OperationResult.buildSuccessResult("短信验证码校验成功", "SmsOK");
+                return OperationResult.buildSuccessResult("SMS verification code verification is successful", "SmsOK");
             } else {
-                //更新密码失效日期为6个月后
+
+            	// Update the password expiration date of six months after the
                 user.setCredentialsExpireTime(new DateTime().plusMonths(6).toDate());
                 userService.save(user, newpasswd);
-                return OperationResult.buildSuccessResult("密码重置成功，您可以马上使用新设定密码登录系统啦", "ResetOK");
+                return OperationResult.buildSuccessResult("Password reset is successful, you can immediately use the new system it set the password", "ResetOK");
             }
         } else {
-            return OperationResult.buildFailureResult("短信验证码不正确");
+            return OperationResult.buildFailureResult("SMS verification code is not correct");
         }
     }
 
@@ -120,19 +121,19 @@ public class SiteIndexController extends BaseController<SiteUser, Long> {
                 photo.transferTo(photoFile);
 
                 BufferedImage bi = ImageIO.read(photoFile);
-                int srcWidth = bi.getWidth(); // 源图宽度  
-                int srcHeight = bi.getHeight(); // 源图高度  
+                int srcWidth = bi.getWidth();  // The width of the source image
+                int srcHeight = bi.getHeight();   // Height of source image
 
                 Map<String, Object> userdata = Maps.newHashMap();
                 userdata.put("width", srcWidth);
                 userdata.put("height", srcHeight);
                 userdata.put("src", photoFilePath);
-                return OperationResult.buildSuccessResult("图片上传成功", userdata);
+                return OperationResult.buildSuccessResult("Image uploaded successfully", userdata);
             } catch (IOException e) {
                 logger.error(e.getMessage(), e);
             }
         }
-        return OperationResult.buildFailureResult("图片上传失败");
+        return OperationResult.buildFailureResult("Image upload failed");
     }
 
     @RequestMapping(value = "/image/crop", method = RequestMethod.POST)
@@ -144,24 +145,26 @@ public class SiteIndexController extends BaseController<SiteUser, Long> {
         try {
             String rootDir = WebAppContextInitFilter.getInitedWebContextRealPath();
             String bigImagePath = rootDir + bigImage;
-            //判断是否需要先进行裁剪处理
+
+         // Determine whether you need to perform the trimming process
             if (x != null && w != null && w > 0) {
-                //裁剪图片
+            	// Crop image
                 ImageUtils.cutImage(bigImagePath, bigImagePath, x, y, w, h);
                 if (size != null) {
-                    //缩放到统一大小
+
+                	// Zoom to uniform size
                     ImageUtils.zoomImage(bigImagePath, bigImagePath, size, size);
                 }
             }
             File photoFile = new File(bigImagePath);
             String path = ServletUtils.writeUploadFile(new FileInputStream(photoFile), photoFile.getName(), photoFile.length());
             if (StringUtils.isNotBlank(path)) {
-                return OperationResult.buildSuccessResult("图片提交成功", path);
+                return OperationResult.buildSuccessResult("Photos submitted successfully", path);
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        return OperationResult.buildFailureResult("图片处理失败");
+        return OperationResult.buildFailureResult("Image processing failed");
     }
 
     @RequestMapping(value = "/image/upload/kind-editor", method = RequestMethod.POST)
@@ -183,7 +186,7 @@ public class SiteIndexController extends BaseController<SiteUser, Long> {
             throw new ServiceException("Upload file error", e);
         }
         retMap.put("error", 1);
-        retMap.put("message", "图片处理失败");
+        retMap.put("message", "Image processing failed");
         return retMap;
     }
 
@@ -194,12 +197,12 @@ public class SiteIndexController extends BaseController<SiteUser, Long> {
             if (fileUpload != null && !fileUpload.isEmpty()) {
                 String path = ServletUtils.writeUploadFile(fileUpload.getInputStream(), fileUpload.getOriginalFilename(), fileUpload.getSize());
                 if (StringUtils.isNotBlank(path)) {
-                    return OperationResult.buildSuccessResult("文件提交成功", path);
+                    return OperationResult.buildSuccessResult("File submitted successfully", path);
                 }
             }
         } catch (IOException e) {
             throw new ServiceException("Upload file error", e);
         }
-        return OperationResult.buildFailureResult("文件处理失败");
+        return OperationResult.buildFailureResult("File failed");
     }
 }

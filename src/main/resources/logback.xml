@@ -13,7 +13,7 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
-        <!-- 建议优化调整为连接池方式 -->
+        <!-- Recommendations for the optimal adjustment of the connection pool mode -->
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>${jdbc_driverClassName}</driverClass>
             <url>${jdbc_url}</url>

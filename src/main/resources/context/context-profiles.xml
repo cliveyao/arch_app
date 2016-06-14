@@ -16,7 +16,7 @@
 	</bean>
 
 	<beans profile="development">
-        <!-- 缺省PropertyPlaceholder定义 -->
+        <!-- Default PropertyPlaceholder definitions -->
 		<bean id="extPropertyPlaceholderConfigurer" class="lab.s2jh.core.context.ExtPropertyPlaceholderConfigurer">
 			<property name="basePackages" value="lab.s2jh,s2jh.biz" />
 			<property name="locations">
@@ -29,33 +29,33 @@
 			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		</bean>
 		
-        <!-- 用于获取当前Dialect对象之用，一般默认无需设定自动识别，个别环境需要特殊配置 -->
+        <!-- Dialect is used to obtain the current objects only and generally do not need to set the default automatic identification of individual environment requires special configuration -->
 		<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <!-- 微软云平台返回的SQL Server MetaData不准确导致无法准确采用2012方言,因此手工设置 
+        <!-- Microsoft SQL Server MetaData cloud platform does not return the exact cause can not be accurately using 2012 dialects , so manually set
         jpa_database_platform=org.hibernate.dialect.SQLServer2012Dialect
         <property name="databasePlatform" value="${jpa_database_platform}" />
         -->
 		</bean>
 
-        <!-- JDBC连接池  https://github.com/alibaba/druid/wiki/配置_DruidDataSource参考配置 -->
+        <!-- JDBC connection pool configuration _DruidDataSource https://github.com/alibaba/druid/wiki/ reference configuration -->
 		<bean id="druidDataSource" abstract="true" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
 			destroy-method="close">
             
-            <!-- 配置初始化大小、最小、最大 -->
+            <!-- Configuring the initial size , minimum, maximum, -->
 			<property name="initialSize" value="${jdbc_initial_size}" />
 			<property name="minIdle" value="${jdbc_min_idle}" />
 			<property name="maxActive" value="${jdbc_max_active}" />
             
-            <!-- 由外部事务管理器处理提交 -->
+            <!-- Presented by the external transaction manager handles -->
 			<property name="defaultAutoCommit" value="false" />
             
-            <!-- 配置获取连接等待超时的时间 -->
+            <!-- Obtain a connection wait timeout -->
 			<property name="maxWait" value="60000" />
 
-            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+            <!-- Configuring interval frequency of such testing, test and needs to close idle connections , in milliseconds -->
 			<property name="timeBetweenEvictionRunsMillis" value="60000" />
 
-            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+            <!-- Configuring a connection pool minimum survival time , in milliseconds -->
 			<property name="minEvictableIdleTimeMillis" value="300000" />
 
 			<property name="validationQuery" value="SELECT 'x'" />
@@ -63,11 +63,11 @@
 			<property name="testOnBorrow" value="false" />
 			<property name="testOnReturn" value="false" />
 
-            <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+            <!-- Open PSCache, and specify the size of each connection PSCache -->
 			<property name="poolPreparedStatements" value="false" />
 			<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
-            <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+            <!-- Configuration monitoring statistics blocking filters, can not be removed after monitoring interface sql statistics -->
 			<property name="proxyFilters">
 				<list>
 					<ref bean="stat-filter" />
@@ -76,28 +76,28 @@
 			</property>
 		</bean>
 
-       <!-- 读写分离主库 -->
+       <!-- Separate read and write the main library -->
 		<bean id="dataSourceMaster" parent="druidDataSource">
 			<property name="url" value="${jdbc_url}" />
 			<property name="username" value="${jdbc_username}" />
 			<property name="password" value="${jdbc_password}" />
 		</bean>
 
-        <!-- 读写分离只读从库，可根据实际从库数量增减定义 -->
+        <!-- Read- write separation from the library , it can increase or decrease the actual definition from the library based on the number of -->
 		<bean id="dataSourceSlave01" parent="druidDataSource">
 			<property name="url" value="${jdbc_url_slave01}" />
 			<property name="username" value="${jdbc_username_slave01}" />
 			<property name="password" value="${jdbc_password_slave01}" />
 		</bean>
 
-        <!-- 读写分离只读从库，可根据实际从库数量增减定义 -->
+        <!-- Read- write separation from the library , it can increase or decrease the actual definition from the library based on the number of -->
 		<bean id="dataSourceSlave02" parent="druidDataSource">
 			<property name="url" value="${jdbc_url_slave02}" />
 			<property name="username" value="${jdbc_username_slave02}" />
 			<property name="password" value="${jdbc_password_slave02}" />
 		</bean>
 
-        <!-- 支持注解路由的数据源 -->
+        <!-- Annotation support routing data sources -->
 		<bean id="dataSource" class="lab.s2jh.core.dao.router.AnnotationRoutingDataSource">
 			<property name="targetDataSources">
 				<map>
@@ -108,7 +108,7 @@
 			<property name="defaultTargetDataSource" ref="dataSourceMaster" />
 		</bean>
          
-        <!-- 支持随机路由的只读从库数据源，可根据实际从库数量增减定义 -->
+        <!-- Support random read-only routing data source from the library , it can increase or decrease the actual definition from the library based on the number of -->
 		<bean id="dataSourceSlave" class="lab.s2jh.core.dao.router.RandomRoutingDataSource">
 			<property name="dataSources">
 				<list>
@@ -118,7 +118,7 @@
 			</property>
 		</bean>
 
-        <!-- Quartz直接采用标准的spring jdbc数据源， -->
+        <!-- Quartz directly using standard spring jdbc data source , -->
 		<bean id="dataSourceQuartz" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName" value="${jdbc_driverClassName}" />
 			<property name="url" value="${jdbc_url}" />
@@ -130,7 +130,7 @@
 	</beans>
 
 	<beans profile="production">
-        <!-- 缺省PropertyPlaceholder定义 -->
+        <!-- Definition of default PropertyPlaceholder -->
 		<bean id="extPropertyPlaceholderConfigurer" class="lab.s2jh.core.context.ExtPropertyPlaceholderConfigurer">
 			<property name="basePackages" value="lab.s2jh,s2jh.biz" />
 			<property name="locations">
@@ -145,33 +145,34 @@
 			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		</bean>
 
-        <!-- 用于获取当前Dialect对象之用，一般默认无需设定自动识别，个别环境需要特殊配置 -->
+        <!-- Dialect is used to obtain the current objects only and generally do not need to set the default automatic identification of individual environment requires special configuration -->
 		<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-        <!-- 微软云平台返回的SQL Server MetaData不准确导致无法准确采用2012方言,因此手工设置 
+        <!-- Microsoft SQL Server MetaData cloud platform does not return the exact cause can not be accurately using 2012 dialects , so manually set
         jpa_database_platform=org.hibernate.dialect.SQLServer2012Dialect
         <property name="databasePlatform" value="${jpa_database_platform}" />
         -->
 		</bean>
 
-        <!-- JDBC连接池  https://github.com/alibaba/druid/wiki/配置_DruidDataSource参考配置 -->
+        <!-- 
+JDBC connection pool configuration _DruidDataSource https://github.com/alibaba/druid/wiki/ reference configuration -->
 		<bean id="druidDataSource" abstract="true" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
 			destroy-method="close">
             
-            <!-- 配置初始化大小、最小、最大 -->
+            <!--Configuring the initial size , minimum, maximum, -->
 			<property name="initialSize" value="${jdbc_initial_size}" />
 			<property name="minIdle" value="${jdbc_min_idle}" />
 			<property name="maxActive" value="${jdbc_max_active}" />
             
-            <!-- 由外部事务管理器处理提交 -->
+            <!-- Presented by the external transaction manager handles -->
 			<property name="defaultAutoCommit" value="false" />
             
-            <!-- 配置获取连接等待超时的时间 -->
+            <!-- Obtain a connection wait timeout -->
 			<property name="maxWait" value="60000" />
 
-            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+            <!-- Configuring interval frequency of such testing, test and needs to close idle connections , in milliseconds -->
 			<property name="timeBetweenEvictionRunsMillis" value="60000" />
 
-            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+            <!-- Configuring a connection pool minimum survival time , in milliseconds -->
 			<property name="minEvictableIdleTimeMillis" value="300000" />
 
 			<property name="validationQuery" value="SELECT 'x'" />
@@ -179,11 +180,11 @@
 			<property name="testOnBorrow" value="false" />
 			<property name="testOnReturn" value="false" />
 
-            <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+            <!-- Open PSCache, and specify the size of each connection PSCache -->
 			<property name="poolPreparedStatements" value="false" />
 			<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
-            <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+            <!--Configuration monitoring statistics blocking filters, can not be removed after monitoring interface sql statistics -->
 			<property name="proxyFilters">
 				<list>
 					<ref bean="stat-filter" />
@@ -192,28 +193,28 @@
 			</property>
 		</bean>
 
-       <!-- 读写分离主库 -->
+       <!--Separate read and write the main library -->
 		<bean id="dataSourceMaster" parent="druidDataSource">
 			<property name="url" value="${jdbc_url}" />
 			<property name="username" value="${jdbc_username}" />
 			<property name="password" value="${jdbc_password}" />
 		</bean>
 
-        <!-- 读写分离只读从库，可根据实际从库数量增减定义 -->
+        <!--Read- write separation from the library , it can increase or decrease the actual definition from the library based on the number of-->
 		<bean id="dataSourceSlave01" parent="druidDataSource">
 			<property name="url" value="${jdbc_url_slave01}" />
 			<property name="username" value="${jdbc_username_slave01}" />
 			<property name="password" value="${jdbc_password_slave01}" />
 		</bean>
 
-        <!-- 读写分离只读从库，可根据实际从库数量增减定义 -->
+        <!-- Read- write separation from the library , it can increase or decrease the actual definition from the library based on the number of -->
 		<bean id="dataSourceSlave02" parent="druidDataSource">
 			<property name="url" value="${jdbc_url_slave02}" />
 			<property name="username" value="${jdbc_username_slave02}" />
 			<property name="password" value="${jdbc_password_slave02}" />
 		</bean>
 
-        <!-- 支持注解路由的数据源 -->
+        <!-- Annotation support routing data sources -->
 		<bean id="dataSource" class="lab.s2jh.core.dao.router.AnnotationRoutingDataSource">
 			<property name="targetDataSources">
 				<map>
@@ -224,7 +225,7 @@
 			<property name="defaultTargetDataSource" ref="dataSourceMaster" />
 		</bean>
          
-        <!-- 支持随机路由的只读从库数据源，可根据实际从库数量增减定义 -->
+        <!-- Support random read-only routing data source from the library , it can increase or decrease the actual definition from the library based on the number of -->
 		<bean id="dataSourceSlave" class="lab.s2jh.core.dao.router.RandomRoutingDataSource">
 			<property name="dataSources">
 				<list>
@@ -234,7 +235,7 @@
 			</property>
 		</bean>
 
-        <!-- Quartz直接采用标准的spring jdbc数据源， -->
+        <!-- Quartz directly using standard spring jdbc data source , -->
 		<bean id="dataSourceQuartz" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName" value="${jdbc_driverClassName}" />
 			<property name="url" value="${jdbc_url}" />
@@ -245,9 +246,9 @@
 		<import resource="classpath*:/service/spring*.xml" />
 	</beans>
 
-    <!-- 用于Unit Test配置 -->
+    <!-- For Unit Test Configuration -->
 	<beans profile="test">
-        <!-- 缺省PropertyPlaceholder定义 -->
+        <!--Definition of default PropertyPlaceholder-->
 		<bean id="extPropertyPlaceholderConfigurer" class="lab.s2jh.core.context.ExtPropertyPlaceholderConfigurer">
 			<property name="basePackages" value="lab.s2jh,s2jh.biz" />
 			<property name="locations">
@@ -260,19 +261,19 @@
 			<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 		</bean>
 		
-        <!-- 用于获取当前Dialect对象之用 -->
+        <!-- Dialect is used to obtain the current objects only-->
 		<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 			<property name="database" value="H2" />
 		</bean>
 
-		<!-- 嵌入式内存中数据库 -->
+		<!-- Embedded memory database -->
 		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-			<!-- 基本属性 url、user、password -->
+			<!-- Basic properties url, user, password -->
 			<property name="url" value="jdbc:h2:mem:h2db-app" />
 			<property name="username" value="sa" />
 			<property name="password" value="" />
 
-			<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+			<!-- Configuration monitoring statistics blocking filters, can not be removed after monitoring interface sql statistics -->
 			<property name="proxyFilters">
 				<list>
 					<ref bean="log-filter" />
@@ -280,7 +281,7 @@
 			</property>
 		</bean>
 
-        <!-- 支持随机路由的只读从库数据源，可根据实际从库数量增减定义 -->
+        <!-- Support random read-only routing data source from the library , it can increase or decrease the actual definition from the library based on the number of-->
 		<bean id="dataSourceSlave" class="lab.s2jh.core.dao.router.RandomRoutingDataSource">
 			<property name="dataSources">
 				<list>
@@ -289,7 +290,7 @@
 			</property>
 		</bean>
 
-        <!-- Quartz直接采用标准的spring jdbc数据源， -->
+        <!-- Quartz directly using standard spring jdbc data source , -->
 		<bean id="dataSourceQuartz" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName" value="org.h2.Driver" />
 			<property name="url" value="jdbc:h2:mem:h2db-quartz" />

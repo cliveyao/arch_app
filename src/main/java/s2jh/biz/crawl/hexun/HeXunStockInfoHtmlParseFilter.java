@@ -20,7 +20,7 @@ public class HeXunStockInfoHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) throws Exception {
         String pageText = webPage.getPageText();
         DocumentFragment df = parse(pageText);
-        //公司简介
+      //Company Profile
         {
             Node introductionNode = selectSingleNode(df, "//*[@id='a_leftmenu_dt4_1']");
             NamedNodeMap atrributes = introductionNode.getAttributes();
@@ -31,7 +31,7 @@ public class HeXunStockInfoHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //最新财务
+     // Latest financial
         {
             Node financeNode = selectSingleNode(df, "//*[@id='a_leftmenu_dt10_1']");
             NamedNodeMap atrributes = financeNode.getAttributes();
@@ -42,7 +42,7 @@ public class HeXunStockInfoHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //公司高管
+      //Company Executives
         String primaryKey = getPrimaryKey(url);
         webPage.addOutlink("http://stockdata.stock.hexun.com/gszl/data/jsondata/ggml.ashx?no=" + primaryKey
                 + "&type=003&count=300&titType=null&page=1&callback=hxbase_json25");

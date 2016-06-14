@@ -26,13 +26,13 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "shop_SiteUser")
-@MetaData(value = "前端用户信息")
+@MetaData(value = "Front-end user information")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class SiteUser extends BaseNativeEntity {
 
     private static final long serialVersionUID = 2686339300612095738L;
 
-    @MetaData(value = "登录账号对象")
+    @MetaData(value = "Login account objects")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;

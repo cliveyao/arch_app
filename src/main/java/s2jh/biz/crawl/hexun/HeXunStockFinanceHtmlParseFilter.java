@@ -23,7 +23,7 @@ public class HeXunStockFinanceHtmlParseFilter extends HeXunStockBaseHtmlParseFil
         pageText = StringUtils.replace(pageText, "</tr></span>", "</tr></tbody>");
         DocumentFragment df = parse(pageText);
 
-        //财务数据
+        
         {
             NodeList nodeList = selectNodeList(df, "//*[@id='zaiyaocontent']/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -40,7 +40,7 @@ public class HeXunStockFinanceHtmlParseFilter extends HeXunStockBaseHtmlParseFil
                 for (int i = 1; i < nodeListSize; i++) {
                     Node node = nodeList.item(i);
                     NodeList childNodes = node.getChildNodes();
-                    //转换数字
+                    
                     if (i + 2 < nodeListSize) {
                         Double double1 = string2double(childNodes.item(1).getTextContent());
                         Double double2 = string2double(childNodes.item(2).getTextContent());

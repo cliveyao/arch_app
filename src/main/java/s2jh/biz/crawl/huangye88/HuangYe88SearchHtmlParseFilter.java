@@ -15,7 +15,7 @@ public class HuangYe88SearchHtmlParseFilter extends HuangYe88BaseHtmlParseFilter
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取除了“首页”的所有分类
+        
         NodeList nodes = selectNodeList(doc, "//DIV[@class='ad_list']/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {

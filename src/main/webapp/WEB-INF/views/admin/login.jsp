@@ -11,34 +11,34 @@
 		<div class="col-md-6">
 			<!-- BEGIN LOGIN FORM -->
 			<form id="login-form" class="login-form" action="${ctx}/admin/login" method="post">
-				<%--管理端登录标识 --%>
+				<%--End management login ID --%>
 				<input type="hidden" name="source" value="A" />
-				<h3 class="form-title" style="color: #666666">系统登录</h3>
+				<h3 class="form-title" style="color: #666666">system login</h3>
 				<div class="form-group">
 					<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-					<label class="control-label visible-ie8 visible-ie9">登录账号</label>
+					<label class="control-label visible-ie8 visible-ie9">Login account</label>
 					<div class="input-icon">
 						<i class="fa fa-user"></i> <input class="form-control placeholder-no-fix" type="text" autocomplete="off"
-							placeholder="登录账号" name="username" value="${auth_username_value}" required="true" data-msg-required="请填写登录账号" />
+							placeholder="Login account" name="username" value="${auth_username_value}" required="true" data-msg-required="请填写登录账号" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="control-label visible-ie8 visible-ie9">登录密码</label>
+					<label class="control-label visible-ie8 visible-ie9">login password</label>
 					<div class="input-icon">
 						<i class="fa fa-lock"></i> <input class="form-control placeholder-no-fix" type="password" autocomplete="off"
-							placeholder="登录密码" name="password" required="true" data-msg-required="请填写登录密码" />
+							placeholder = " password " name = "password" required = "true" data-msg-required = " Please fill out the password " / >
 					</div>
 				</div>
 				<c:if test="${auth_captcha_required!=null}">
 					<div class="form-group">
-						<label class="control-label visible-ie8 visible-ie9">验证码</label>
+						<label class="control-label visible-ie8 visible-ie9">Codes</label>
 						<div class="input-group">
 							<div class="input-icon">
 								<i class="fa fa-qrcode"></i> <input class="form-control captcha-text" type="text" autocomplete="off"
-									placeholder="验证码...看不清可点击图片可刷新" name="captcha" required="true" data-msg-required="请填写验证码" />
+                                placeholder = " codes ... see a clickable image to refresh " name = "captcha" required = "true" data-msg-required = " Please enter the verification code" / >
 							</div>
-							<span class="input-group-btn" style="cursor: pointer;"> <img alt="验证码" class="captcha-img"
-								src="${ctx}/assets/img/captcha_placeholder.jpg" title="看不清？点击刷新" />
+							<span class="input-group-btn" style="cursor: pointer;"> <img alt="Codes" class="captcha-img"
+								src="${ctx}/assets/img/captcha_placeholder.jpg" title="See ? Click Refresh" />
 							</span>
 						</div>
 					</div>
@@ -47,10 +47,10 @@
 					<div align='center' class='alert alert-danger'>${error}</div>
 				</c:if>
 				<div class="form-actions">
-					<label> <input type="checkbox" name="rememberMe" checked="true" value="true" /> 记住我，下次自动登录
+					<label> <input type="checkbox" name="rememberMe" checked="true" value="true" /> Remember me , Remember login
 					</label>
 					<button type="submit" class="btn blue pull-right">
-						登录 <i class="m-icon-swapright m-icon-white"></i>
+						log in<i class="m-icon-swapright m-icon-white"></i>
 					</button>
 				</div>
 				<div class="forget-password">
@@ -58,16 +58,16 @@
 						<div class="col-md-3">
 							<c:if test="${casSupport}">
 								<p>
-									<a href='<s:property value="casRedirectUrl"/>'>单点登录</a>
+									<a href='<s:property value="casRedirectUrl"/>'>sign in</a>
 								</p>
 							</c:if>
 						</div>
 						<div class="col-md-9">
 							<p class="pull-right">
-								忘记密码? <a href="${ctx}/admin/password/forget" data-toggle="modal-ajaxify" title="找回密码" data-modal-size="550px">找回密码</a>
+								forgot password? <a href="${ctx}/admin/password/forget" data-toggle="modal-ajaxify" title="Forgot password" data-modal-size="550px">Forgot password</a>
 								<c:if test="${mgmtSignupEnabled}">
-                                &nbsp; &nbsp;&nbsp; &nbsp; 没有账号? <a href="${ctx}/admin/signup"
-										data-toggle="modal-ajaxify" title="自助注册">自助注册</a>
+                                &nbsp; &nbsp;&nbsp; &nbsp; No account ? <a href="${ctx}/admin/signup"
+										data-toggle="modal-ajaxify" title="自助注册">Self- registration</a>
 								</c:if>
 							</p>
 						</div>
@@ -79,11 +79,11 @@
 		<div class="col-md-1"></div>
 		<div class="col-md-5">
 			<div class="form-info" style="height: 270px; margin-top: 50px">
-				<h4>访问提示</h4>
-				<p>建议使用最新版本Firefox或Chrome浏览器访问应用以避免不必要的浏览器兼容性问题。</p>
+				<H4> prompt access </ h4>
+                <P> recommend using the latest version of Firefox or Chrome browser to access the application in order to avoid unnecessary browser compatibility issues. </ P>
 				<c:if test="${cfg.dev_mode}">
 					<p id="devModeTips" style="padding: 10px">
-						<b> 开发/测试/演示登录快速入口: <br /> <br /> <a href="javascript:void(0)" onclick="setupDevUser('admin','admin123')">admin超级管理员(admin/admin123)</a>
+						<b> Development / test / demo Login Quick Entrance : <br /> <br /> <a href="javascript:void(0)" onclick="setupDevUser('admin','admin123')">admin超级管理员(admin/admin123)</a>
 						</b>
 					</p>
 					<script type="text/javascript">

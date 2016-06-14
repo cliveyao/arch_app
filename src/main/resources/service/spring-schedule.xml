@@ -8,16 +8,16 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"
 	default-lazy-init="false" default-autowire="no">
 
-	<description>Spring定时任务支持</description>
+	<description>Spring timed task support</description>
 
-	<!-- 基于Spring Schedule XML配置的定时任务列表，适合定义在每台服务器节点执行并且无需日志记录、无需管理界面干预等功能支持的任务 -->
+	<!-- Based on the timing task list Spring Schedule XML configuration suitable for defining each server node to perform and does not require logging , no management interface features such as support for intervention tasks -->
 	<task:scheduled-tasks scheduler="springScheduler">
-		<!-- 固定间隔触发任务，单位毫秒 -->
+		<!-- Fixed interval trigger the task , in milliseconds -->
 		<task:scheduled ref="systemSechduleService" method="statOnlineUserCount" fixed-rate="300000" />
 
 	</task:scheduled-tasks>
 
-    <!-- 基于检测到的数据库类型自动进行Quartz DDL初始化 -->
+    <!-- Quartz DDL automatically initialized based on the database type detected -->
 	<bean name="quartzDatabaseDataInitialize" class="lab.s2jh.module.schedule.data.QuartzDatabaseDataInitialize">
 		<property name="dataSource" ref="dataSourceQuartz" />
 	</bean>
@@ -26,19 +26,19 @@
 		<property name="dataSource" ref="dataSourceQuartz" />
 	</bean>
 
-	<!-- 基于Spring与Quartz整合以RAM内存存储非cluster集群的任务列表，适合定义在每台服务器节点都执行的任务 -->
+	<!-- Based on the task list and Spring Quartz integration RAM memory to store non- cluster cluster tasks defined for each server node execution -->
 	<bean id="quartzRAMScheduler" class="lab.s2jh.module.schedule.ExtSchedulerFactoryBean" depends-on="quartzDatabaseDataInitialize">
 		<property name="schedulerName" value="quartzRAMScheduler" />
-		<!-- quartz配置 -->
+		<!-- quartz Configuration -->
 		<property name="configLocation" value="classpath:quartz-ram.properties" />
-		<!-- 启动时延期N秒开始任务 -->
+		<!-- Extension N seconds to start the task at startup -->
 		<property name="startupDelay" value="30" />
-		<!-- Job接受applicationContext的成员变量名 -->
+		<!-- Job accepted applicationContext member variable name -->
 		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
-		<!-- 静态Triggers配置，这些配置Trigger以固定模式运行，如果需要更新则修改配置后更新应用部署才能生效 -->
+		<!-- Triggers static configurations that run in fixing Trigger mode , if you need to update the modified application deployment configuration update to take effect -->
 		<property name="triggers">
 			<list>
-				<!-- 统计数据库状态信息的定时任务，演示在集群环境中只需要任何一个节点统计执行即可 -->
+				<!-- Timing task statistics database state information presentation in a clustered environment only need to perform any of the nodes statistics -->
 				<bean id="lab.s2jh.module.schedule.job.ServerMonitorJob.Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 					<property name="jobDetail">
 						<bean name="lab.s2jh.schedule.job.ServerMonitorJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
@@ -50,29 +50,29 @@
 				</bean>
 			</list>
 		</property>
-		<!-- 定时任务配置Service对象注入，自动获取数据库定时任务配置然后动态加载到Quartz Scheduler，并提供管理界面可动态实时更新以及立即执行等操作 -->
+		<!-- Service timed task configuration objects injection , automatic access to the database timed task configuration and then dynamically loaded into the Quartz Scheduler, and provide management interface can be dynamically updated in real time and perform other operations immediately-->
 		<property name="jobBeanCfgService" ref="jobBeanCfgService" />
 	</bean>
 
-	<!-- 基于Spring与Quartz整合并且支持cluster集群的任务列表，适合定义需要在多个服务器节点中确保同一时间只有一个任务实例执行的任务 -->
+	<!-- Based on Spring and Quartz integration and support cluster cluster task list for the task to define the need to ensure the same time only a task instance execution across multiple server nodes -->
 	<bean id="quartzClusterScheduler" class="lab.s2jh.module.schedule.ExtSchedulerFactoryBean" depends-on="quartzDatabaseDataInitialize">
 		<property name="schedulerName" value="quartzClusterScheduler" />
-		<!-- quartz配置 -->
+		<!-- quartz Configuration -->
 		<property name="configLocation" value="classpath:quartz-cluster.properties" />
-		<!-- 启动时延期N秒开始任务 -->
+		<!-- Extension N seconds to start the task at startup -->
 		<property name="startupDelay" value="30" />
-		<!-- 保存Job数据到数据库所需的数据源 -->
+		<!-- Save Job data to the required data source database -->
 		<property name="dataSource" ref="dataSourceQuartz" />
 		<property name="transactionManager" ref="transactionManagerQuartz" />
-		<!-- Job接受applicationContext的成员变量名 -->
+		<!-- Job accepted applicationContext member variable name -->
 		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
-		<!-- 用数据库最新配置覆盖已有配置 -->
+		<!-- Database with the latest configuration overwrites the previous configuration -->
 		<property name="overwriteExistingJobs" value="true" />
 
-		<!-- 静态Triggers配置，这些配置Trigger以固定模式运行，如果需要更新则修改配置后更新应用部署才能生效 -->
+		<!-- Triggers static configurations that run in fixing Trigger mode , if you need to update the modified application deployment configuration update to take effect-->
 		<property name="triggers">
 			<list>
-				<!-- 统计数据库状态信息的定时任务，演示在集群环境中只需要任何一个节点统计执行即可 -->
+				<!-- Timing task statistics database state information presentation in a clustered environment only need to perform any of the nodes statistics -->
 				<bean id="lab.s2jh.module.schedule.job.DatabaseMonitorJob.Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 					<property name="jobDetail">
 						<bean name="lab.s2jh.module.schedule.job.DatabaseMonitorJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
@@ -84,7 +84,7 @@
 				</bean>
 			</list>
 		</property>
-		<!-- 定时任务配置Service对象注入，自动获取数据库定时任务配置然后动态加载到Quartz Scheduler，并提供管理界面可动态实时更新以及立即执行等操作 -->
+		<!-- Service timed task configuration objects injection , automatic access to the database timed task configuration and then dynamically loaded into the Quartz Scheduler, and provide management interface can be dynamically updated in real time and perform other operations immediately -->
 		<property name="jobBeanCfgService" ref="jobBeanCfgService" />
 	</bean>
 

@@ -22,7 +22,8 @@ public class _31yjCategoryHtmlParseFilter extends AbstractHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取联系方式的链接
+
+     // Get link contact information
         NodeList nodes = selectNodeList(doc, "//*[@id='pics']/div/div[1]/div[2]/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -31,7 +32,8 @@ public class _31yjCategoryHtmlParseFilter extends AbstractHtmlParseFilter {
                 webPage.addOutlink(href);
             }
 
-            //注入下一页
+
+         // Inject Next
             int pageNum = Integer.parseInt(StringUtils.substringBetween(url, "-", ".html"));
             pageNum++;
             String nextPage = StringUtils.substringBefore(url, "-") + "-" + pageNum + ".html";

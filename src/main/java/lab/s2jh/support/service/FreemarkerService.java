@@ -74,7 +74,8 @@ public class FreemarkerService extends Configuration {
         File targetTemplateFile = new File(templateDir + File.separator + templateFileName + ".ftl");
         if (!targetTemplateFile.exists()) {
             try {
-                //从classpath加载文件处理写入临时文件
+
+            	// Write temporary files loaded from the classpath File
                 InputStream source = this.getClass().getResourceAsStream("/template/freemarker/" + templateFileName + ".ftl");
                 FileUtils.copyInputStreamToFile(source, targetTemplateFile);
             } catch (IOException e) {

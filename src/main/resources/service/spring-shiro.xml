@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
 	default-lazy-init="true">
 
-	<description>Shiro安全配置</description>
+	<description>Shiro security configuration</description>
 
 	<!-- shiro cache using Redis 
 	<bean id="shiroRedisManager" class="org.crazycake.shiro.RedisManager">

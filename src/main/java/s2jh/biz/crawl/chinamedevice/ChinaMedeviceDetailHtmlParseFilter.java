@@ -26,7 +26,7 @@ public class ChinaMedeviceDetailHtmlParseFilter extends ChinaMedeviceBaseHtmlPar
             NodeList liNodeList = selectNodeList(linkNode, "./ul/li");
             if (liNodeList != null && liNodeList.getLength() > 0) {
                 for (int i = 0; i < liNodeList.getLength(); i++) {
-                    String tdText = StringUtils.remove(liNodeList.item(i).getTextContent(), "&nbsp;").replace("若您发现该公司信息有误，可点此提交正确信息。", "");
+                    String tdText = StringUtils.remove(liNodeList.item(i).getTextContent(), "&nbsp;").replace("If you find company information is incorrect , you can click here to submit the correct information.", "");
                     String[] nodeTexts = StringUtils.split(tdText, "：");
                     if (nodeTexts.length > 1) {
                         putKeyValue(parsedDBObject, nodeTexts[0].trim(), nodeTexts[1].trim());
@@ -34,11 +34,11 @@ public class ChinaMedeviceDetailHtmlParseFilter extends ChinaMedeviceBaseHtmlPar
                 }
             }
         } else {
-            linkNode = selectSingleNode(df, "//UL[contains(LI,'联系方式')]");
+            linkNode = selectSingleNode(df, "//UL[contains(LI,'Contact information')]");
             NodeList liNodeList = selectNodeList(linkNode, "./li");
             if (liNodeList != null && liNodeList.getLength() > 0) {
                 for (int i = 0; i < liNodeList.getLength(); i++) {
-                    String tdText = StringUtils.remove(liNodeList.item(i).getTextContent(), "&nbsp;").replace("若您发现该公司信息有误，可点此提交正确信息。", "");
+                    String tdText = StringUtils.remove(liNodeList.item(i).getTextContent(), "&nbsp;").replace("If you find company information is incorrect , you can click here to submit the correct information.", "");
                     String[] nodeTexts = StringUtils.split(tdText, "：");
                     if (nodeTexts.length > 1) {
                         putKeyValue(parsedDBObject, nodeTexts[0].trim(), nodeTexts[1].trim());

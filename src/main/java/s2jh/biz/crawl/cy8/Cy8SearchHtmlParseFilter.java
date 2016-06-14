@@ -15,7 +15,8 @@ public class Cy8SearchHtmlParseFilter extends Cy8BaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取除了“首页”的所有分类
+
+     // Get in addition to " Home " in All Categories
         NodeList nodes = selectNodeList(doc, "//DIV[@class='nav']//LI");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -27,7 +28,7 @@ public class Cy8SearchHtmlParseFilter extends Cy8BaseHtmlParseFilter {
             }
         }
 
-        //获取首页加盟导航的加盟店链接
+       
         NodeList nodeList = selectNodeList(doc, "//DIV[@class='kcjm_dh']//LI");
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {

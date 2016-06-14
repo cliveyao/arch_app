@@ -47,7 +47,7 @@ public class UserProfileController {
     @Autowired
     private UserProfileDataService userProfileDataService;
 
-    @MenuData("个人信息:个人配置")
+    @MenuData("Personal Information : Personal Configuration")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/edit", method = RequestMethod.GET)
     public String profileLayoutShow(@ModelAttribute("user") User user, Model model) {
@@ -71,7 +71,7 @@ public class UserProfileController {
             entity.setValue(me.getValue().toString());
             userProfileDataService.save(entity);
         }
-        return OperationResult.buildSuccessResult("界面布局配置参数保存成功");
+        return OperationResult.buildSuccessResult("Interface layout configuration parameters saved successfully");
     }
 
     @RequiresRoles(AuthUserDetails.ROLE_MGMT_USER)
@@ -89,34 +89,36 @@ public class UserProfileController {
         User user = AuthContextHolder.findAuthUser();
         String encodedPasswd = userService.encodeUserPasswd(user, oldpasswd);
         if (!encodedPasswd.equals(user.getPassword())) {
-            return OperationResult.buildFailureResult("原密码不正确,请重新输入");
+            return OperationResult.buildFailureResult("Original password is incorrect, please re-enter");
         } else {
             Validation.notDemoMode();
-            //更新密码失效日期为6个月后
+
+         // Update the password expiration date of six months after the
             user.setCredentialsExpireTime(new DateTime().plusMonths(6).toDate());
             userService.save(user, newpasswd);
-            return OperationResult.buildSuccessResult("密码修改成功,请在下次登录使用新密码");
+            return OperationResult.buildSuccessResult("Password change is successful, the next logon with the new password");
         }
     }
 
-    @MetaData("密码过期强制重置-显示")
+    @MetaData("Password expiration forced reset - Display")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/credentials-expire", method = RequestMethod.GET)
     public String profileCredentialsExpireShow() {
         return "admin/profile/credentials-expire";
     }
 
-    @MetaData("密码过期强制重置-更新")
+    @MetaData("Password expiration forced reset - Update")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/credentials-expire", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult profileCredentialsExpireSave(@RequestParam("newpasswd") String newpasswd) {
         User user = AuthContextHolder.findAuthUser();
         Validation.notDemoMode();
-        //更新密码失效日期为6个月后
+
+     // Update the password expiration date of six months after the
         user.setCredentialsExpireTime(new DateTime().plusMonths(6).toDate());
         userService.save(user, newpasswd);
-        return OperationResult.buildSuccessResult("密码修改成功,请在下次登录使用新密码").setRedirect("/admin");
+        return OperationResult.buildSuccessResult("Password change is successful, the next logon with the new password").setRedirect("/admin");
     }
 
     @ModelAttribute

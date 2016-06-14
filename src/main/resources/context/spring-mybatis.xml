@@ -18,7 +18,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
 	default-lazy-init="false">
 
-	<description>MyBatis配置，主要为了提供高效灵活的查询功能支持。http://mybatis.github.io/mybatis-3/zh/index.html</description>
+	<description>MyBatis configuration, mainly in order to provide efficient and flexible query support. http://mybatis.github.io/mybatis-3/zh/index.html</description>
 
 
     <!-- Multi-db vendor support -->
@@ -38,13 +38,13 @@
 		</property>
 	</bean>  
 
-	<!-- APP数据源配置 -->
+	<!-- APP data source configuration -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
-		<!-- 框架限定MyBatis只做查询处理，默认访问读写分离只读从库 -->
+		<!-- MyBatis framework defines only query processing , the default read-only access to read and write separation from the library -->
 		<property name="dataSource" ref="dataSourceSlave" />
 		<property name="databaseIdProvider" ref="databaseIdProvider" />  
-		<!-- 显式指定Mapper文件位置 -->
+		<!-- Explicitly specify the file location Mapper -->
 		<property name="mapperLocations">
 			<list>
 				<value>classpath*:lab/s2jh/**/entity/*Mapper.xml</value>
@@ -62,7 +62,7 @@
 		</property>
 	</bean>
 	
-	<!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口
+	<!-- Scan basePackage @MyBatisRepository all interfaces identified
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="lab.s2jh.**.dao,s2jh.biz.**.dao" />
 		<property name="annotationClass" value="lab.s2jh.core.dao.mybatis.MyBatisRepository" />

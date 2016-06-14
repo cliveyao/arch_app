@@ -35,7 +35,8 @@ public class MainExecutor {
         WebAppContext webAppContext = new WebAppContext(warFile, "/" + context);
         webAppContext.setServer(server);
 
-        //设置work dir,war包将解压到该目录，jsp编译后的文件也将放入其中。
+
+     // Set the work dir, war package will extract to the directory , the file will jsp compiled into it .
         String currentDir = new File(location.getPath()).getParent();
         File workDir = new File(currentDir, "work");
         webAppContext.setTempDirectory(workDir);

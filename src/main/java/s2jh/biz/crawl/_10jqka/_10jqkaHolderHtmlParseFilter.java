@@ -30,7 +30,7 @@ public class _10jqkaHolderHtmlParseFilter extends AbstractHtmlParseFilter {
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) throws Exception {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
-        Node node = selectSingleNode(doc, "//tr[TH='总股本(万股)']");
+        Node node = selectSingleNode(doc, "//tr[TH='Total share capital ( shares)']");
         if (node != null) {
             String key = getXPathValue(node, "./th");
             String value = getXPathValue(node, "./td[1]");

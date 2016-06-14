@@ -19,7 +19,7 @@ public class SmsServiceImpl implements SmsService {
     @Value("${sms_signature:}")
     private String smsSignature = "";
 
-    @MetaData(value = "模拟发送模式，此模式下直接在console打印短信内容不进行实际短信接口调用")
+    @MetaData(value = "Analog transmission mode , this mode directly in the console print SMS message content without actually interface calls")
     @Value("${sms_mock_mode:false}")
     private String smsMockMode;
 
@@ -34,11 +34,11 @@ public class SmsServiceImpl implements SmsService {
     }
 
     /**
-     * 短信发送接口
-     * @param smsContent 短信内容
-     * @param mobileNum 手机号码
-     * 
-     * @return 如果成功则返回null；否则失败返回异常消息
+     * SMS Interface
+     * @param SmsContent message content
+     * @param MobileNum phone number
+     *
+     * @return If successful returns null; otherwise, failure to return the exception message
      */
     @Override
     public String sendSMS(String smsContent, String mobileNum, SmsMessageTypeEnum smsType) {
@@ -48,7 +48,7 @@ public class SmsServiceImpl implements SmsService {
             return message;
         }
 
-        //追加签名信息
+     // Append signature information
         smsContent += smsSignature;
 
         if (bSmsMockMode) {
@@ -58,7 +58,7 @@ public class SmsServiceImpl implements SmsService {
 
         logger.debug("Sending SMS to {} ： {}", mobileNum, smsContent);
 
-        //TODO 实际短信通道接口调用发送
+     // TODO actual channel interface calls to send SMS
         throw new UnsupportedOperationException("SMS API NOT Implements");
     }
 }

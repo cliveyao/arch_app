@@ -14,7 +14,7 @@ public class LianSuoSearchHtmlParseFilter extends LianSuoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取餐饮分类
+       
         Node node = selectSingleNode(doc, "//DIV[@class='lsrw_l']//A[1]");
         String href = getXPathAttribute(node, "./", "href");
         webPage.addOutlink(href);

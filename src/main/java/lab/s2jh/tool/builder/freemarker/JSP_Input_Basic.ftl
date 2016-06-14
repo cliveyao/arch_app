@@ -21,9 +21,9 @@
 			</button>
 			<button class="btn green" type="submit" data-grid-reload="#grid-${full_entity_name_field}-index" data-post-dismiss="modal">保存并关闭
 			</button>
-			<button class="btn default" type="button" data-dismiss="modal">取消</button>
+			<button class="btn default" type="button" data-dismiss="modal">cancel</button>
 			<#else>
-			<button class="btn default" type="button" data-dismiss="modal">关闭</button>
+			<button class="btn default" type="button" data-dismiss="modal">shut down</button>
 			</#if>
 		</div>
 		<div class="form-body">
@@ -87,13 +87,13 @@
 		<div class="form-actions right">
 		    <#if model_editable>
 			<button class="btn blue" type="submit" data-grid-reload="#grid-${full_entity_name_field}-index">
-				<i class="fa fa-check"></i> 保存
+				<i class="fa fa-check"></i> Save
 			</button>
-			<button class="btn green" type="submit" data-grid-reload="#grid-${full_entity_name_field}-index" data-post-dismiss="modal">保存并关闭
+			<button class="btn green" type="submit" data-grid-reload="#grid-${full_entity_name_field}-index" data-post-dismiss="modal">Save and Close
 			</button>
-			<button class="btn default" type="button" data-dismiss="modal">取消</button>
+			<button class="btn default" type="button" data-dismiss="modal">cancel</button>
 			<#else>
-			<button class="btn default" type="button" data-dismiss="modal">关闭</button>
+			<button class="btn default" type="button" data-dismiss="modal">shut down</button>
 			</#if>
 		</div>
 	</form:form>

@@ -26,14 +26,14 @@ public class _31yjCompanyHtmlParseFilter extends AbstractHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取联系方式的链接
+     // Get link contact information
         NodeList nodes = selectNodeList(doc, "//div[@class='content']/div[6]//ul");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 String nodeText = nodes.item(i).getTextContent();
-                //中文冒号分隔
+                
                 String[] nodeTexts = StringUtils.split(nodeText, "：");
-                //容错处理，英文冒号分隔
+                
                 if (nodeTexts.length <= 1) {
                     nodeTexts = StringUtils.split(nodeText, ":");
                 }

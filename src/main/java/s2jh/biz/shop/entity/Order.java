@@ -27,18 +27,18 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "shop_Order")
-@MetaData(value = "订单")
+@MetaData(value = "Order form")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Order extends BaseNativeEntity {
 
     private static final long serialVersionUID = 3583296283380036832L;
 
-    @MetaData(value = "下单用户")
+    @MetaData(value = "Single-User")
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "siteUser_id")
     private SiteUser siteUser;
 
-    @MetaData(value = "订单号")
+    @MetaData(value = "order number")
     @Column(length = 20, nullable = false, unique = true)
     private String orderNo;
 

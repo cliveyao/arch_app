@@ -34,8 +34,8 @@ public class Hc360LazyHtmlParseFilter extends Hc360BaseHtmlParseFilter {
                 DBObject outlinkParsedDBObject = new BasicDBObject();
                 String companyUrl = getXPathAttribute(divNode, ".//h3/a[1]", "href");
                 String companyName = getXPathValue(divNode, ".//h3/a[1]");
-                putKeyValue(outlinkParsedDBObject, "_产品分类", category);
-                putKeyValue(outlinkParsedDBObject, "公司名称", companyName);
+                putKeyValue(outlinkParsedDBObject, "_Product Categories", category);
+                putKeyValue(outlinkParsedDBObject, "company name", companyName);
                 if (StringUtils.isNotBlank(companyUrl)) {
                     webPage.addOutlink(companyUrl, null, null, siteName, StringUtils.substringBetween(companyUrl, "http://", ".b2b.hc360.com"),
                             outlinkParsedDBObject);

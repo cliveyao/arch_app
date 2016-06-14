@@ -27,7 +27,7 @@ public class XsbccHtmlLoginFilter extends AbstractHtmlLoginFilter {
         String result = EntityUtils.toString(httpResponseEntity, CrawlService.Default_Charset_UTF8);
         EntityUtils.consumeQuietly(httpResponseEntity);
         IOUtils.closeQuietly(httpResponse);
-        if (statusCode == 200 && result.indexOf("登录成功") > -1) {
+        if (statusCode == 200 && result.indexOf("login successful") > -1) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;

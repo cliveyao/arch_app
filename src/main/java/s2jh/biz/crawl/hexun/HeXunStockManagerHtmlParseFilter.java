@@ -28,7 +28,7 @@ public class HeXunStockManagerHtmlParseFilter extends HeXunStockBaseHtmlParseFil
             String title = matcher.group(2);
             sb.append(name).append("(").append(title).append(")\r");
         }
-        putKeyValue(parsedDBObject, "历届高管成员", sb.toString());
+        putKeyValue(parsedDBObject, "Previous senior officers", sb.toString());
         return parsedDBObject;
     }
 

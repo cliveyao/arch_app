@@ -18,8 +18,8 @@ public class LianSuoCategoryHtmlParseFilter extends LianSuoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取排行榜链接
-        Node node = selectSingleNode(doc, "//A[contains(DIV,'加盟店排行榜')]");
+        
+        Node node = selectSingleNode(doc, "//A[contains(DIV,'Franchise rankings')]");
         String href = getXPathAttribute(node, "./", "href");
         webPage.addOutlink(href);
 

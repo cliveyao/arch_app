@@ -43,7 +43,7 @@ public class UserProfileDataController {
             entity.setValue(request.getParameter(code));
             userProfileDataService.save(entity);
         }
-        return OperationResult.buildSuccessResult("参数默认值设定成功");
+        return OperationResult.buildSuccessResult("Parameter default setting success");
     }
 
     @RequiresUser

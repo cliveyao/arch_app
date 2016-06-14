@@ -17,23 +17,23 @@ public class HuangYe88SuffixHtmlParseFilter extends HuangYe88BaseHtmlParseFilter
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取公司公司简介
+       
         Node node = selectSingleNode(doc, "//div[@class='introduct']/p");
         if (node != null) {
             String introduct = getXPathValue(node, "./");
             introduct = ExtStringUtils.cutRedundanceStr(introduct.trim(), 3000);
-            putKeyValue(parsedDBObject, "公司简介", introduct);
+            putKeyValue(parsedDBObject, "Company Profile", introduct);
         }
 
-        //获取公司联系方式
+       
         NodeList nodes = selectNodeList(doc, "//div[@class='Contact']//tr");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);
                 String content = n.getTextContent();
-                //中文冒号分隔
+                
                 String[] nodeTexts = StringUtils.split(content, "：");
-                //容错处理，英文冒号分隔
+                
                 if (nodeTexts.length <= 1) {
                     nodeTexts = StringUtils.split(content, ":");
                 }

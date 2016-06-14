@@ -42,22 +42,23 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 /**
- * 基本CRUD框架代码生成工具类，直接main方法执行或Maven方式运行工程的pom.xml调用生成代码
- * 生成的代码在：target/generated-codes目录下，其中standalone是一个Entity一个目录，用于偶尔重复生成拷贝某一个Entity相关代码之用，integrate是整合到一起的目录结构
- * 模板文件位置：src\main\resources\builder\freemarker，可自行根据项目需要调整模板定义格式
+ * The basic framework of CRUD code generation tools, direct main method execution or run Maven project pom.xml generated code calls
+  * The generated code in: The next target / generated-codes directory, which is a standalone Entity a directory for generating a replica of the occasional repeat one Entity with the relevant code, integrate into the directory structure is together
+  * Template file location: src \ main \ resources \ builder \ freemarker, may need to adjust themselves according to the project template definition format
  */
 public class SourceCodeBuilder {
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void main(String[] args) throws Exception {
         Configuration cfg = new Configuration();
-        // 设置FreeMarker的模版文件位置
+     // Set FreeMarker template file location
         cfg.setClassForTemplateLoading(SourceCodeBuilder.class, "/lab/s2jh/tool//builder/freemarker");
         cfg.setDefaultEncoding("UTF-8");
 
         Set<String> entityNames = new HashSet<String>();
 
-        //扫码所有@Entity注解实体类
+
+     // Scan code annotated entity classes all @Entity
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         scanner.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
         scanner.addExcludeFilter(new AnnotationTypeFilter(RevisionEntity.class));
@@ -132,9 +133,10 @@ public class SourceCodeBuilder {
                 superClass = superClass.getSuperclass();
             }
 
-            //计算主界面OR查询字段列表
+
+         // Calculate the main interface OR query field list
             Map<String, String> searchOrFields = Maps.newLinkedHashMap();
-            //定义用于OneToOne关联对象的Fetch参数
+         // Fetch parameter definitions associated with the object for OneToOne
             Map<String, String> fetchJoinFields = Maps.newLinkedHashMap();
             List<EntityCodeField> entityFields = new ArrayList<EntityCodeField>();
             int cnt = 1;
@@ -168,7 +170,8 @@ public class SourceCodeBuilder {
                 } else if (fieldType == String.class) {
                     entityCodeField = new EntityCodeField();
 
-                    //根据Hibernate注解的字符串类型和长度设定是否列表显示
+
+                 // If the list displayed according Hibernate annotation string type and length settings
                     Column fieldColumn = field.getAnnotation(Column.class);
                     if (fieldColumn != null) {
                         int length = fieldColumn.length();
@@ -196,7 +199,8 @@ public class SourceCodeBuilder {
                     entityCodeField = new EntityCodeField();
                     entityCodeField.setListFixed(true);
 
-                    //根据Json注解设定合理的列宽
+
+                 // Reasonable set column widths according to Json comment
                     entityCodeField.setListWidth(150);
                     entityCodeField.setFieldType("Timestamp");
                     JsonSerialize fieldJsonSerialize = field.getAnnotation(JsonSerialize.class);
@@ -308,10 +312,10 @@ public class SourceCodeBuilder {
     }
 
     /**
-     * 对象属性转换为字段 例如：userName to user_name
-     * 
-     * @param property
-     *            字段名
+     * Converts object properties in a field , for example : userName to user_name
+     *
+     * @param Property
+     * Field name
      * @return
      */
     public static String propertyToField(String property) {

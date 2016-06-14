@@ -21,7 +21,7 @@ public class Jm51XmjsHtmlParseFilter extends Jm51BaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
         Node parentNode = selectSingleNode(doc, "//*[@class='main_content_base']/table");
-        //品牌
+        
         {
             NodeList nodeList = selectNodeList(parentNode, "./tbody/tr[1]/td/table/tbody/tr/td");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -35,7 +35,7 @@ public class Jm51XmjsHtmlParseFilter extends Jm51BaseHtmlParseFilter {
                 }
             }
         }
-        //公司信息
+       
         {
             NodeList nodeList = selectNodeList(parentNode, "./tbody/tr[2]/td/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -54,7 +54,7 @@ public class Jm51XmjsHtmlParseFilter extends Jm51BaseHtmlParseFilter {
                 }
             }
         }
-        //加盟条件
+        
         {
             NodeList nodeList = selectNodeList(parentNode, "./tbody/tr[4]/td/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {

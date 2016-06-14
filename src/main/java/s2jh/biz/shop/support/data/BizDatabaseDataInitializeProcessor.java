@@ -34,7 +34,7 @@ import s2jh.biz.shop.service.SiteUserService;
 import com.google.common.collect.Lists;
 
 /**
- * 业务数据初始化处理器
+ * Business data processor initialization
  */
 @Component
 public class BizDatabaseDataInitializeProcessor extends DatabaseDataInitializeProcessor {
@@ -68,17 +68,18 @@ public class BizDatabaseDataInitializeProcessor extends DatabaseDataInitializePr
         if (configPropertyService.findByPropKey(BizConstant.CFG_HTML_FAQ) == null) {
             ConfigProperty entity = new ConfigProperty();
             entity.setPropKey(BizConstant.CFG_HTML_FAQ);
-            entity.setPropName("常见问题文案");
+            entity.setPropName("FAQ Copywriter");
             entity.setHtmlValue(getStringFromTextFile("faq.txt"));
             configPropertyService.save(entity);
         }
 
-        //演示模式创建一些模拟数据
+     // Create some demo mode simulated data
         if (DynamicConfigService.isDemoMode()) {
 
             logger.debug("Prepare data for DEMO mode...");
 
-            //获取一些随机图片集合数据
+
+         // Get some random image data set
             List<String> randomImages = Lists.newArrayList();
             URL url = this.getClass().getResource("images");
             String fileName = url.getFile();
@@ -87,68 +88,77 @@ public class BizDatabaseDataInitializeProcessor extends DatabaseDataInitializePr
                 randomImages.add("/files/mock/" + file.getName());
             }
 
-            //如果为空表则初始化模拟数据，
+
+         // If the table is empty then initialize the analog data ,
             if (isEmptyTable(SiteUser.class)) {
                 //随机注册用户数量
                 int cnt = MockEntityUtils.randomInt(10, 20);
                 for (int i = 0; i < cnt; i++) {
-                    //随机用户注册日期: 当前系统日期之前若干天
+                	// Random User Registration Date: Several days before the current system date
                     DateUtils.setCurrentDate(MockEntityUtils.randomDate(90, -7));
 
-                    //构造随机属性值填充用户对象。一般随机属性生成后，需要对一些特定业务属性特殊设置。
+
+                 // Construct a random attribute values ​​populated user objects. After the general properties of random generation , the need for certain special service attribute set .
                     User user = MockEntityUtils.buildMockObject(User.class);
                     //基于当前循环流水号作为模拟数据账号
                     String seq = String.format("%03d", i);
                     user.setAuthUid("test" + seq);
-                    user.setTrueName("测试账号" + seq);
-                    //对email属性设置有效格式的值，否则无法通过实体上定义的@Email注解验证
+                    user.setTrueName("Test Account" + seq);
+
+                 // Set the value of the properties valid formats for email , otherwise it can not be defined by the entity @Email annotation verification
                     user.setEmail(user.getAuthUid() + "@s2jh4net.com");
-                    //调用业务接口进行模拟数据保存
+                 // Call the service interface simulation data storage
                     userService.save(user, "123456");
 
                     SiteUser siteUser = MockEntityUtils.buildMockObject(SiteUser.class);
                     siteUser.setUser(user);
-                    //随机注册头像头像
+                 // Random Register Avatar Avatar
                     siteUser.setHeadPhoto(MockEntityUtils.randomCandidates(randomImages));
                     siteUserService.save(siteUser);
 
-                    //提交当前事务数据，以模拟实际情况中分步骤创建业务数据
+
+                 // Commit the current transaction data to simulate the actual situation step by step to create a business data
                     commitAndResumeTransaction();
 
-                    //随机模拟用户下单
+
+                 // Stochastic Simulation single user
                     int orderCount = MockEntityUtils.randomInt(0, 5);
                     for (int j = 0; j < orderCount; j++) {
-                        //新事务中重新查询加载对象
+                    	// New transaction re- load the object query
                         siteUser = siteUserService.findOne(siteUser.getId());
 
-                        //构造模拟订单对象
+
+                     // Constructor simulate order object
                         Order order = new Order();
-                        //模拟订单号
+                     // Analog Order No.
                         order.setOrderNo("O" + siteUser.getId() + j);
                         order.setSiteUser(siteUser);
 
-                        //模拟用户在注册后随机时间下单
+                     // Simulate a single user at a random time after registration
                         DateUtils.setCurrentDate(new DateTime(siteUser.getUser().getUserExt().getSignupTime()).plusHours(
                                 MockEntityUtils.randomInt(1, 240)).toDate());
                         orderService.submitOrder(order);
-                        //提交当前事务数据，以模拟实际情况中分步骤创建业务数据
+
+                     // Commit the current transaction data to simulate the actual situation step by step to create a business data
                         commitAndResumeTransaction();
 
-                        //随机部分订单支付
+                     // Random part of the order to pay
                         if (MockEntityUtils.randomBoolean()) {
-                            //新事务中重新查询加载对象
+                        	// New transaction re- load the object query
                             order = orderService.findOne(order.getId());
-                            //设置付款时间为当前订单的下单时间之后的随机1到8小时的时间点
+
+                         // Set the time of payment of the current single random order of time after 1-8 hours of time
                             Date randomTime = new DateTime(order.getSubmitTime()).plusHours(MockEntityUtils.randomInt(1, 8)).toDate();
                             DateUtils.setCurrentDate(randomTime);
                             orderService.payOrder(order);
-                            //提交当前事务数据，以模拟实际情况中分步骤创建业务数据
+
+                         // Commit the current transaction data to simulate the actual situation step by step to create a business data
                             commitAndResumeTransaction();
                         }
                     }
                 }
             }
-            //提交当前事务数据，以模拟实际情况中分步骤创建业务数据
+         // Commit the current transaction data to simulate the actual situation step by step to create a business data
             commitAndResumeTransaction();
         }
     }

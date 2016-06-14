@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 import com.mongodb.DBObject;
 
 /**
- * 和讯股票数据解析: 公司资料
+ * Data analysis and stock news : Company Profile
  */
 public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter {
 
@@ -18,7 +18,7 @@ public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) {
         String pageText = webPage.getPageText();
         DocumentFragment df = parse(pageText);
-        //基础信息
+      //basic information
         {
             NodeList nodeList = selectNodeList(df, "/html/body/div[5]/div[8]/div[1]/div[1]/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -30,7 +30,7 @@ public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //证券信息
+     // Securities Information
         {
             NodeList nodeList = selectNodeList(df, "/html/body/div[5]/div[8]/div[2]/div[1]/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -42,7 +42,7 @@ public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //工商信息
+     // Business Information
         {
             NodeList nodeList = selectNodeList(df, "/html/body/div[5]/div[8]/div[1]/div[2]/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -54,7 +54,7 @@ public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //联系方式
+      //Contact information
         {
             NodeList nodeList = selectNodeList(df, "/html/body/div[5]/div[8]/div[2]/div[2]/table/tbody/tr");
             if (nodeList != null && nodeList.getLength() > 0) {
@@ -66,10 +66,12 @@ public class HeXunStockGszlHtmlParseFilter extends HeXunStockBaseHtmlParseFilter
             }
         }
 
-        //经营范围
+
+      //Business Scope
         putKeyValue(parsedDBObject, "经营范围", getXPathValue(df, "/html/body/div[5]/div[8]/div[1]/div[3]/p"));
 
-        //公司简介
+
+      //Company Profile
         putKeyValue(parsedDBObject, "公司简介", getXPathValue(df, "/html/body/div[5]/div[8]/div[2]/div[3]/p"));
 
         return parsedDBObject;

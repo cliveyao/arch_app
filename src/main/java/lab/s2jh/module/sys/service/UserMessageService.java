@@ -45,8 +45,8 @@ public class UserMessageService extends BaseService<UserMessage, Long> {
     }
 
     /**
-     * 查询用户未读消息个数
-     * @param user 当前登录用户
+     * The number of user queries unread messages
+     * @param User currently logged on user
      */
     @Transactional(readOnly = true)
     public Long findCountToRead(User user) {
@@ -69,14 +69,15 @@ public class UserMessageService extends BaseService<UserMessage, Long> {
     }
 
     /**
-     * 消息推送处理
+     * Push message processing
      * @param entity
      */
     public void pushMessage(UserMessage entity) {
-        //定向用户消息处理
+
+    	// User oriented message processing
         User targetUser = entity.getTargetUser();
 
-        //邮件推送处理
+     // Push mail processing
         if (entity.getEmailPush() && entity.getEmailPushTime() == null) {
             String email = targetUser.getEmail();
             if (StringUtils.isNotBlank(email)) {
@@ -85,7 +86,8 @@ public class UserMessageService extends BaseService<UserMessage, Long> {
             }
         }
 
-        //短信推送处理
+
+     // SMS push processing
         if (entity.getSmsPush() && entity.getSmsPushTime() == null) {
             if (smsService != null) {
                 String mobileNum = targetUser.getMobile();
@@ -101,7 +103,8 @@ public class UserMessageService extends BaseService<UserMessage, Long> {
 
         }
 
-        //APP推送
+
+     // APP Push
         if (entity.getAppPush() && entity.getAppPushTime() == null) {
             if (messagePushService != null) {
                 Boolean pushResult = messagePushService.sendPush(entity);

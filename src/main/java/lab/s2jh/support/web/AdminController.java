@@ -95,13 +95,14 @@ public class AdminController {
     }
 
     /**
-     * 计算显示用户登录菜单数据
+     *Calculations show that user login menu data
      */
     @RequestMapping(value = "/admin/menus", method = RequestMethod.GET)
     @ResponseBody
     public List<NavMenuVO> navMenu(HttpSession session) {
         User user = AuthContextHolder.findAuthUser();
-        //如果未登录则直接返回空
+
+         // If not logged in direct return empty
         if (user == null) {
             return Lists.newArrayList();
         }
@@ -118,22 +119,22 @@ public class AdminController {
     @ResponseBody
     public OperationResult forgetPasswordSave(HttpServletRequest request, @RequestParam("uid") String uid, @RequestParam("captcha") String captcha) {
         if (!ImageCaptchaServlet.validateResponse(request, captcha)) {
-            return OperationResult.buildFailureResult("验证码不正确，请重新输入");
+            return OperationResult.buildFailureResult("The verification code is incorrect. Please re-enter");
         }
         User user = userService.findByAuthTypeAndAuthUid(AuthTypeEnum.SYS, uid);
         if (user == null) {
             user = userService.findByProperty("email", uid);
         }
         if (user == null) {
-            return OperationResult.buildFailureResult("未找到匹配账号信息，请联系管理员处理");
+            return OperationResult.buildFailureResult("Match the account information is not found, please contact the administrator Processing");
         }
         String email = user.getEmail();
         if (StringUtils.isBlank(email)) {
-            return OperationResult.buildFailureResult("当前账号未设定注册邮箱，请联系管理员先设置邮箱后再进行此操作");
+            return OperationResult.buildFailureResult("The current account is not set registered mail , please contact the administrator to set the mailbox after this operation");
         }
 
         userService.requestResetPassword(WebAppContextInitFilter.getInitedWebContextFullUrl(), user);
-        return OperationResult.buildSuccessResult("找回密码请求处理成功。重置密码邮件已发送至：" + email);
+        return OperationResult.buildSuccessResult("Forgot password Request successfully processed . Reset Password message has been sent to :" + email);
     }
 
     @RequestMapping(value = "/admin/password/reset", method = RequestMethod.GET)
@@ -149,15 +150,15 @@ public class AdminController {
         if (user != null) {
             if (code.equals(user.getUserExt().getRandomCode())) {
                 //user.setRandomCode(null);
-                //更新密码失效日期为6个月后
+                // Update the password expiration date of six months after the
                 user.setCredentialsExpireTime(new DateTime().plusMonths(6).toDate());
                 userService.save(user, newpasswd);
-                return OperationResult.buildSuccessResult("密码重置成功，您可以马上使用新设定密码登录系统啦").setRedirect("/admin/login");
+                return OperationResult.buildSuccessResult("Password reset is successful, you can immediately use the new system it set the password").setRedirect("/admin/login");
             } else {
-                return OperationResult.buildFailureResult("验证码不正确或已失效，请尝试重新找回密码操作");
+                return OperationResult.buildFailureResult("Verification code is incorrect or expired , please try to retrieve cryptographic operations");
             }
         }
-        return OperationResult.buildFailureResult("操作失败");
+        return OperationResult.buildFailureResult("operation failed");
     }
 
     @RequestMapping(value = "/admin/signup", method = RequestMethod.GET)
@@ -170,21 +171,21 @@ public class AdminController {
     @ResponseBody
     public OperationResult signupSave(HttpServletRequest request, @RequestParam("captcha") String captcha, @ModelAttribute("entity") SignupUser entity) {
         if (!ImageCaptchaServlet.validateResponse(request, captcha)) {
-            return OperationResult.buildFailureResult("验证码不正确，请重新输入");
+            return OperationResult.buildFailureResult("The verification code is incorrect. Please re-enter");
         }
         if (dynamicConfigService.getBoolean(GlobalConstant.cfg_mgmt_signup_disabled, false)) {
-            return OperationResult.buildFailureResult("系统暂未开发账号注册功能，如有疑问请联系管理员");
+            return OperationResult.buildFailureResult("Write system development account registration function , if in doubt please contact the administrator");
         }
         signupUserService.signup(entity, request.getParameter("password"));
-        return OperationResult.buildSuccessResult("注册成功。需要等待管理员审批通过后方可登录系统。");
+        return OperationResult.buildSuccessResult("registration success. Administrators need to wait for approval before to log on through .");
     }
     
     /**
-     * 验证手机唯一性
+     *Verify phone Uniqueness
      * <p>
-     * 业务输入参数列表：
+     * Business list of input parameters :
      * <ul>
-     * <li><b>mobile</b> 手机号</li>
+     * <li> <b> mobile </ b> phone number </ li>
      * </ul>
      * </p>
      * @param request
@@ -204,11 +205,11 @@ public class AdminController {
     }
 
     /**
-     * 验证电子邮件唯一性
+     * Uniqueness verification email
      * <p>
-     * 业务输入参数列表：
+     * Business list of input parameters :
      * <ul>
-     * <li><b>email</b> 电子邮件</li>
+     * <li> <b> email </ b> email </ li>
      * </ul>
      * </p>
      * @param request
@@ -228,11 +229,11 @@ public class AdminController {
     }
 
     /**
-     * 验证电子邮件唯一性
+     * Uniqueness verification email
      * <p>
-     * 业务输入参数列表：
+     * Business list of input parameters :
      * <ul>
-     * <li><b>email</b> 电子邮件</li>
+     * <li> <b> email </ b> email </ li>
      * </ul>
      * </p>
      * @param request
@@ -251,14 +252,14 @@ public class AdminController {
         return true;
     }
 
-    @MenuData("个人信息:公告消息")
+    @MenuData("Personal information : Bulletin message")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/notify-message", method = RequestMethod.GET)
     public String notifyMessageIndex() {
         return "admin/profile/notifyMessage-index";
     }
 
-    @MetaData("公告消息列表")
+    @MetaData("Announcement Message List")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/notify-message-list", method = RequestMethod.GET)
     public String notifyMessageList(HttpServletRequest request, Model model) {
@@ -275,7 +276,7 @@ public class AdminController {
         return "admin/profile/notifyMessage-list";
     }
 
-    @MetaData("公告消息读取")
+    @MetaData("News bulletin read")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/notify-message-view/{messageId}", method = RequestMethod.GET)
     public String notifyMessageView(@PathVariable("messageId") Long messageId, Model model) {
@@ -286,14 +287,14 @@ public class AdminController {
         return "admin/profile/notifyMessage-view";
     }
 
-    @MenuData("个人信息:个人消息")
+    @MenuData("Personal Information : Personal Message")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/user-message", method = RequestMethod.GET)
     public String userMessageIndex() {
         return "admin/profile/userMessage-index";
     }
 
-    @MetaData("个人消息列表")
+    @MetaData("Personal message list")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/user-message-list", method = RequestMethod.GET)
     public String userMessageList(HttpServletRequest request, Model model) {
@@ -314,7 +315,7 @@ public class AdminController {
         return "admin/profile/userMessage-list";
     }
 
-    @MetaData("个人消息读取")
+    @MetaData("Read a personal message")
     @RequiresRoles(value = AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin/profile/user-message-view/{messageId}", method = RequestMethod.GET)
     public String userMessageView(@PathVariable("messageId") Long messageId, Model model) {

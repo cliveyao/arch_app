@@ -26,19 +26,19 @@ public class Hc360DetailHtmlParseFilter extends Hc360BaseHtmlParseFilter {
             navNode = selectSingleNode(df, "//*[@class='mainnav']");
         }
         if (navNode != null) {
-            String introduceUrl = getXPathAttribute(navNode, ".//A[contains(text(),'公司介绍') or contains(text(),'公司档案')]", "href");
+            String introduceUrl = getXPathAttribute(navNode, ".//A[contains(text(),'Company Profile') or contains(text(),'Company Profile')]", "href");
             if (StringUtils.isNotBlank(introduceUrl)) {
                 webPage.addOutlink(introduceUrl);
             }
 
-            String contactUrl = getXPathAttribute(navNode, ".//A[contains(text(),'联系我们') or contains(text(),'联系方式')]", "href");
+            String contactUrl = getXPathAttribute(navNode, ".//A[contains(text(),'contact us') or contains(text(),'Contact information')]", "href");
             if (StringUtils.isNotBlank(contactUrl)) {
                 webPage.addOutlink(contactUrl);
             }
             return null;
         } else {
             //联系我们
-            Node contactNode = selectSingleNode(df, "//DIV[contains(H2,'联系我们')]");
+            Node contactNode = selectSingleNode(df, "//DIV[contains(H2,'contact us')]");
             if (contactNode != null) {
                 NodeList contactNodeList = selectNodeList(contactNode, "/div/ul/li");
                 if (contactNodeList != null && contactNodeList.getLength() > 0) {

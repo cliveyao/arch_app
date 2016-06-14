@@ -21,7 +21,7 @@ public class YzCityHtmlParseFilter extends YzBaseHtmlParseFilter {
         DocumentFragment doc = parse(pageText);
         Node navNode = selectSingleNode(doc, "//*[@id='index-nav']");
         if (navNode != null) {
-            Node targetNode = selectSingleNode(navNode, ".//A[contains(text(),'孕产护理')]");
+            Node targetNode = selectSingleNode(navNode, ".//A[contains(text(),'Maternity care')]");
             if (targetNode != null) {
                 String targetUrl = getNodeAttribute(targetNode, "href");
                 targetUrl = "http://www.dianping.com" + StringUtils.substringBeforeLast(targetUrl, "/") + "/g2784";

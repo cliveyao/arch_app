@@ -39,12 +39,12 @@ public class JdypgxwContactHtmlParseFilter extends AbstractHtmlParseFilter {
                     }
                 } else {
                     String value = getXPathValue(node, "./td[2]");
-                    if ("公司网址".equals(name)) {
+                    if ("company website".equals(name)) {
                         Node site = selectSingleNode(node, ".//A[1]");
                         if (site != null) {
                             putKeyValue(parsedDBObject, name, getNodeText(site));
                         }
-                    } else if (!"即时通讯".equals(name) && !"在线状态".equals(name)) {
+                    } else if (!"Chat".equals(name) && !"Online".equals(name)) {
                         putKeyValue(parsedDBObject, name, value);
                     }
                 }

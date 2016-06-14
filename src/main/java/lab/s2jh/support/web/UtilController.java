@@ -66,14 +66,14 @@ public class UtilController {
     @Autowired(required = false)
     private BrokeredMessageListener brokeredMessageListener;
 
-    @MenuData("配置管理:系统管理:辅助管理")
+    @MenuData("Configuration Management: System Management: assistant management")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "admin/util/util-index";
     }
 
-    @MetaData(value = "刷新数据缓存")
+    @MetaData(value = "Refresh data cache")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "/cache-clear", method = RequestMethod.POST)
     @ResponseBody
@@ -83,7 +83,8 @@ public class UtilController {
             logger.info("Clearing EhCache cacheManager: {}", cacheManager.getName());
             String[] cacheNames = cacheManager.getCacheNames();
             for (String cacheName : cacheNames) {
-                //对于Apache Shiro缓存忽略
+
+            	// For Apache Shiro cache Ignore
                 if (cacheName.indexOf(".authorizationCache") > -1) {
                     continue;
                 }
@@ -91,18 +92,18 @@ public class UtilController {
                 Ehcache cache = cacheManager.getEhcache(cacheName);
                 cache.removeAll();
             }
-            return OperationResult.buildSuccessResult("EhCache数据缓存刷新操作成功");
+            return OperationResult.buildSuccessResult("EhCache data cache flush operation was successful");
         }
-        return OperationResult.buildFailureResult("未知缓存管理器");
+        return OperationResult.buildFailureResult("Unknown Cache Manager");
     }
 
-    @MetaData(value = "动态更新Logger日志级别")
+    @MetaData(value = "Dynamic Update Logger log level")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "/logger-update", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult loggerLevelUpdate(@RequestParam(value = "loggerName", required = false) String loggerName,
             @RequestParam("loggerLevel") String loggerLevel) {
-        Assert.isTrue(false, "模拟异常");
+        Assert.isTrue(false, "Analog exception");
         if (StringUtils.isBlank(loggerName)) {
             Validation.notDemoMode();
             loggerName = Logger.ROOT_LOGGER_NAME;
@@ -113,7 +114,7 @@ public class UtilController {
             logbackLogger.setLevel(Level.toLevel(loggerLevel));
         }
         logger.info("Update logger {} to level {}", loggerName, loggerLevel);
-        return OperationResult.buildSuccessResult("动态更新Logger日志级别操作成功");
+        return OperationResult.buildSuccessResult("Dynamic Update Logger log level operation is successful");
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.GET)
@@ -137,7 +138,8 @@ public class UtilController {
         String jql = "select id from " + entityClass.getName() + " where " + element + "=:value ";
         Query query = null;
 
-        // 处理额外补充参数，有些数据是通过两个字段共同决定唯一性，可以通过additional参数补充提供
+
+     // Handle the extra added parameter , some data by two fields together determine uniqueness, can be supplemented by additional parameters provided
         String additionalName = request.getParameter("additional");
         if (StringUtils.isNotBlank(additionalName)) {
             String additionalValue = request.getParameter(additionalName);
@@ -154,31 +156,32 @@ public class UtilController {
         }
 
         List<?> entities = query.getResultList();
-        if (entities == null || entities.size() == 0) {// 未查到重复数据
+        if (entities == null || entities.size() == 0) {// Not found duplicate data
             return true;
         } else {
-            if (entities.size() == 1) {// 查询到一条重复数据
+            if (entities.size() == 1) {// Query to a duplicate data
                 String id = request.getParameter("id");
                 if (StringUtils.isNotBlank(id)) {
                     String entityId = ((Long) entities.get(0)).toString();
                     logger.debug("Check Unique Entity ID = {}", entityId);
-                    if (id.equals(entityId)) {// 查询到数据是当前更新数据，不算已存在
+                    if (id.equals(entityId)) {// Query the data is current update data , not already exist
                         return true;
-                    } else {// 查询到数据不是当前更新数据，算已存在
+                    } else {// Query the data is not current update data , count already exists
                         return false;
                     }
-                } else {// 没有提供Sid主键，说明是创建记录，则算已存在
+                } else {// Not available Sid primary key note is to create a record , the operator already exists
                     return false;
                 }
-            } else {// 查询到多余一条重复数据，说明数据库数据本身有问题
+            } else {
+            	// Query to a redundant duplicate data , the data indicates that the database itself has a problem
                 throw new WebException("error.check.unique.duplicate: " + element + "=" + value);
             }
         }
     }
 
     /**
-     * 基于jqGrid页面数据实现一个通用的导出Excel功能
-     * 注意：此功能只处理页面已有数据，不包括分页支持；如果需要导出当前所有查询出来的数据需要另行实现
+     * Based jqGrid page data to achieve a common export Excel function
+     * Note: This feature is only available data processing page , excluding paging support ; if you need to export data out of all the current query needs to achieve further
      */
     @RequiresRoles(AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/grid/export", method = RequestMethod.POST)
@@ -193,19 +196,21 @@ public class UtilController {
             String exportDatas = request.getParameter("exportDatas");
             OutputStream os = response.getOutputStream();
 
-            HSSFWorkbook wb = new HSSFWorkbook();//创建Excel工作簿对象   
-            HSSFSheet sheet = wb.createSheet(filename);//创建Excel工作表对象     
+            HSSFWorkbook wb = new HSSFWorkbook();// Create the Excel Workbook object
+            HSSFSheet sheet = wb.createSheet(filename);  // Create an Excel worksheet object
             String[] rows = exportDatas.split("\n");
             for (int i = 0; i < rows.length; i++) {
                 String row = rows[i];
                 if (StringUtils.isNotBlank(row)) {
                     logger.trace("Row {}: {}", i, row);
-                    // 创建Excel的sheet的一行
+
+                 // Create a row in the Excel sheet
                     HSSFRow hssfRow = sheet.createRow(i);
                     String[] cells = row.split("\t");
                     for (int j = 0; j < cells.length; j++) {
                         String cell = cells[j];
-                        // 创建一个Excel的单元格
+
+                     // Create an Excel cell
                         HSSFCell hssfCell = hssfRow.createCell(j);
                         hssfCell.setCellValue(cell);
                     }
@@ -225,14 +230,15 @@ public class UtilController {
         return "admin/util/load-balance-test";
     }
 
-    @MetaData(value = "系统时间篡改更新")
+    @MetaData(value = "Tampering with the system time update")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "/systime/setup", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult systimeSetup(@RequestParam(value = "time", required = true) String time) {
         DateUtils.setCurrentDate(DateUtils.parseMultiFormatDate(time));
 
-        //为了避免遗忘执行手工恢复操作，在“临时调整系统时间”操作后，默认在N分钟后强制恢复为当前系统时间。
+
+     // To avoid forgetting to perform manual recovery operation , in the " temporary adjust the system time" action , by default N minutes after the forced recovery of the current system time .
         Runnable runnable = new Runnable() {
             public void run() {
                 DateUtils.setCurrentDate(null);
@@ -242,19 +248,19 @@ public class UtilController {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.schedule(runnable, 5, TimeUnit.MINUTES);
 
-        return OperationResult.buildSuccessResult("系统时间已临时调整为：" + DateUtils.formatTime(DateUtils.currentDate()));
+        return OperationResult.buildSuccessResult("The system time has been adjusted for the interim :" + DateUtils.formatTime(DateUtils.currentDate()));
     }
 
-    @MetaData(value = "系统时间篡改恢复")
+    @MetaData(value = "System tamper recovery time")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "/systime/reset", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult systimeReset() {
         DateUtils.setCurrentDate(null);
-        return OperationResult.buildSuccessResult("系统时间临时调整已恢复为当前系统时间：" + DateUtils.formatTime(DateUtils.currentDate()));
+        return OperationResult.buildSuccessResult("Time temporary adjustment system has been restored to the current system time :" + DateUtils.formatTime(DateUtils.currentDate()));
     }
 
-    @MetaData(value = "消息服务监听器状态切换")
+    @MetaData(value = "Message Service Listener state switching")
     @RequiresRoles(AuthUserDetails.ROLE_SUPER_USER)
     @RequestMapping(value = "/brokered-message/listener-state", method = RequestMethod.POST)
     @ResponseBody
@@ -262,11 +268,11 @@ public class UtilController {
         Validation.isTrue(brokeredMessageListener != null, "BrokeredMessageListener undefined");
         if ("startup".equals(state)) {
             brokeredMessageListener.startup();
-            return OperationResult.buildSuccessResult("消息服务监听器已启动");
+            return OperationResult.buildSuccessResult("Message Service listener is started");
         } else if ("shutdown".equals(state)) {
             brokeredMessageListener.shutdown();
-            return OperationResult.buildSuccessResult("消息服务监听器已关闭");
+            return OperationResult.buildSuccessResult("Message Service listener is closed");
         }
-        return OperationResult.buildFailureResult("未知状态参数");
+        return OperationResult.buildFailureResult("Unknown state parameters");
     }
 }

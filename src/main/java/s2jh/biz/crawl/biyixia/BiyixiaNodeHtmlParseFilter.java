@@ -20,7 +20,7 @@ public class BiyixiaNodeHtmlParseFilter extends BiyixiaBaseHtmlParseFilter {
             return null;
         }
 
-        //企业信息
+      //Corporate Information
         {
             NodeList nodes = selectNodeList(df, "//DIV[@class='row info']/DIV[@class='clearfix']");
             if (nodes != null && nodes.getLength() > 0) {
@@ -41,7 +41,8 @@ public class BiyixiaNodeHtmlParseFilter extends BiyixiaBaseHtmlParseFilter {
             }
         }
 
-        //联系信息
+
+      //Contact information
         {
             NodeList nodes = selectNodeList(df, "//DIV[@id='group_blog_contact']//DIV[@class='t_row']");
             if (nodes != null && nodes.getLength() > 0) {

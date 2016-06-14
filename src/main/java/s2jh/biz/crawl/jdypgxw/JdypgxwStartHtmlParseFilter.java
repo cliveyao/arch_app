@@ -10,7 +10,7 @@ import com.mongodb.DBObject;
 
 public class JdypgxwStartHtmlParseFilter extends AbstractHtmlParseFilter {
 
-    private static final String[] CATEGORY = { "酒店客房用品", "酒店厨房设备", "酒店清洁设备", "食品饮料" };
+    private static final String[] CATEGORY = { " Hotel room supplies ", " hotel kitchen equipment", " Clean hotel facilities ", " Food & Beverage " };
 
     @Override
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) {

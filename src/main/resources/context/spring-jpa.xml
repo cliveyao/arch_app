@@ -18,7 +18,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
 	default-lazy-init="false">
 	
-	<!-- JPA Entity Manager 配置, 设置depends-on="cacheManager"，确保共享模式下优先加载Spring CacheManager -->
+	<!-- JPA Entity Manager configuration settings depends-on = "cacheManager", ensuring priority load sharing mode Spring CacheManager -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		depends-on="cacheManager">
 		<property name="dataSource" ref="dataSource" />
@@ -65,15 +65,15 @@
 		</property>
 	</bean>
 
-	<!-- JPA 事务配置 -->
+	<!-- JPA transaction configuration -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<!-- 使用annotation定义事务 -->
+	<!-- Use annotation defined transaction -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
 
-	<!-- Spring Data JPA配置 -->
+	<!-- Spring Data JPA configuration -->
 	<jpa:repositories base-package="lab.s2jh.**.dao,s2jh.biz.**.dao" transaction-manager-ref="transactionManager"
 		entity-manager-factory-ref="entityManagerFactory">
 		<repository:exclude-filter type="regex" expression="lab.s2jh.core.*" />

@@ -25,7 +25,7 @@ import ${root_package}.service.${entity_name}Service;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-@MetaData("${model_title}管理")
+@MetaData("${model_title} management")
 @Controller
 @RequestMapping(value = "/admin${model_path}/${entity_name_field_line}")
 public class ${entity_name}Controller extends BaseController<${entity_name},${id_type}> {

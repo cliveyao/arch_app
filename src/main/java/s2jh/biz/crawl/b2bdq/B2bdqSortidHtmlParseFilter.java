@@ -34,8 +34,8 @@ public class B2bdqSortidHtmlParseFilter extends AbstractHtmlParseFilter {
                 String outlink = getNodeAttribute(liNode, "href");
 
                 DBObject outlinkParsedDBObject = new BasicDBObject();
-                putKeyValue(outlinkParsedDBObject, "站点名称", getNodeText(liNode));
-                putKeyValue(outlinkParsedDBObject, "站点类别", category);
+                putKeyValue(outlinkParsedDBObject, "Site name", getNodeText(liNode));
+                putKeyValue(outlinkParsedDBObject, "Site category", category);
 
                 webPage.addOutlink(outlink, WebSiteContactInfoStartHtmlParseFilter.class, getNodeText(liNode), getSiteName(url), outlink,
                         outlinkParsedDBObject);

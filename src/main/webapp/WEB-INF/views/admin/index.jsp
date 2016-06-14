@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>管理系统</title>
+<title>Management System</title>
 </head>
 <body>
 </body>

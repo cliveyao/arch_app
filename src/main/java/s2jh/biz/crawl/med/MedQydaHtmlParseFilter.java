@@ -24,9 +24,9 @@ public class MedQydaHtmlParseFilter extends MedBaseHtmlParseFilter {
             if (nodes != null && nodes.getLength() > 0) {
                 for (int i = 0; i < nodes.getLength(); i++) {
                     String nodeText = nodes.item(i).getTextContent();
-                    //中文冒号分隔
+                    
                     String[] nodeTexts = StringUtils.split(nodeText, "：");
-                    //容错处理，英文冒号分隔
+                    
                     if (nodeTexts.length <= 1) {
                         nodeTexts = StringUtils.split(nodeText, ":");
                     }
@@ -36,10 +36,10 @@ public class MedQydaHtmlParseFilter extends MedBaseHtmlParseFilter {
                 }
             }
 
-            //邮箱处理
+            
             String emailSalt = getXPathAttribute(df, "/html/body/div[9]/div[1]/div[1]/div[3]/div[2]/div[2]/dl[5]/dd/a", "data-cfemail");
             String email = decryptEmail(emailSalt);
-            putKeyValue(parsedDBObject, "企业邮箱", email);
+            putKeyValue(parsedDBObject, "E-mail", email);
         }
         return parsedDBObject;
     }

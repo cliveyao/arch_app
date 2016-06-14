@@ -20,7 +20,7 @@ public class MedAboutUsHtmlParseFilter extends MedBaseHtmlParseFilter {
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) throws Exception {
         String pageText = webPage.getPageText();
         DocumentFragment df = parse(pageText);
-        //关于我们 两个模板
+        
         Node node = selectSingleNode(df, "//DIV[@class='menu']");
         if (node != null) {
             {
@@ -28,9 +28,9 @@ public class MedAboutUsHtmlParseFilter extends MedBaseHtmlParseFilter {
                 if (nodes != null && nodes.getLength() > 0) {
                     for (int i = 0; i < nodes.getLength(); i++) {
                         String nodeText = nodes.item(i).getTextContent();
-                        //中文冒号分隔
+                        
                         String[] nodeTexts = StringUtils.split(nodeText, "：");
-                        //容错处理，英文冒号分隔
+                     
                         if (nodeTexts.length <= 1) {
                             nodeTexts = StringUtils.split(nodeText, ":");
                         }
@@ -40,22 +40,22 @@ public class MedAboutUsHtmlParseFilter extends MedBaseHtmlParseFilter {
                     }
                 }
 
-                //邮箱处理
+                
                 String emailSalt = getXPathAttribute(df, "/html/body/div/div[6]/div[2]/div[2]/div/ul/li[8]/span[2]/a", "data-cfemail");
                 String email = decryptEmail(emailSalt);
-                putKeyValue(parsedDBObject, "邮箱", email);
+                putKeyValue(parsedDBObject, "mailbox", email);
 
             }
-            putKeyValue(parsedDBObject, "主营产品", getXPathValue(df, "/html/body/div/div[6]/div[1]/div[14]/div/ul/li"));
+            putKeyValue(parsedDBObject, "main products", getXPathValue(df, "/html/body/div/div[6]/div[1]/div[14]/div/ul/li"));
         } else {
             {
                 NodeList nodes = selectNodeList(df, "/html/body/div/table[4]/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr");
                 if (nodes != null && nodes.getLength() > 0) {
                     for (int i = 0; i < nodes.getLength(); i++) {
                         String nodeText = nodes.item(i).getTextContent();
-                        //中文冒号分隔
+                       
                         String[] nodeTexts = StringUtils.split(nodeText, "：");
-                        //容错处理，英文冒号分隔
+                        
                         if (nodeTexts.length <= 1) {
                             nodeTexts = StringUtils.split(nodeText, ":");
                         }
@@ -65,14 +65,14 @@ public class MedAboutUsHtmlParseFilter extends MedBaseHtmlParseFilter {
                     }
                 }
 
-                //邮箱处理
+                
                 String emailSalt = getXPathAttribute(df,
                         "/html/body/div/table[4]/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr[7]/td[2]/a", "data-cfemail");
                 String email = decryptEmail(emailSalt);
-                putKeyValue(parsedDBObject, "邮箱", email);
+                putKeyValue(parsedDBObject, "mailbox", email);
 
             }
-            putKeyValue(parsedDBObject, "主营产品",
+            putKeyValue(parsedDBObject, "main products",
                     getXPathValue(df, "/html/body/div/table[4]/tbody/tr/td[1]/table/tbody/tr[8]/td/table/tbody/tr/td[2]/span"));
         }
 

@@ -10,8 +10,9 @@
 </head>
 <body>
 	<div class="note note-info">
-		<h4 class="block">提示说明</h4>
-		<p>以下Dashboard内容定义主要是演示效果之用，实际需要根据项目业务需求定制设计开发。</p>
+		<h4 class="block">Prompt Description</h4>
+		<p>
+The following Dashboard content is mainly defined by the demonstration effect , according to the actual needs of custom design and development of project business requirements .</p>
 	</div>
 	<div class="row">
 		<div class="col-md-3">
@@ -21,9 +22,9 @@
 				</div>
 				<div class="details">
 					<div class="number number-notify-message-count">-</div>
-					<div class="desc">未读公告消息</div>
+					<div class="desc">Announcement unread messages</div>
 				</div>
-				<a href="javascript:;" rel="address:/admin/profile/notify-message|公告消息列表" class="more">
+				<a href="javascript:;" rel="address:/admin/profile/notify-message|Announcement Message List" class="more">
 					View more <i class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>
@@ -35,9 +36,9 @@
 				</div>
 				<div class="details">
 					<div class="number number-user-message-count">-</div>
-					<div class="desc">未读个人消息</div>
+					<div class="desc">Unread personal message</div>
 				</div>
-				<a href="javascript:;" rel="address:/admin/profile/user-message|个人消息列表" class="more">
+				<a href="javascript:;" rel="address:/admin/profile/user-message|Personal message list" class="more">
 					View more <i class="m-icon-swapright m-icon-white"></i>
 				</a>
 			</div>
@@ -72,28 +73,28 @@
 		</div>
 	</div>
 	<div class="well well-large">
-		<h3>项目简介</h3>
-		<p>集结最新主流时尚开源技术的面向互联网Web应用的整合前端门户站点、HTML5移动站点及后端管理系统一体的的基础开发框架，提供一个J2EE相关主流开源技术架构整合及一些企业应用基础通用功能和组件的设计实现的最佳实践和原型参考。</p>
+		<h3>Project Description</h3>
+		<p>Integration of front-end portal sites on the Internet for Web Applications build mainstream fashion latest open source technology , infrastructure development framework HTML5 mobile site and back-end management system integration , providing a major source J2EE related technology architecture to integrate enterprise applications , and some basic common features and components best practices and reference design prototype implementation.</p>
 	</div>
 	<c:if test="${cfg.dev_mode}">
 		<div class="alert alert-block alert-info fade in">
 			<h4 class="alert-heading">
-				提示说明: <small>当前界面内容只有在开发模式(dev_mode=true)才会显示！</small>
+				Tip Description : <small> the contents of the current interface only in development mode (dev_mode = true) to appear ! </ Small>
 			</h4>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="list-group">
 						<a class="list-group-item" href="${ctx}/docs/markdown/README" target="_blank">
-							<h4 class="list-group-item-heading">开发框架介绍与开发指南</h4>
-							<p class="list-group-item-text">对整个开发框架整体的设计说明和开发指南。</p>
+						<H4 class = "list-group-item-heading"> Development Framework Introduction and Development Guide </ h4>
+						<P class = "list-group-item-text"> development framework for the whole overall design description and development guidelines . </ P>
 						</a>
 						<a class="list-group-item" href="javascript:;" rel="address:/docs/ui-feature/items|UI组件用法示例">
-							<h4 class="list-group-item-heading">UI组件用法示例</h4>
-							<p class="list-group-item-text">针对典型的UI组件，提供一个基本的用法示意参考，结合对应的JSDoc文档了解相关UI组件的用法和支持的功能属性。</p>
+						<H4 class = "list-group-item-heading"> UI Component Usage Example </ h4>
+						<P class = "list-group-item-text"> typical UI components to provide a basic reference schematic usage , combined with the understanding of the functions corresponding to the document JSDoc attributes UI component usage and support . </ P>
 						</a>
 						<a class="list-group-item" href="${ctx}/docs/jsdoc/global.html" target="_blank">
-							<h4 class="list-group-item-heading">Javascript注释JSDoc文档</h4>
-							<p class="list-group-item-text">基于框架主要Javascript代码文件注释，用jsdoc3-maven-plugin生成的UI组件用法参考文档。</p>
+						<H4 class = "list-group-item-heading"> Javascript comment JSDoc document </ h4>
+						<P class = "list-group-item-text"> Frame is mainly based on Javascript code file comments, use reference document with the jsdoc3-maven-plugin generated UI components. </ P>
 						</a>
 					</div>
 				</div>

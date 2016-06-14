@@ -22,15 +22,15 @@ public class RobotChinaProductHtmlParseFilter extends AbstractHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取产品信息
+       
         NodeList nodes = selectNodeList(doc, "//UL[@class='xieceprodutu']/li");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);
                 String content = n.getTextContent();
-                //中文冒号分隔
+               
                 String[] nodeTexts = StringUtils.split(content, "：");
-                //容错处理，英文冒号分隔
+                
                 if (nodeTexts.length <= 1) {
                     nodeTexts = StringUtils.split(content, ":");
                 }

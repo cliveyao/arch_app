@@ -18,14 +18,16 @@ public class Cy8NavigationHtmlParseFilter extends Cy8BaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取首页加盟导航的加盟店链接
+
+        //Home  Get the franchise joined the navigation links
         NodeList nodeList = selectNodeList(doc, "//DIV[@class='kcjm_dh']//LI");
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 String href = getXPathAttribute(node, "./A", "href");
 
-                //里面的导航是甜品加盟店分类的链接，为避免死循环
+
+             // Inside the dessert franchise navigation is categorized links , in order to avoid an endless loop
                 String regEx = "^http://www.cy8.com.cn/[a-z]+/\\d+$";
                 Pattern pattern = Pattern.compile(regEx);
                 Matcher matcher = pattern.matcher(href);

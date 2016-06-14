@@ -112,7 +112,8 @@ public class MailService {
             }
         }
 
-        //消息历史记录
+
+     // Message history
         SendMessageLog sml = new SendMessageLog();
         sml.setMessageType(SendMessageTypeEnum.EMAIL);
         sml.setTargets(StringUtils.join(toAddrs));
@@ -125,7 +126,7 @@ public class MailService {
     private static class MailMessage {
         private String subject;
         private String text;
-        @MetaData("单用户发送模式")
+        @MetaData("Single-user transmission mode")
         private boolean singleMode;
         private String[] toAddrs;
 

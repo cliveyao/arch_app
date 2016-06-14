@@ -19,7 +19,7 @@ public class XsbccPageHtmlParseFilter extends AbstractHtmlParseFilter {
 
         String rowsText = StringUtils.substringAfter(pageText, "<tr><td>");
         if (StringUtils.isBlank(rowsText)) {
-            injectParseFailureRetry(webPage, "未解析到有效数据,尝试再次抓取解析");
+            injectParseFailureRetry(webPage, "Unresolved valid data , trying to crawl again resolve");
             return null;
         }
 
@@ -32,40 +32,39 @@ public class XsbccPageHtmlParseFilter extends AbstractHtmlParseFilter {
                 Node codeNode = selectSingleNode(node, "./td[2]/a");
                 String code = codeNode.getTextContent().trim();
                 DBObject outlinkParsedDBObject = new BasicDBObject();
-                putKeyValue(outlinkParsedDBObject, "证券代码", code);
-                putKeyValue(outlinkParsedDBObject, "证券简称", getXPathValue(node, "./td[3]"));
-                putKeyValue(outlinkParsedDBObject, "转让方式", getXPathValue(node, "./td[4]"));
-                putKeyValue(outlinkParsedDBObject, "前收盘价（元/股）", getXPathValue(node, "./td[5]"));
-                putKeyValue(outlinkParsedDBObject, "最近成交价（元/股）", getXPathValue(node, "./td[6]"));
-                putKeyValue(outlinkParsedDBObject, "成交金额(万元)", getXPathValue(node, "./td[7]"));
-                putKeyValue(outlinkParsedDBObject, "成交量(万股)", getXPathValue(node, "./td[8]"));
-                putKeyValue(outlinkParsedDBObject, "涨跌", getXPathValue(node, "./td[9]"));
-                putKeyValue(outlinkParsedDBObject, "涨跌幅", getXPathValue(node, "./td[10]"));
-                putKeyValue(outlinkParsedDBObject, "市盈率", getXPathValue(node, "./td[11]"));
-                putKeyValue(outlinkParsedDBObject, "挂牌时间", getXPathValue(node, "./td[12]"));
-                putKeyValue(outlinkParsedDBObject, "行业", getXPathValue(node, "./td[13]"));
-                putKeyValue(outlinkParsedDBObject, "地区", getXPathValue(node, "./td[14]"));
-                putKeyValue(outlinkParsedDBObject, "券商", getXPathValue(node, "./td[15]"));
+                putKeyValue (outlinkParsedDBObject, "securities code", code);
+                putKeyValue (outlinkParsedDBObject, "the securities referred to", getXPathValue (node, "./td[3]"));
+                putKeyValue (outlinkParsedDBObject, "transfer mode", getXPathValue (node, "./td[4]"));
+                putKeyValue (outlinkParsedDBObject, "previous closing price (yuan / share)", getXPathValue (node, "./td[5]"));
+                putKeyValue (outlinkParsedDBObject, "a recent transaction price (yuan / share)", getXPathValue (node, "./td[6]"));
+                putKeyValue (outlinkParsedDBObject, "Turnover (million)", getXPathValue (node, "./td[7]"));
+                putKeyValue (outlinkParsedDBObject, "Volume (shares)", getXPathValue (node, "./td[8]"));
+                putKeyValue (outlinkParsedDBObject, "Change", getXPathValue (node, "./td[9]"));
+                putKeyValue (outlinkParsedDBObject, "up down", getXPathValue (node, "./td[10]"));
+                putKeyValue (outlinkParsedDBObject, "earnings", getXPathValue (node, "./td[11]"));
+                putKeyValue (outlinkParsedDBObject, "listing the time", getXPathValue (node, "./td[12]"));
+                putKeyValue (outlinkParsedDBObject, "industry", getXPathValue (node, "./td[13]"));
+                putKeyValue (outlinkParsedDBObject, "area", getXPathValue (node, "./td[14]"));
+                putKeyValue (outlinkParsedDBObject, "broker", getXPathValue (node, "./td[15]"));
 
-                webPage.addOutlink(getNodeAttribute(codeNode, "href"), null, (String) outlinkParsedDBObject.get("证券简称"), getSiteName(url),
-                        (String) outlinkParsedDBObject.get("证券代码"), outlinkParsedDBObject);
+                webPage.addOutlink (getNodeAttribute (codeNode, "href"), null, (String) outlinkParsedDBObject.get ( "securities referred"), getSiteName (url),
+                        (String) outlinkParsedDBObject.get ( "ticker"), outlinkParsedDBObject);
 
-                //主要指标数据：http://stockpage.10jqka.com.cn/basic/834334/main.txt
-                webPage.addOutlink("http://stockpage.10jqka.com.cn/basic/" + code + "/main.txt", null, (String) outlinkParsedDBObject.get("证券简称"),
-                        getSiteName(url), (String) outlinkParsedDBObject.get("证券代码"), outlinkParsedDBObject);
+                // Main indicators data: http: //stockpage.10jqka.com.cn/basic/834334/main.txt
+                webPage.addOutlink ( "http://stockpage.10jqka.com.cn/basic/" + code + "/main.txt", null, (String) outlinkParsedDBObject.get ( "securities referred"),
+                        getSiteName (url), (String) outlinkParsedDBObject.get ( "ticker"), outlinkParsedDBObject);
 
-                //资产负债表：http://stockpage.10jqka.com.cn/basic/834334/debt.txt
-                webPage.addOutlink("http://stockpage.10jqka.com.cn/basic/" + code + "/debt.txt", null, (String) outlinkParsedDBObject.get("证券简称"),
-                        getSiteName(url), (String) outlinkParsedDBObject.get("证券代码"), outlinkParsedDBObject);
+                // Balance Sheet: http: //stockpage.10jqka.com.cn/basic/834334/debt.txt
+                webPage.addOutlink ( "http://stockpage.10jqka.com.cn/basic/" + code + "/debt.txt", null, (String) outlinkParsedDBObject.get ( "securities referred"),
+                        getSiteName (url), (String) outlinkParsedDBObject.get ( "ticker"), outlinkParsedDBObject);
 
-                //股东股本：http://stockpage.10jqka.com.cn/834334/holder/
-                webPage.addOutlink("http://stockpage.10jqka.com.cn/" + code + "/holder/", null, (String) outlinkParsedDBObject.get("证券简称"),
-                        getSiteName(url), (String) outlinkParsedDBObject.get("证券代码"), outlinkParsedDBObject);
+                // Shareholders' equity: http: //stockpage.10jqka.com.cn/834334/holder/
+                webPage.addOutlink ( "http://stockpage.10jqka.com.cn/" + code + "/ holder /", null, (String) outlinkParsedDBObject.get ( "securities referred"),
+                        getSiteName (url), (String) outlinkParsedDBObject.get ( "ticker"), outlinkParsedDBObject);
 
-                //三板信息
-                webPage.addOutlink("http://www.sanban18.com/stock/" + code + "/profile.html", null, (String) outlinkParsedDBObject.get("证券简称"),
-                        getSiteName(url), (String) outlinkParsedDBObject.get("证券代码"), outlinkParsedDBObject);
-            }
+                // Three board information
+                webPage.addOutlink ( "http://www.sanban18.com/stock/" + code + "/profile.html", null, (String) outlinkParsedDBObject.get ( "securities referred"),
+                        getSiteName (url), (String) outlinkParsedDBObject.get ( "ticker"), outlinkParsedDBObject);            }
 
             //注入下一页
             String pager = StringUtils.substringBetween(url, "pn=", "&");

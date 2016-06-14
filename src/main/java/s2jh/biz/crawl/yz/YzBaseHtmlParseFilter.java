@@ -3,7 +3,7 @@ package s2jh.biz.crawl.yz;
 import lab.s2jh.core.crawl.AbstractHtmlParseFilter;
 
 /*
- * 大众点评-月子会所数据抓取
+ * Public comment - Month Club crawling
  */
 public abstract class YzBaseHtmlParseFilter extends AbstractHtmlParseFilter {
 

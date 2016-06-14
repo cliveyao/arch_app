@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@MetaData("参数管理")
+@MetaData("Parameter Management")
 @Controller
 @RequestMapping(value = "/admin/sys/config-property")
 public class ConfigPropertyController extends BaseController<ConfigProperty, Long> {
@@ -39,14 +39,14 @@ public class ConfigPropertyController extends BaseController<ConfigProperty, Lon
         return configPropertyService;
     }
 
-    @MenuData("配置管理:系统管理:参数配置")
-    @RequiresPermissions("配置管理:系统管理:参数配置")
+    @MenuData("Configuration Management: System Administration : Configuration parameters")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration parameters")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "admin/sys/configProperty-index";
     }
 
-    @RequiresPermissions("配置管理:系统管理:参数配置")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration parameters")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<ConfigProperty> findByPage(HttpServletRequest request) {
@@ -58,14 +58,14 @@ public class ConfigPropertyController extends BaseController<ConfigProperty, Lon
         return "admin/sys/configProperty-inputTabs";
     }
 
-    @RequiresPermissions("配置管理:系统管理:参数配置")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration parameters")
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editShow() {
         return "admin/sys/configProperty-inputBasic";
     }
 
-    @MetaData("参数保存")
-    @RequiresPermissions("配置管理:系统管理:参数配置")
+    @MetaData("Parameter save")
+    @RequiresPermissions("Configuration Management: System Administration : Configuration parameters")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") ConfigProperty entity, HttpServletRequest request) {

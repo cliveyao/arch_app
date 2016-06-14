@@ -14,7 +14,8 @@ import com.mongodb.DBObject;
 
 public class _31yjStartHtmlParseFilter extends AbstractHtmlParseFilter {
 
-    private final static Set<String> whiteList = Sets.newHashSet(new String[] { "制剂机械", "原料药机械", "包装机械", "饮片机械" });
+    private final static Set<String> whiteList = Sets.newHashSet(new String[] { 
+    		" Preparation machinery ", " API machinery ", " Packaging Machinery ", " Pieces machinery" });
 
     @Override
     public String getUrlFilterRegex() {
@@ -31,7 +32,7 @@ public class _31yjStartHtmlParseFilter extends AbstractHtmlParseFilter {
                 Node node = nodes.item(i);
                 for (String str : whiteList) {
                     if (node.getTextContent().contains(str)) {
-                        String href = getXPathAttribute(node, ".//a[contains(text(),'更多')]", "href");
+                        String href = getXPathAttribute(node, ".//a[contains(text(),'More')]", "href");
                         webPage.addOutlink(href);
                     }
                 }

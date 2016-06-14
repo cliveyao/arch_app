@@ -19,10 +19,10 @@
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Charles & nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Heavy & nbsp; Set
 					</button>
 				</div>
 			</form>

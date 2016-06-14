@@ -7,29 +7,29 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  * 用于代码生成处理的辅助对象
  */
 public class EntityCodeField implements Comparable<EntityCodeField> {
-    /** 属性标题 */
+    /** Property title */
     private String title;
-    /** Java属性名称 */
+    /** Java property name */
     private String fieldName;
-    /** 属性描述 */
+    /** Property Description */
     private String description;
-    /** 属性在列表jqGrid中定义的宽度 */
+    /** Properties list jqGrid defined width */
     private Integer listWidth = 200;
-    /** 在生成代码中属性的相对顺序 */
+    /** In the relative order of the generated code attribute */
     private Integer order = Integer.MAX_VALUE;
-    /** 属性在列表jqGrid中定义的对齐方式：left，right，center */
+    /** Properties list jqGrid defined alignment: left, right, center */
     private String listAlign = "center";
-    /** 属性在列表jqGrid中定义的宽度固定模式 */
+    /** Attributes defined in the list jqGrid fixed width mode */
     private boolean listFixed = false;
-    /** 属性在列表jqGrid中定义的默认不显示模式 */
+    /** Attribute list jqGrid not defined in the default display mode */
     private boolean listHidden = false;
-    /** 属性在编辑界面生成表单元素 */
+    /** Attribute to generate a form element in the editing interface */
     private boolean edit = true;
-    /** 属性在jqGrid列表中生成column定义 */
+    /** Property generated column is defined in jqGrid list */
     private boolean list = true;
-    /** 标识属性是否枚举类型，根据Java属性反射获取  */
+    /** Identifier attribute is an enumerated type, based on Java reflection to obtain the properties  */
     private Boolean enumField = false;
-    /** 属性类型，根据Java属性反射获取 */
+    /** Property type, according to the Java reflection to obtain property */
     private String fieldType;
 
     public String getTitle() {

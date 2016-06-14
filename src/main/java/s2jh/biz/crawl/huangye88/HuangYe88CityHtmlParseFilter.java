@@ -16,7 +16,7 @@ public class HuangYe88CityHtmlParseFilter extends HuangYe88BaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取列表公司链接
+     // Get a list of company links
         NodeList nodes = selectNodeList(doc, "//*[@id='jubao']/dl/dt/h4/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -26,8 +26,9 @@ public class HuangYe88CityHtmlParseFilter extends HuangYe88BaseHtmlParseFilter {
             }
         }
 
-        //获取下一页
-        Node node = selectSingleNode(doc, "//div[@class='page_tag Baidu_paging_indicator']/a[text()='下一页']");
+
+     // Get Next
+        Node node = selectSingleNode(doc, "//div[@class='page_tag Baidu_paging_indicator']/a[text()='Next Page']");
         String href = getXPathAttribute(node, "./", "href");
         if (StringUtils.isNotEmpty(href)) {
             webPage.addOutlink(href);

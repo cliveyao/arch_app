@@ -16,7 +16,7 @@ public class YibiaoPageHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取列表公司
+       
         NodeList nodes = selectNodeList(doc, "//DIV[@class='list-view']//h3/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -25,7 +25,7 @@ public class YibiaoPageHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
                 webPage.addOutlink(href);
             }
 
-            //注入下一页
+           
             int pageNum = Integer.parseInt(StringUtils.substringAfter(StringUtils.substringBefore(url, ".html"),
                     "http://www.21yibiao.com/company/index-htm-page-"));
             String nextPage = "http://www.21yibiao.com/company/index-htm-page-" + ++pageNum + ".html";

@@ -19,7 +19,7 @@ public class ExpoDetailHtmlParseFilter extends ExpoBaseHtmlParseFilter {
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) throws Exception {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
-        //会展名称
+      
         putKeyValue(parsedDBObject, "会展名称", getXPathValue(doc, "//*[@id='frmExhibition']/div[4]/div[1]/div[1]/div[2]/div"));
 
         {

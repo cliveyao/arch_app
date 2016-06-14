@@ -16,7 +16,7 @@ public class JdypgxwIntroduceHtmlParseFilter extends AbstractHtmlParseFilter {
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
-        //获取公司档案信息
+        
         NodeList nodes = selectNodeList(doc, "//*[@id='main']/div[5]/div/table/tbody/tr");
         if (nodes == null || nodes.getLength() < 1) {
             nodes = selectNodeList(doc, "//*[@id='spdv_16627']/div/div[2]/div[4]/div/table/tbody/tr");

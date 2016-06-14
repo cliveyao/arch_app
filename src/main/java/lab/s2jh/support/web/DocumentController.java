@@ -122,7 +122,8 @@ public class DocumentController extends BaseController<MockEntity, Long> {
     @RequestMapping(value = "/docs/ui-feature/items", method = RequestMethod.GET)
     public String uiFeatureItems(Model model) {
         Map<String, String> clazzMapping = Maps.newHashMap();
-        //搜索所有entity对象，并自动进行自增初始化值设置
+
+     // Search for all entity objects and automatically incremented initialization settings
         ClassPathScanningCandidateComponentProvider scan = new ClassPathScanningCandidateComponentProvider(false);
         scan.addIncludeFilter(new AnnotationTypeFilter(Entity.class));
         Set<BeanDefinition> beanDefinitions = scan.findCandidateComponents("**.entity.**");
@@ -141,17 +142,17 @@ public class DocumentController extends BaseController<MockEntity, Long> {
         model.addAttribute("clazzMapping", clazzMapping);
 
         Map<Long, String> multiSelectItems = Maps.newLinkedHashMap();
-        multiSelectItems.put(1L, "选项AAA");
-        multiSelectItems.put(2L, "中文BBB");
-        multiSelectItems.put(3L, "选项CCC");
-        multiSelectItems.put(4L, "元素DDD");
+        multiSelectItems.put(1L, "Options AAA");
+        multiSelectItems.put(2L, "Chinese BBB");
+        multiSelectItems.put(3L, "Options CCC");
+        multiSelectItems.put(4L, "Element DDD");
         model.addAttribute("multiSelectItems", multiSelectItems);
 
         MockEntity entity = new MockEntity();
         entity.setSelectedIds(new Long[] { 2L });
         model.addAttribute("entity", entity);
         
-        //上下文完整路径
+     // Context full path
         model.addAttribute("webContextFullUrl", WebAppContextInitFilter.getInitedWebContextFullUrl());
         
         return "admin/docs/ui-feature-items";
@@ -192,7 +193,7 @@ public class DocumentController extends BaseController<MockEntity, Long> {
         List<Map<String, Object>> items = Lists.newArrayList();
         for (int i = 0, length = new Double((5 + Math.random() * 10)).intValue(); i < length; i++) {
             Map<String, Object> item = Maps.newHashMap();
-            String txt = q + "模拟选项" + i;
+            String txt = q + "Simulation Options" + i;
             item.put("id", txt);
             item.put("text", txt);
             items.add(item);
@@ -208,7 +209,7 @@ public class DocumentController extends BaseController<MockEntity, Long> {
     public Map<Long, Object> mockRemoteSelectOptions(Model model, @RequestParam("code") String code) {
         Map<Long, Object> data = Maps.newLinkedHashMap();
         for (long i = 0; i < 10; i++) {
-            data.put(i, code + "选项" + i);
+            data.put(i, code + "Options" + i);
         }
         return data;
     }
@@ -218,7 +219,8 @@ public class DocumentController extends BaseController<MockEntity, Long> {
     public OperationResult saveDynamicTable(@ModelAttribute("entity") MockEntity entity, Model model) {
         logger.debug("MockEntity: {}", entity);
 
-        //处理关联对象删除
+
+     // Delete the associated object processing
         List<MockItemEntity> items = entity.getMockItemEntites();
         if (CollectionUtils.isNotEmpty(items)) {
             List<MockItemEntity> toRemoves = Lists.newArrayList();
@@ -231,7 +233,7 @@ public class DocumentController extends BaseController<MockEntity, Long> {
             items.removeAll(toRemoves);
         }
 
-        return OperationResult.buildSuccessResult("数据处理成功");
+        return OperationResult.buildSuccessResult("Data processing is successful");
     }
 
     @RequestMapping(value = "/docs/mock/infinite-scroll", method = RequestMethod.GET)
@@ -245,23 +247,24 @@ public class DocumentController extends BaseController<MockEntity, Long> {
     @RequestMapping(value = "/docs/mock/btn-post", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult btnPost(Model model) {
-        return OperationResult.buildSuccessResult("模拟POST数据处理成功");
+        return OperationResult.buildSuccessResult("POST successfully simulated data processing");
     }
 
-    @MetaData("模拟表单校验Confirm")
+    @MetaData("Confirm analog form validation")
     @RequestMapping(value = "/docs/mock/validation-confirm", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult validationConfirm(HttpServletRequest request, Model model, @RequestParam("quantity") Integer quantity) {
-        //先进行常规的must数据校验
 
-        //检测本次提交表单没有用户已confirm确认标识，则进行相关预警校验检查
+    	// First routine must check data
+
+    	        // Check this submission form does not confirm the user has to confirm identity, the related warning parity checking
         if (postNotConfirmedByUser(request)) {
             if (quantity > 100) {
-                return OperationResult.buildConfirmResult("库存余量不足");
+                return OperationResult.buildConfirmResult("Stock insufficient margin");
             }
         }
 
-        return OperationResult.buildSuccessResult("模拟POST数据处理成功");
+        return OperationResult.buildSuccessResult("POST successfully simulated data processing");
     }
 
     @Getter
@@ -293,7 +296,7 @@ public class DocumentController extends BaseController<MockEntity, Long> {
 
         private String splitText;
 
-        @MetaData(value = "图片路径数组", comments = "用于UI表单数据收集，实际可根据设计转换为另外的逗号分隔字符串存储属性")
+        @MetaData(value = "Image array of paths", comments = "UI forms for data collection , the actual delimited string memory attribute for another comma according to the design conversion")
         private String[] imagePaths;
 
         private BigDecimal quantity;

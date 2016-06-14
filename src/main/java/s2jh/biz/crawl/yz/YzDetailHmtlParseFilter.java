@@ -23,11 +23,11 @@ public class YzDetailHmtlParseFilter extends YzBaseHtmlParseFilter {
 
         String storeName = getXPathValue(doc, "//*[@id='J_boxDetail']/div/div[1]/h1");
         if (StringUtils.isNotBlank(storeName)) {
-            putKeyValue(parsedDBObject, "店铺名称", storeName);
-            putKeyValue(parsedDBObject, "地址", StringUtils.remove(getXPathValue(doc, "//*[@id='J_boxDetail']/div/div[3]/span"), "地址："));
-            putKeyValue(parsedDBObject, "费用", getXPathValue(doc, "//*[@id='J_boxDetail']/div/div[2]/div/span[2]/strong"));
+        	putKeyValue (parsedDBObject, " shop name ", storeName);
+            putKeyValue (parsedDBObject, " address ", StringUtils.remove (getXPathValue (doc, "// * [@ id = 'J_boxDetail'] / div / div [3] / span"), " Address: " ) ) ;
+            putKeyValue (parsedDBObject, " cost ", getXPathValue (doc, "// * [@ id = 'J_boxDetail'] / div / div [2] / div / span [2] / strong"));
 
-            putKeyValue(parsedDBObject, "电话", getXPathValue(doc, "//*[@id='J_boxYouhui']/div[2]/p/span[1]"));
+            putKeyValue (parsedDBObject, " telephone ", getXPathValue (doc, "// * [@ id = 'J_boxYouhui'] / div [2] / p / span [1]"));
 
             String qqString = getXPathAttribute(doc, "//*[@id='J_boxYouhui']/div[2]/p/span[2]/a", "href");
             if (StringUtils.isNotBlank(qqString)) {
@@ -44,7 +44,7 @@ public class YzDetailHmtlParseFilter extends YzBaseHtmlParseFilter {
                     NodeList divNodeList = selectNodeList(trNode, "./td/div");
                     if (divNodeList != null && divNodeList.getLength() > 1) {
                         String name = divNodeList.item(0).getTextContent();
-                        if ("门店环境".equals(name)) {
+                        if ("Store environment".equals(name)) {
                             continue;
                         }
                         String content = divNodeList.item(1).getTextContent();
@@ -56,13 +56,12 @@ public class YzDetailHmtlParseFilter extends YzBaseHtmlParseFilter {
             }
         } else {
             storeName = getXPathValue(doc, "//*[@id='top']/div[4]/div[1]/div[1]/div/div[1]/h1");
-            putKeyValue(parsedDBObject, "店铺名称", storeName);
+            putKeyValue (parsedDBObject, " shop name ", storeName);
 
-            putKeyValue(parsedDBObject, "地址", getXPathValue(doc, "//*[@itemprop='locality region']") + getXPathValue(doc, "//*[@itemprop='street-address']"));
-            putKeyValue(parsedDBObject, "电话", getXPathValue(doc, "//*[@itemprop='tel']"));
-            putKeyValue(parsedDBObject, "费用", getXPathValue(doc, "//*[@id='top']/div[4]/div[1]/div[1]/div/div[2]/dl/dd"));
-            putKeyValue(parsedDBObject, "营业时间", getXPathValue(doc, "//*[@id='top']/div[4]/div[1]/div[3]/div[2]/dl[1]/dd/span[1]"));
-        }
+            putKeyValue (parsedDBObject, " address ", getXPathValue (doc, "// * [@ itemprop = 'locality region']") + getXPathValue (doc, "// * [@ itemprop = 'street-address']"));
+            putKeyValue (parsedDBObject, " telephone ", getXPathValue (doc, "// * [@ itemprop = 'tel']"));
+            putKeyValue (parsedDBObject, " cost ", getXPathValue (doc, "// * [@ id = 'top'] / div [4] / div [1] / div [1] / div / div [2] / dl / dd ")) ;
+            putKeyValue (parsedDBObject, " Hours ", getXPathValue (doc, "// * [@ id = 'top'] / div [4] / div [1] / div [3] / div [2] / dl [1] / dd / span [1] "));        }
         return parsedDBObject;
     }
 }

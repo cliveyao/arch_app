@@ -31,7 +31,7 @@ public class RobotChinaContactHtmlLoginFilter extends AbstractHtmlLoginFilter {
         List<NameValuePair> pairs = Lists.newArrayList();
         pairs.add(new BasicNameValuePair("username", "youmi_sun"));
         pairs.add(new BasicNameValuePair("password", "8071885"));
-        pairs.add(new BasicNameValuePair("submit", "登录"));
+        pairs.add(new BasicNameValuePair("submit", "log in"));
         httpPost.setEntity(new UrlEncodedFormEntity(pairs, CrawlService.Default_Charset_UTF8));
         CloseableHttpResponse httpPostResponse = CrawlService.buildHttpClient().execute(httpPost);
         int statusCode = httpPostResponse.getStatusLine().getStatusCode();
@@ -50,7 +50,7 @@ public class RobotChinaContactHtmlLoginFilter extends AbstractHtmlLoginFilter {
         List<NameValuePair> pairs = Lists.newArrayList();
         pairs.add(new BasicNameValuePair("username", "youmi_sun"));
         pairs.add(new BasicNameValuePair("password", "8071885"));
-        pairs.add(new BasicNameValuePair("submit", "登录"));
+        pairs.add(new BasicNameValuePair("submit", "log in"));
         httpPost.setEntity(new UrlEncodedFormEntity(pairs, CrawlService.Default_Charset_UTF8));
         CloseableHttpResponse httpPostResponse = CrawlService.buildHttpClient().execute(httpPost);
         int statusCode = httpPostResponse.getStatusLine().getStatusCode();

@@ -31,14 +31,14 @@ public class YibiaoIntroduceHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
             }
         }
 
-        //获取联系方式
-        NodeList nodeList = selectNodeList(doc, "//*[@id='side']//div[@class='side_body']/ul[contains(LI,'联系人：')]/li");
+       
+        NodeList nodeList = selectNodeList(doc, "//*[@id='side']//div[@class='side_body']/ul[contains(LI,'Contact:')]/li");
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 String nodeText = nodeList.item(i).getTextContent().replaceAll("\\n", "").replace(" ", "");
-                //中文冒号分隔
+                
                 String[] nodeTexts = StringUtils.split(nodeText, "：");
-                //容错处理，英文冒号分隔
+             
                 if (nodeTexts.length <= 1) {
                     nodeTexts = StringUtils.split(nodeText, ":");
                 }

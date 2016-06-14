@@ -43,9 +43,9 @@ public class Sanban18ProfileHtmlParseFilter extends AbstractHtmlParseFilter {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node n = nodes.item(i);
                 String text = n.getTextContent();
-                //中文冒号分隔
+                
                 String[] nodeTexts = StringUtils.split(text, "：");
-                //容错处理，英文冒号分隔
+                
                 if (nodeTexts.length <= 1) {
                     nodeTexts = StringUtils.split(text, ":");
                 }

@@ -24,8 +24,8 @@ public class ChinaMedeviceSearchHtmlParseFilter extends ChinaMedeviceBaseHtmlPar
         String categoryName = getXPathValue(df, "//*[@id='list_left']/dl/dt/a[3]");
         String categoryId = StringUtils.substringBetween(url, "http://www.chinamedevice.cn/company/", "/1/");
         DBObject outlinkParsedDBObject = new BasicDBObject();
-        putKeyValue(outlinkParsedDBObject, "类别名称", categoryName);
-        putKeyValue(outlinkParsedDBObject, "类别编号", categoryId);
+        putKeyValue(outlinkParsedDBObject, "Category name", categoryName);
+        putKeyValue(outlinkParsedDBObject, "Category Number", categoryId);
         NodeList nodeList = selectNodeList(df, "//dd[@class='cont']");
         if (nodeList != null && nodeList.getLength() > 0) {
             for (int i = 0; i < nodeList.getLength(); i++) {

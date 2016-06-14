@@ -15,7 +15,7 @@ public class LianSuoTopListHtmlParseFilter extends LianSuoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取排行榜列表链接
+        
         NodeList nodes = selectNodeList(doc, "//DIV[@class='phb_list_rgcon']//h2/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {

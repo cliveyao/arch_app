@@ -58,7 +58,7 @@ public class AuthLogonHistRefreshListener implements HttpSessionListener, Servle
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        //在容器销毁时把未正常结束遗留的登录记录信息强制设置登出时间
+        
         logger.info("ServletContext destroy force setup session user logout time...");
 
         UserLogonLogService userLogonLogService = SpringContextHolder.getBean(UserLogonLogService.class);
@@ -68,7 +68,7 @@ public class AuthLogonHistRefreshListener implements HttpSessionListener, Servle
         if (!CollectionUtils.isEmpty(userLogonLogs)) {
             Date yesterday = new DateTime().minusDays(1).toDate();
             for (UserLogonLog userLogonLog : userLogonLogs) {
-                //超过一天都没有登出的，直接强制设置登出时间
+               
                 if (userLogonLog.getLogonTime().before(yesterday)) {
                     Date logoutTime = new DateTime(userLogonLog.getLogonTime()).plusHours(1).toDate();
                     userLogonLog.setLogoutTime(logoutTime);

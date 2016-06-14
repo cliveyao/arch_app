@@ -16,7 +16,7 @@ public class LianSuoTopHtmlParseFilter extends LianSuoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取排行榜链接
+       
         NodeList nodes = selectNodeList(doc, "//DIV[@class='MS_ph_big_bt']/DIV[@class='ph_small']/dl/dd[2]/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -27,8 +27,8 @@ public class LianSuoTopHtmlParseFilter extends LianSuoBaseHtmlParseFilter {
                 }
                 webPage.addOutlink(href + "lxfs.html");
             }
-            //注入下一页的地址
-            Node node = selectSingleNode(doc, "//DIV[@class='fenye']/A[text()='下一页']");
+            
+            Node node = selectSingleNode(doc, "//DIV[@class='fenye']/A[text()='Next Page']");
             String nextPageUrl = getXPathAttribute(node, "./", "href");
             if (StringUtils.isNotEmpty("nextPageUrl")) {
                 webPage.addOutlink(nextPageUrl);

@@ -15,7 +15,7 @@ public class YibiaoSearchHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
 
-        //获取“首页”的所有公司
+       
         NodeList nodes = selectNodeList(doc, "//DIV[@class='list-view']//h3/a");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -25,7 +25,7 @@ public class YibiaoSearchHtmlParseFilter extends YibiaoBaseHtmlParseFilter {
             }
         }
 
-        //注入下一页
+        
         webPage.addOutlink("http://www.21yibiao.com/company/index-htm-page-2.html");
         return null;
     }

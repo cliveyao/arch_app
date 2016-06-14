@@ -18,10 +18,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * 基于数据库加载动态配置参数
- * 框架扩展属性加载：Spring除了从.properties加载属性数据
- * 并且数据库如果存在同名属性则优先取数据库的属性值覆盖配置文件中的值
- * 为了避免意外的数据库配置导致系统崩溃，约定以cfg打头标识的参数表示可以被数据库参数覆写，其余的则不会覆盖文件定义的属性值
+ * Database configuration parameters based on dynamic load
+ * Extended Attributes frame loaded : Spring In addition to loading attribute data from .properties
+ * If there is a database of the same name and attribute takes precedence 
+ * over the value of the database property values ​​in the configuration file overwrite
+ * To avoid unexpected database configuration caused a system crash , have agreed to the parameters 
+ * identified cfg starts showing database parameters can be overwritten , 
+ * and the rest will not be overwritten file defines attribute values
  */
 @Component
 public class DynamicConfigService {
@@ -34,16 +37,16 @@ public class DynamicConfigService {
     @Autowired
     private ConfigPropertyService configPropertyService;
 
-    @MetaData(value = "开发模式", comments = "更宽松的权限控制，更多的日志信息。详见application.properties配置参数定义")
+    @MetaData(value = "Development Model", comments = "Access control more relaxed , more log information . See application.properties configuration parameter definitions")
     private static boolean devMode = false;
 
-    @MetaData(value = "演示模式", comments = "对演示环境进行特殊控制以避免不必要的随意数据修改导致系统混乱")
+    @MetaData(value = "Demo mode", comments = "Special control the presentation environment in order to avoid unnecessary random data modifications cause a system panic")
     private static boolean demoMode = false;
 
-    @MetaData(value = "构建版本")
+    @MetaData(value = "Builds")
     private static String buildVersion;
 
-    @MetaData(value = "构建时间")
+    @MetaData(value = "Build time")
     private static String buildTimestamp;
 
     public static boolean isDemoMode() {
@@ -86,18 +89,19 @@ public class DynamicConfigService {
     }
 
     /**
-     * 根据key获取对应动态参数值
+     * Get the corresponding dynamic parameter values ​​according to key
      */
     public String getString(String key) {
         return getString(key, null);
     }
 
     /**
-     * 根据key获取对应动态参数值，如果没有则返回defaultValue
+     * Being based on key dynamic parameter values ​​correspond , if there is no return defaultValue
      */
     public String getString(String key, String defaultValue) {
         String val = null;
-        //cfg打头参数，首先从数据库取值
+
+     // Cfg parameter starts , the first value from the database
         if (key.startsWith("cfg")) {
             ConfigProperty cfg = configPropertyService.findByPropKey(key);
             if (cfg != null) {
@@ -105,17 +109,19 @@ public class DynamicConfigService {
             }
         }
 
-        //从环境变量获取
+
+     // Get the variable from the environment
         if (val == null) {
             val = System.getProperty(key);
         }
 
-        //未取到则继续从Spring属性文件定义取
+
+     // Do not get to continue to define the properties file take from Spring
         if (val == null) {
             if (extPropertyPlaceholderConfigurer != null) {
                 val = extPropertyPlaceholderConfigurer.getProperty(key);
             } else {
-                logger.warn("当前不是以ExtPropertyPlaceholderConfigurer扩展模式定义，因此无法加载获取Spring属性配置");
+                logger.warn("ExtPropertyPlaceholderConfigurer not currently in expansion mode defined , and therefore can not get Spring to load configuration properties");
             }
         }
         if (val == null) {

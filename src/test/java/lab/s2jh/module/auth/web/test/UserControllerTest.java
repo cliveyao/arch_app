@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 /**
- * Controller模拟测试
- * 语法参考：http://docs.spring.io/spring/docs/current/spring-framework-reference/html/testing.html#spring-mvc-test-framework
+ * Controller simulation tests
+ * Syntax Reference：http://docs.spring.io/spring/docs/current/spring-framework-reference/html/testing.html#spring-mvc-test-framework
  */
 public class UserControllerTest extends SpringControllerTestCase {
 
@@ -26,7 +26,7 @@ public class UserControllerTest extends SpringControllerTestCase {
 
     @Test
     public void listStart() throws Exception {
-        //测试start参数的有效性
+        
         MvcResult rs = mockMvc.perform(get("/admin/auth/user/list?start=13")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements").exists()).andDo(MockMvcResultHandlers.print()).andReturn();
         String responseBody = rs.getResponse().getContentAsString();

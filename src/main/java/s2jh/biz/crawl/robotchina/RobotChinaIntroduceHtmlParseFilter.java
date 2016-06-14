@@ -25,7 +25,7 @@ public class RobotChinaIntroduceHtmlParseFilter extends RobotChinaBaseHtmlParseF
     public DBObject filterInternal(String url, WebPage webPage, DBObject parsedDBObject) {
         String pageText = webPage.getPageText();
         DocumentFragment doc = parse(pageText);
-        //获取公司档案信息
+        
         NodeList nodes = selectNodeList(doc, "//td[@id='main']/div[5]/div/table/tbody/tr");
         if (nodes != null && nodes.getLength() > 0) {
             for (int i = 0; i < nodes.getLength(); i++) {
