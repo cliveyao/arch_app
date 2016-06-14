@@ -27,7 +27,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
- * 扩展标准的SchedulerFactoryBean，实现基于数据库配置的任务管理器初始化
+ * Extension of the standard SchedulerFactoryBean, initialization is accomplished based on the 
+ * database configuration task manager
  */
 public class ExtSchedulerFactoryBean extends SchedulerFactoryBean {
 
@@ -69,7 +70,8 @@ public class ExtSchedulerFactoryBean extends SchedulerFactoryBean {
 
         List<Trigger> triggers = null;
         try {
-            //基于反射获取已经在XML中定义的triggers集合
+
+        	// Get the reflection-based triggers that have been defined in XML collections
             triggers = (List<Trigger>) FieldUtils.readField(this, "triggers", true);
         } catch (IllegalAccessException e) {
             logger.error(e.getMessage(), e);
@@ -82,16 +84,19 @@ public class ExtSchedulerFactoryBean extends SchedulerFactoryBean {
         }
 
         for (JobBeanCfg jobBeanCfg : jobBeanCfgs) {
-            // 只处理与当前Scheduler集群运行模式匹配的数据
+
+        	// Only deal with the current Scheduler cluster running pattern matching data
             if (jobBeanCfg.getRunWithinCluster() == null || !jobBeanCfg.getRunWithinCluster().equals(runWithinCluster)) {
                 continue;
             }
-            // 以任务全类名作为Job和Trigger相关名称
+
+         // Full class name to the task as Job and Trigger related names
             Class<?> jobClass = null;
             try {
                 jobClass = Class.forName(jobBeanCfg.getJobClass());
             } catch (ClassNotFoundException e) {
-                //容错处理避免由于配置错误导致无法启动应用
+
+            	// Fault tolerance avoid configuration errors can not start the application
                 logger.error(e.getMessage(), e);
             }
             if (jobClass == null) {
@@ -113,13 +118,15 @@ public class ExtSchedulerFactoryBean extends SchedulerFactoryBean {
 
             logger.debug("Build and schedule dynamical job： {}, CRON: {}", jobName, jobBeanCfg.getCronExpression());
 
-            // Spring动态加载Job Bean
+
+         // Spring loaded dynamically Job Bean
             BeanDefinitionBuilder bdbJobDetailBean = BeanDefinitionBuilder.rootBeanDefinition(JobDetailFactoryBean.class);
             bdbJobDetailBean.addPropertyValue("jobClass", jobBeanCfg.getJobClass());
             bdbJobDetailBean.addPropertyValue("durability", true);
             beanFactory.registerBeanDefinition(jobName, bdbJobDetailBean.getBeanDefinition());
 
-            // Spring动态加载Trigger Bean
+
+         // Spring loaded dynamically Trigger Bean
             String triggerName = jobName + ".Trigger";
             JobDetail jobDetailBean = (JobDetail) beanFactory.getBean(jobName);
             BeanDefinitionBuilder bdbCronTriggerBean = BeanDefinitionBuilder.rootBeanDefinition(CronTriggerFactoryBean.class);
@@ -137,12 +144,14 @@ public class ExtSchedulerFactoryBean extends SchedulerFactoryBean {
             TRIGGER_HIST_MAPPING.put(trigger.getJobKey().getName(), true);
             for (JobBeanCfg jobBeanCfg : jobBeanCfgs) {
                 if (jobBeanCfg.getJobClass().equals(trigger.getJobKey().getName())) {
-                    // 把AutoStartup设定的计划任务初始设置为暂停状态
+
+                	// Set the scheduled task AutoStartup initially set to the suspended state
                     if (!jobBeanCfg.getAutoStartup()) {
                         logger.debug("Setup trigger {} state to PAUSE", trigger.getKey().getName());
                         this.getScheduler().pauseTrigger(trigger.getKey());
                     }
-                    //设定是否开启日志记录
+
+                 // Set whether logging is turned on
                     TRIGGER_HIST_MAPPING.put(trigger.getJobKey().getName(), jobBeanCfg.getLogRunHist());
                     break;
                 }

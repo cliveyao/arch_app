@@ -5,13 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * 基于Spring Schedule XML配置的定时任务列表，适合定义在每台服务器节点执行并且无需日志记录、无需管理界面干预等功能支持的任务
- * 
- * 配置示例：
-    <task:scheduled-tasks scheduler="springScheduler">
-        <!-- 固定间隔触发任务，单位毫秒 -->
-        <task:scheduled ref="systemSechduleService" method="statOnlineUserCount" fixed-rate="300000" />
-    </task:scheduled-tasks>
+ * Based on the timing task list Spring Schedule XML configuration suitable for defining each server 
+ * node to perform and does not require logging , no management interface features such as 
+ * support for intervention tasks
+ *
+ * Configuration example :
+    <Task: scheduled-tasks scheduler = "springScheduler">
+        <! - The task is triggered at regular intervals , in milliseconds - >
+        <Task: scheduled ref = "systemSechduleService" method = "statOnlineUserCount" fixed-rate = "300000" />
+    </ Task: scheduled-tasks>
  *
  */
 @Component
@@ -20,7 +22,8 @@ public class SystemSechduleService {
     private final static Logger logger = LoggerFactory.getLogger(SystemSechduleService.class);
 
     /**
-     * 统计当前在线用户数，如果超出警戒值则向管理员发送通知邮件或短信
+     * Statistics current number of online users , if the value exceeds the alert notification 
+     * is sent to the administrator e-mail or SMS
      * @return
      */
     public Integer statOnlineUserCount() {

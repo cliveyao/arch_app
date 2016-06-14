@@ -40,14 +40,14 @@ public class QuartzTriggerController {
     @Autowired
     private JobBeanCfgService jobBeanCfgService;
 
-    @MenuData("配置管理:计划任务管理:任务实时控制")
-    @RequiresPermissions("配置管理:计划任务管理:任务实时控制")
+    @MenuData("Configuration Management : Plan Task Management : real-time control tasks")
+    @RequiresPermissions("Configuration Management : Plan Task Management : real-time control tasks")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "admin/schedule/quartzTrigger-index";
     }
 
-    @RequiresPermissions("配置管理:计划任务管理:任务实时控制")
+    @RequiresPermissions("Configuration Management : Plan Task Management : real-time control tasks")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Object list(HttpServletRequest request) throws SchedulerException {
@@ -73,7 +73,7 @@ public class QuartzTriggerController {
         return new PageImpl<Map<String, Object>>(triggerDatas);
     }
 
-    @RequiresPermissions("配置管理:计划任务管理:任务实时控制")
+    @RequiresPermissions("Configuration Management : Plan Task Management : real-time control tasks")
     @RequestMapping(value = "/state", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult doStateTrigger(@RequestParam(value = "ids") String[] ids, @RequestParam(value = "state") String state)
@@ -98,10 +98,10 @@ public class QuartzTriggerController {
             }
             Validation.isTrue(exist, "Undefined trigger name: " + id);
         }
-        return OperationResult.buildSuccessResult("批量状态更新操作完成");
+        return OperationResult.buildSuccessResult("Batch update operation is complete");
     }
 
-    @RequiresPermissions("配置管理:计划任务管理:任务实时控制")
+    @RequiresPermissions("Configuration Management : Plan Task Management : real-time control tasks")
     @RequestMapping(value = "/run", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult doRunTrigger(@RequestParam(value = "ids") String[] ids) throws SchedulerException {
@@ -120,6 +120,6 @@ public class QuartzTriggerController {
                 }
             }
         }
-        return OperationResult.buildSuccessResult("立即执行计划任务作业操作完成");
+        return OperationResult.buildSuccessResult("Immediate execution scheduled tasks job operation is completed");
     }
 }

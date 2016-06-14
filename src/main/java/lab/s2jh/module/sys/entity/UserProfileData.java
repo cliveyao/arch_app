@@ -29,22 +29,22 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name = "sys_UserProfileData", uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "code" }))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "用户配置数据")
+@MetaData(value = "User configuration data")
 public class UserProfileData extends BaseNativeEntity {
 
     private static final long serialVersionUID = -3203959719354074416L;
 
-    @MetaData(value = "用户")
+    @MetaData(value = "user")
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonSerialize(using = EntityIdDisplaySerializer.class)
     private User user;
 
-    @MetaData(value = "代码")
+    @MetaData(value = "Code")
     @Column(length = 128, nullable = false)
     private String code;
 
-    @MetaData(value = "参数值")
+    @MetaData(value = "Parameter Value")
     @Column(length = 128, nullable = true)
     private String value;
 }

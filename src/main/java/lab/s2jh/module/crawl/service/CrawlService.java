@@ -67,7 +67,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
- * 核心的爬虫抓取解析服务接口。参考Apache Nutch相似的设计实现思路，具体可参考官方Nutch官方资料。
+ * Core  crawl resolution service interface. Reference Apache Nutch similar design to the realization of ideas , specifically refer to the official Nutch official information .
  * 可参考 @see https://github.com/xautlx/nutch-ajax/blob/master/document/Apache_Nutch_Solr_Solution_with_AJAX_support.md
  */
 @Service
@@ -75,31 +75,31 @@ public class CrawlService {
 
     private static final Logger logger = LoggerFactory.getLogger("crawl.service");
 
-    /** 为了简化查询避免null值处理，日期相关字段初始化值日期起点 */
+    /** In order to simplify the query to avoid null value processing , date-related field initialization values ​​start date */
     private Date INIT_DATE = new DateTime(0).toDate();
 
-    /** fetch，parse等失败后，最大尝试次数，如果计数器超过此值则不再继续尝试抓取或解析 */
+    /** After fetch, parse and so failed , maximum number of attempts , if the counter exceeds this value will not continue trying to crawl or parsing */
     private static final int RETRY_TIMES = 5;
 
-    /** 302最大转向请求次数 */
+    /** The maximum number of requests turned 302*/
     private static final int MAX_REDIRECT_TIMES = 5;
 
     @Autowired
     private MongoDao mongoDao;
 
-    /** 爬虫主线程开始执行时间 */
+    /** Crawl main thread begins execution time*/
     private Date crawlStartTime;
 
-    /** 总计抓取解析的页面数量计数器 */
+    /** Total number of pages crawled resolution counter */
     private AtomicInteger pages = new AtomicInteger(0);
 
-    /** 抓取解析线程执行标志 */
+    /** Crawl parsing thread execution flag */
     private boolean running;
 
-    /** 抓取解析线程池执行器 */
+    /** Crawl parsing thread pool actuator */
     private ThreadPoolTaskExecutor executor;
 
-    /** 默认的User-Agent请求头信息 */
+    /** The default User-Agent request header */
     public final static String User_Agent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0";
 
     public final static String Crawl_Fetch_Data_Collection = "crawl_fetch_data";
@@ -110,9 +110,9 @@ public class CrawlService {
 
     public final static String Default_Charset_UTF8 = "utf-8";
 
-    /** 单例的HTTP Client请求对象 */
+    /**HTTP Client singleton request object */
     private static CloseableHttpClient httpClientInstance;
-    /** 单例的HTTP Client连接池管理器对象 */
+    /** HTTP Client singleton connection pool manager object */
     private static PoolingHttpClientConnectionManager poolConnManager;
 
     public static synchronized CloseableHttpClient buildHttpClient() {
@@ -121,9 +121,10 @@ public class CrawlService {
                     .setCookieSpec(CookieSpecs.DEFAULT).setRedirectsEnabled(false).build();
 
             poolConnManager = new PoolingHttpClientConnectionManager();
-            //总计最大并发连接数
-            poolConnManager.setMaxTotal(300);
-            //单个站点最大并发连接数
+
+           // Total maximum number of concurrent connections
+            poolConnManager.setMaxTotal (300);
+           // Maximum number of concurrent connections a single site
             poolConnManager.setDefaultMaxPerRoute(100);
 
             httpClientInstance = HttpClients.custom().setConnectionManager(poolConnManager).setDefaultRequestConfig(config).build();
@@ -136,17 +137,18 @@ public class CrawlService {
         return httpClientInstance;
     }
 
-    /** 页面解析过滤器集合 */
+    /** Page parsing filter set */
     private List<CrawlParseFilter> crawlParseFilters;
 
     public synchronized List<CrawlParseFilter> buildCrawlParseFilters() {
         if (crawlParseFilters == null) {
             crawlParseFilters = Lists.newArrayList();
 
-            //基于Spring的继承规则获取所有解析过滤器集合列表
+
+         // Spring-based inheritance rules to get all analytical filter set list
             Set<BeanDefinition> beanDefinitions = Sets.newHashSet();
             ClassPathScanningCandidateComponentProvider scan = new ClassPathScanningCandidateComponentProvider(false);
-            //实现CrawlParseFilter接口
+         // Implement CrawlParseFilter Interface
             scan.addIncludeFilter(new AssignableTypeFilter(CrawlParseFilter.class));
             beanDefinitions.addAll(scan.findCandidateComponents("lab.s2jh.**"));
             beanDefinitions.addAll(scan.findCandidateComponents("s2jh.biz.**"));
@@ -161,17 +163,18 @@ public class CrawlService {
         return crawlParseFilters;
     }
 
-    /** 登录处理过滤器集合 */
+    /** Log processing filter set*/
     private List<CrawlLoginFilter> crawlLoginFilters;
 
     private synchronized List<CrawlLoginFilter> buildCrawlLoginFilters() {
         if (crawlLoginFilters == null) {
             crawlLoginFilters = Lists.newArrayList();
 
-            //基于Spring的继承规则获取所有解析过滤器集合列表
+
+         // Spring-based inheritance rules to get all analytical filter set list
             Set<BeanDefinition> beanDefinitions = Sets.newHashSet();
             ClassPathScanningCandidateComponentProvider scan = new ClassPathScanningCandidateComponentProvider(false);
-            //实现CrawlLoginFilter接口
+         // Implement CrawlLoginFilter Interface
             scan.addIncludeFilter(new AssignableTypeFilter(CrawlLoginFilter.class));
             beanDefinitions.addAll(scan.findCandidateComponents("lab.s2jh.**"));
             beanDefinitions.addAll(scan.findCandidateComponents("s2jh.biz.**"));
@@ -186,7 +189,7 @@ public class CrawlService {
     }
 
     /**
-     * 获取爬取数据集合对象实例
+     * Get crawling data collection object instance
      * @return
      */
     private DBCollection buildFetchObjectCollection() {
@@ -194,7 +197,7 @@ public class CrawlService {
     }
 
     /**
-     * 获取解析数据集合对象实例
+     * Get analysis data collection object instance
      * @return
      */
     private DBCollection buildParseObjectCollection() {
@@ -202,7 +205,7 @@ public class CrawlService {
     }
 
     /**
-     * 获取通知数据集合对象实例
+     * Get notification data collection object instance
      * @return
      */
     private DBCollection buildFailureObjectCollection() {
@@ -210,16 +213,18 @@ public class CrawlService {
     }
 
     /**
-     * 构造inject注入对象
+     * Construct objects inject injection
      * @param dbColl
      * @param url
      * @param crawlConfig
      * @return
      */
     private DBObject buildInjectDBObject(DBCollection dbColl, String url, CrawlConfig crawlConfig) {
-        //清洗#后面无意义字符
+
+    	// Cleaning meaningless character behind #
         url = StringUtils.substringBefore(url, "#").trim();
-        //构造用于$set操作的数据对象
+
+     // Constructor for data objects $ set operations
         DBObject item = new BasicDBObject(CrawlParseFilter.URL, url);
         if (dbColl.findOne(new BasicDBObject(CrawlParseFilter.URL, url), new BasicDBObject(CrawlParseFilter.URL, 1)) == null) {
             item.put("generateTime", INIT_DATE);
@@ -230,7 +235,8 @@ public class CrawlService {
             item.put("fetchFailureTimes", 0);
         }
         item.put("injectTime", new Date());
-        //每次启动抓取线程作为一个批次，避免互相干扰
+
+     // Fetch each time you start a thread as a batch , to avoid interference
         item.put("batchId", crawlConfig.getBatchId());
         return item;
     }
@@ -243,7 +249,8 @@ public class CrawlService {
         DBObject item = buildInjectDBObject(dbColl, url, crawlConfig);
         item.put("injectSeed", true);
         item.put("sourceUrl", url);
-        //种子URL强制重新抓取解析
+
+     // Force Recrawl seed URL parsing
         item.put("fetchTime", null);
         item.put("parseTime", null);
         logger.info("Inject Seed: {} ", url);
@@ -259,31 +266,35 @@ public class CrawlService {
         DBObject item = buildInjectDBObject(dbColl, url, crawlConfig);
         item.put("injectSeed", false);
         item.put("sourceUrl", sourceUrl);
-        //指明outlink特定解析器处理
+
+        // Specified outlink specific parser
         if (outlink.getCrawlParseFilters() != null) {
             item.put("crawlParseFilters", outlink.getCrawlParseFilters());
         }
-        //初始化outlink的分组标识
+
+     // Initialize outlink packet identification
         if (outlink.getBizSiteName() != null) {
             item.put("bizSiteName", outlink.getBizSiteName());
         }
-        //初始化outlink的分组ID标识
+     // Initialization packet ID identifier outlink
         if (outlink.getBizId() != null) {
             item.put("bizId", outlink.getBizId());
         }
         if (outlink.getTitle() != null) {
             item.put("title", outlink.getTitle());
         }
-        //标识此outlink属于强制解析类型，如动态的分页URL
+
+     // This identification is mandatory outlink analytical type, such as dynamic page URL
         if (outlink.isForceRefetch()) {
-            //强制重新抓取解析
+        	// Force Recrawl resolve
             item.put("fetchTime", null);
             item.put("parseTime", null);
         }
         logger.info("Inject Outlink: {} ", outlink);
         dbColl.update(new BasicDBObject(CrawlParseFilter.URL, url), new BasicDBObject("$set", item), true, false);
 
-        //初始化outlink解析数据
+
+     // Initialize outlink analysis data
         if (outlink.getParsedDBObject() != null) {
             DBObject update = new BasicDBObject();
             update.put(CrawlParseFilter.PARSE_INLINK_URL, sourceUrl);
@@ -293,8 +304,8 @@ public class CrawlService {
     }
 
     public void saveParseDBObject(String url, String siteName, String bizId, DBObject update) {
-        Assert.notNull(siteName, "解析数据保存 " + CrawlParseFilter.SITE_NAME + " 属性值不能为空");
-        Assert.notNull(bizId, "解析数据保存 " + CrawlParseFilter.ID + " 属性值不能为空");
+        Assert.notNull(siteName, "Analytical data retention" + CrawlParseFilter.SITE_NAME + "Property Value can not be null");
+        Assert.notNull(bizId, "Analytical data retention " + CrawlParseFilter.ID + " Property Value can not be null");
 
         update.put("解析时间", new Date());
         update.put(CrawlParseFilter.SITE_NAME, siteName);
@@ -306,7 +317,8 @@ public class CrawlService {
         synchronized (this) {
             DBObject parsedDBObject = buildParseObjectCollection().findOne(query);
 
-            //多个页面解析数据合并为一条业务数据记录，合并计算业务数据来源URL地址列表
+
+         // Parse the data merge multiple pages into one service data records aggregated business data source URL address list
             if (parsedDBObject == null) {
                 update.put(CrawlParseFilter.PARSE_FROM_URLS, url);
             } else {
@@ -328,7 +340,8 @@ public class CrawlService {
     }
 
     /**
-     * 页面Fetch处理异常,则重新注入尝试下次重新fetch和parse,直到超过重试次数则终止
+     * Page Fetch handle the exception , then re- injected into the next attempt to re- fetch and parse, 
+     * until more than the number of retries is terminated
      * @param webPage
      */
     private void injectFetchFailureRetry(String url, int statusCode, String result, String fetchFailureException) {
@@ -363,7 +376,8 @@ public class CrawlService {
     }
 
     /**
-     * 页面调用Parse过滤器处理异常,则重新注入尝试下次重新fetch和parse,直到超过重试次数则终止
+     * Page calls Parse filter handle the exception , then re- injected into the next attempt to 
+     * re- fetch and parse, until more than the number of retries is terminated
      * @param webPage
      */
     public void injectParseFailureRetry(WebPage webPage, String parseFailureException) {
@@ -397,13 +411,14 @@ public class CrawlService {
     }
 
     /**
-     * 更新生成待抓取URL集合列表
+     * Update generated URL to be crawled set list
      * @param crawlConfig
      * @param seedMode
      * @return 
      */
     public synchronized int generator(CrawlConfig crawlConfig, boolean seedMode) {
-        //为了避免过度消耗演示环境的宽带和存储资源，限制处理总数
+
+    	// In order to avoid excessive consumption of presentation environments bandwidth and storage resources and limit the total number of processing
         if (DynamicConfigService.isDemoMode() && pages.get() > 100) {
             logger.info("Skipped generator as running DEMO mode.");
             return 0;
@@ -414,12 +429,14 @@ public class CrawlService {
         //http://www.chaolv.com/about/contact.html  http://shkangdexin.b2b.hc360.com/    http://4001671615ylj.b2b.hc360.com/  http://huxinsheng1969.b2b.hc360.com/shop/show.html
         BasicDBObject query = null;
         if (seedMode) {
-            //如果提供了种子URL启动执行，则始终取当前种子URL执行批次数据生成待抓取URL列表，并且排除超过抓取次数限制的
+
+        	// If a seed URL starts executing, always take the current batch execution data generation seed URL to be crawled URL list, and exclude more than limiting the number of crawl
             query = new BasicDBObject("generateTime", new BasicDBObject("$lt", crawlConfig.getStartTime()));
             query.append("batchId", crawlConfig.getBatchId());
             query.append("fetchFailureTimes", new BasicDBObject("$lte", RETRY_TIMES));
         } else {
-            //如果未提供种子URL启动执行，则取所有非200状态的URL列表作为待抓取URL列表，并且排除超过抓取次数限制的
+
+        	// If no seed URL starts execution, take all URL listing status as a non- 200 list of URL to be crawled , crawled over and exclude limiting the number of
             query = new BasicDBObject("generateTime", new BasicDBObject("$lt", crawlConfig.getStartTime()));
             query.append("$or", new BasicDBObject[] { new BasicDBObject("httpStatus", new BasicDBObject("$gt", 200)),
                     new BasicDBObject("httpStatus", new BasicDBObject("$lt", 200)) });
@@ -446,18 +463,20 @@ public class CrawlService {
     }
 
     /**
-     * 提取待抓取URL列表，以多线程方式对URL进行抓取和解析处理
+     * Crawl URL list to be extracted , multi-threaded manner URL crawl and analysis processing
      * @param crawlConfig
      */
     public void fetcher(CrawlConfig crawlConfig) {
         DBCollection dbColl = buildFetchObjectCollection();
 
         BasicDBObject query = new BasicDBObject();
-        //查询生成时间大于本次爬虫启动时间
+     // Query generation time is greater than the start time for this reptile
         query.append("generateTime", new BasicDBObject("$gt", crawlConfig.getStartTime()));
-        //查询当前批次
+
+     // Query the current batch
         query.append("batchId", crawlConfig.getBatchId());
-        //查询抓取时间小于本次爬虫启动时间（排除本次已经爬过的记录）
+
+     // Fetching less than this crawl start time ( this has climbed to exclude records )
         query.append("fetchTouchTime", new BasicDBObject("$lt", crawlConfig.getStartTime()));
 
         DBCursor cur = dbColl.find(query).sort(new BasicDBObject("generateTime", 1)).limit(100);
@@ -467,55 +486,64 @@ public class CrawlService {
         while (running && cur.hasNext()) {
             DBObject item = cur.next();
             int activeThreads = executor.getActiveCount();
-            //如果当前活动线程数饱和，则稍等空闲线程
+
+         // If the current number of active threads saturated, wait idle threads
             while (activeThreads >= executor.getCorePoolSize()) {
                 ThreadUtils.sleepOneSecond();
                 logger.info("Thread pool executor full [active: {}], waiting...", activeThreads);
                 activeThreads = executor.getActiveCount();
             }
-            //如果有空闲线程，则提交线程池处理
+
+         // If there is idle threads in the thread pool Submit
             executor.execute(new FetcherThread(this, item, crawlConfig));
         }
     }
 
     /**
-     * 爬虫服务启动入口
+     * Reptile service startup entry
      * @param crawlConfig
      * @param urls
      */
     public FutureTask<Integer> startup(final CrawlConfig crawlConfig, final String... urls) {
         running = true;
 
-        //每次启动抓取线程作为一个批次，避免互相干扰
+
+     // Fetch each time you start a thread as a batch , to avoid interference
         if (crawlConfig.getBatchId() == null) {
             crawlConfig.setBatchId(new Date().getTime());
         }
 
         DBCollection coll = buildFetchObjectCollection();
 
-        //为了提高查询效率，为爬取数据集合的相关属性添加索引,约束
 
-        //URL唯一约束
+     // To improve query performance , relevant attributes crawling data collection to add indexes, constraints
+
+             // URL unique constraint
         coll.createIndex(new BasicDBObject(CrawlParseFilter.URL, 1), new BasicDBObject("unique", true).append("background", true));
 
-        //generator查询索引
+
+     // Generator Query Index
         coll.createIndex(new BasicDBObject("generateTime", 1).append("batchId", 1).append("fetchFailureTimes", 1).append("injectTime", 1),
                 new BasicDBObject("background", true));
         coll.createIndex(new BasicDBObject("generateTime", 1).append("httpStatus", 1).append("fetchFailureTimes", 1).append("injectTime", 1),
                 new BasicDBObject("background", true));
 
-        //fetcher查询索引
+
+     // Fetcher Query Index
         coll.createIndex(new BasicDBObject("generateTime", 1).append("batchId", 1).append("fetchTouchTime", 1), new BasicDBObject("background", true));
 
-        //为解析数据集合的相关属性添加索引,约束
+
+     // Add an index to resolve data collection related attributes , constraints
         buildParseObjectCollection().createIndex(new BasicDBObject(CrawlParseFilter.SITE_NAME, 1).append(CrawlParseFilter.ID, 1),
                 new BasicDBObject("unique", true).append("background", true));
 
-        //为解析数据集合的相关属性添加索引,约束
+
+     // Add an index to resolve data collection related attributes , constraints
         buildFailureObjectCollection().createIndex(new BasicDBObject(CrawlParseFilter.URL, 1),
                 new BasicDBObject("unique", true).append("background", true));
 
-        //初始化设置线程池参数
+
+     // Initialize the thread pool to set parameters
         executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(crawlConfig.getThreadNum());
         executor.setMaxPoolSize(50);
@@ -528,17 +556,17 @@ public class CrawlService {
 
         FutureTask<Integer> future = new FutureTask<Integer>(new Runnable() {
 
-            /** 异步执行主线程连续休眠秒数，如果超过一定阈值则退出主线程 */
+            /** Asynchronous execution of the main thread of continuous sleep number of seconds , if it exceeds a certain threshold to exit the main thread */
             int sleepSeconds = 0;
 
-            /** 记录最后一次生成待爬取URL列表的时间，控制两次generator操作之前保持一定的间隔，控制主线程循环节奏 */
+            /** Last records generated URL list to be crawling time , to maintain a certain distance before the two generator control operation, control the rhythm of the main thread loop */
             Date lastGenerateTime;
 
             @Override
             public void run() {
                 //convertLongToDate("fetchTouchTime");
 
-                //根据是否提供种子url集合设置标识参数
+                //Depending on whether the provision of seed collection url parameter set identifier
                 boolean seedMode = true;
                 if (urls != null && urls.length > 0) {
                     if (logger.isInfoEnabled()) {
@@ -556,50 +584,57 @@ public class CrawlService {
 
                 do {
                     Date now = new Date();
-                    //控制两次generator操作之前保持一定的间隔，控制主线程循环节奏
+
+                    // To maintain a certain distance before the two generator control operation, control the rhythm of the main thread loop
                     if (lastGenerateTime != null && (now.getTime() - lastGenerateTime.getTime() < 2 * 1000)) {
                         ThreadUtils.sleepOneSecond();
                         continue;
                     }
                     lastGenerateTime = now;
 
-                    //调用generator接口更新生成待爬取URL集合，返回影响记录数
+
+                 // Call generator generates an interface update URL set to be crawling , affect the number of records returned
                     int count = generator(crawlConfig, seedMode);
                     if (count == 0) {
-                        //如果返回待爬取记录数为0，有可能是其他线程正在执行还未添加新的outlink，则短暂休眠等待
+
+                    	// If it returns the number of records to be crawling to zero , there may be other threads being executed has not added a new outlink, then wait a short sleep
                         ThreadUtils.sleepOneSecond();
-                        //并累加连续休眠计数器，如果达到一定阈值则说明已经没有新的URL需要处理，终止爬虫主线程
+
+                     // Continuous and cumulative sleep counter , if it reaches a certain threshold then the new URL has no need to be addressed , the main thread to terminate reptiles
                         sleepSeconds++;
                         logger.info("Crawl thread sleep {} seconds for more generate URL.", sleepSeconds);
                     } else {
-                        //如果生成了待爬取URL集合数据，则重置连续休眠计数器，并调用抓取接口
+
+                    	// If you generate a URL to be crawled data collection , continuous sleep resets the counter and call crawl Interface
                         sleepSeconds = 0;
                         fetcher(crawlConfig);
                     }
                 } while (running && sleepSeconds < 30);
 
-                //重置计数器
+
+             // Reset counter
                 pages = new AtomicInteger(0);
 
                 logger.info("Crawl thread terminated at {} , start from {}", new Date(), crawlStartTime);
             }
         }, null);
 
-        //爬虫异步执行主线程
+
+     // Reptile asynchronous execution of the main thread
         new Thread(future).start();
 
         return future;
     }
 
     /**
-     * 更新运行标志，通知强制终止爬虫主线程及其他所有抓取解析子线程
+     * Update flag run , forced termination notice the main thread and all other reptiles crawl analytic child threads
      */
     public void shutdown() {
         running = false;
     }
 
     /**
-     * 抓取处理线程实现
+     *Crawl processing threads to achieve
      */
     private class FetcherThread implements Runnable {
 
@@ -616,7 +651,9 @@ public class CrawlService {
         }
 
         /**
-         * 对响应内容字符串转换做兼容处理，默认转换为utf-8，通过比对页面的charset信息进行合理的字符集转换处理
+         *In response to the contents of string to do the conversion process is compatible with the 
+         *default converted to utf-8, by comparing the information on the page charset reasonable 
+         *character set conversion process
          * @param url
          * @param responseEntity
          * @return
@@ -625,7 +662,8 @@ public class CrawlService {
         private String responseEntityToString(String url, HttpEntity responseEntity) throws Exception {
             byte[] responseBytes = EntityUtils.toByteArray(responseEntity);
 
-            //从响应头及内容提取字符集信息
+
+         // Extract character set information from the response headers and content
             String charset = null;
             final ContentType contentType = ContentType.get(responseEntity);
             if (contentType != null) {
@@ -652,7 +690,8 @@ public class CrawlService {
             if (StringUtils.isNotBlank(charset)) {
                 charset = charset.trim().toLowerCase();
                 if (!charset.equals(Default_Charset_UTF8.toLowerCase())) {
-                    //有些页面的响应和meta元素并不一致，为了处理此种情况做一个title中文乱码判断，确认是乱码再进行转码
+
+                	// Response meta elements and some pages are not consistent , in order to deal with such circumstances is a title Chinese garbled judgment was confirmed to be garbled and then transcoded
                     String title = StringUtils.substringBetween(result, "<title>", "</title>");
                     if (StringUtils.isNotBlank(title) && ChineseUtils.isMessyCode(title)) {
                         logger.info("HTML Charset convert from {} to {} for URL: {}", Default_Charset_UTF8, charset, url);
@@ -676,13 +715,15 @@ public class CrawlService {
             String redirectUrl = null;
             Integer httpStatus = (Integer) item.get("httpStatus");
             Date fetchTime = (Date) item.get("fetchTime");
-            //如果没有抓取过，或者抓取失败，或者配置为强制重新抓取
+
+         // If not crawled , crawled , or failure , or is forced to re- crawl
             if (httpStatus == null || httpStatus != 200 || fetchTime == null || crawlConfig.isForceRefetch()) {
                 logger.info("Fetching: {}", url);
 
                 Date now = new Date();
 
-                //有些网站限制连续访问的频率，可根据人工简单测试找到合理的爬取间隔值，控制两次URL请求之间保持足够的间隔时间
+
+             // Some sites limit the frequency of continuous access , according to a simple test to find a reasonable artificial crawling interval value , control is maintained between the two URL request sufficient interval
                 if (crawlConfig.getFetchMinInterval() > 0) {
                     if (crawlConfig.getLastFetchTime() != null) {
                         int seconds = Long.valueOf((now.getTime() - crawlConfig.getLastFetchTime().getTime()) / 1000).intValue();
@@ -695,7 +736,8 @@ public class CrawlService {
                     crawlConfig.setLastFetchTime(now);
                 }
 
-                //首先基于登录过滤器集合，进行登录预处理，HttpClient在各个请求之间自动处理cookie保持
+
+             // First set of filter -based login , login pretreatment , HttpClient automatic cookie handling is maintained between each request
                 List<CrawlLoginFilter> loginFilters = buildCrawlLoginFilters();
                 Map<String, String> requestHeaders = Maps.newHashMap();
                 requestHeaders.put("User-Agent", User_Agent);
@@ -707,7 +749,7 @@ public class CrawlService {
                 CloseableHttpResponse httpGetResponse = null;
                 HttpEntity httpGetResponseEntity = null;
                 try {
-                    //首先对url进行GET请求处理
+                	// First the url GET request processing
                     HttpGet httpGet = new HttpGet(url);
                     for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                         httpGet.addHeader(header.getKey(), header.getValue());
@@ -715,7 +757,8 @@ public class CrawlService {
                     httpGetResponse = buildHttpClient().execute(httpGet);
                     statusCode = httpGetResponse.getStatusLine().getStatusCode();
 
-                    //如果是301或302转向，则提取转向URL地址
+
+                 // If it is 301 or 302 steering, the steering is extracted URL address
                     if (statusCode == HttpStatus.SC_MOVED_TEMPORARILY || statusCode == HttpStatus.SC_MOVED_PERMANENTLY) {
                         Header[] headers = httpGetResponse.getHeaders("Location");
                         if (headers.length > 0) {
@@ -733,7 +776,7 @@ public class CrawlService {
                     IOUtils.closeQuietly(httpGetResponse);
                 }
 
-                //301/302转向，二次发起请求
+             // 301 / 302 Steering, secondary initiation request
                 int redirectTimes = 0;
                 while ((statusCode == HttpStatus.SC_MOVED_TEMPORARILY || statusCode == HttpStatus.SC_MOVED_PERMANENTLY)
                         && redirectTimes < MAX_REDIRECT_TIMES) {
@@ -747,7 +790,8 @@ public class CrawlService {
                         httpGetResponse = buildHttpClient().execute(httpGet);
                         statusCode = httpGetResponse.getStatusLine().getStatusCode();
 
-                        //如果是302转向，则提取转向URL地址
+
+                     // If it is turned 302 , is extracted steering URL address
                         if (statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
                             Header[] headers = httpGetResponse.getHeaders("Location");
                             if (headers.length > 0) {
@@ -766,7 +810,8 @@ public class CrawlService {
                     }
                 }
 
-                //GET不支持，尝试POST
+
+             // GET is not supported , try POST
                 if (statusCode == HttpStatus.SC_METHOD_NOT_ALLOWED) {
                     logger.info("Try to use POST as GET not allowed for URL: {}", statusCode, url);
                     CloseableHttpResponse httpPostResponse = null;
@@ -776,7 +821,7 @@ public class CrawlService {
                         for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                             httpPost.addHeader(header.getKey(), header.getValue());
                         }
-                        //POST请求一般是JSON形式的分页处理等
+                     // POST request is generally in the form of JSON paging processing
                         StringEntity entity = new StringEntity("{}", Default_Charset_UTF8);
                         entity.setContentEncoding(Default_Charset_UTF8);
                         entity.setContentType("application/json");
@@ -802,7 +847,8 @@ public class CrawlService {
                     logger.warn("HTTP ERROR StatusCode is {} for URL: {}", statusCode, url);
                     logger.trace("HTTP response for URL {} is:\n{}", url, result);
 
-                    //页面Fetch处理异常,则重新注入尝试下次重新fetch和parse,超过阈值以后就不再对此url发起http请求
+
+                 // Page Fetch handle the exception , then re- injected into the next attempt to re- fetch and parse, after exceeding the threshold will no longer initiate this url http request
                     injectFetchFailureRetry(url, statusCode, result, exception);
                 } else {
                     fetchUpdate.put("fetchFailureTimes", 0);
@@ -818,17 +864,22 @@ public class CrawlService {
                 fetchObjectCollection.update(urlQuery, new BasicDBObject("$set", fetchUpdate));
             }
 
-            //解析处理
+
+         // Analytical Processing
             Date parseTime = (Date) item.get("parseTime");
-            //如果没解析过或强制解析
+
+         // If not parsed or force to resolve
             if (parseTime == null || crawlConfig.isForceReparse()) {
-                //只对200状态响应进行解析处理
+
+            	// Only 200 state response analysis processing
                 if (statusCode == HttpStatus.SC_OK) {
                     logger.info("Parsing for URL: {}", url);
-                    //获取所有有效的解析过滤器
+
+                 // Get all valid analytical filter
                     List<CrawlParseFilter> parseFilters = buildCrawlParseFilters();
 
-                    //取当前URL数据是否有指定的解析过滤器集合，如果有则按照指定过滤器集合处理，否则按照所有解析器处理
+
+                 // Get the current URL parsing data if there is a specified filter set , if there is the specified filter set , otherwise follow all parser
                     BasicDBList dbCrawlParseFilters = (BasicDBList) item.get("crawlParseFilters");
                     if (dbCrawlParseFilters != null && dbCrawlParseFilters.size() > 0) {
                         parseFilters = Lists.newArrayList();
@@ -848,7 +899,8 @@ public class CrawlService {
 
                     DBObject parsedDBObject = null;
                     try {
-                        //逐个调用解析过滤器，如果返回了有效的解析对象则提取主要的分组和ID标识信息
+
+                    	// Call -by parsing filter , if it returns a valid analysis target is mainly extracted packet identification information and ID
                         for (CrawlParseFilter parseFilter : parseFilters) {
                             webPage.setPageText(result);
                             DBObject filterParsedDBObject = parseFilter.filter(url, webPage);
@@ -859,7 +911,7 @@ public class CrawlService {
                             }
                         }
 
-                        //提取所有解析追加的outlink集合，注入下一轮循环处理
+                     // Extract all resolve additional outlink collection , processing injection next cycle
                         int outlinksSize = webPage.getOutlinks().size();
                         List<String> outlinks = Lists.newArrayList();
                         if (outlinksSize > 0) {
@@ -874,13 +926,15 @@ public class CrawlService {
                                 injectOutlink(outlink, crawlConfig, url);
                             }
                         } else {
-                            //如果当前URL处理完后，既没有返回解析业务数据，也没有输出outlink，则warn警告此无意义处理url
+
+                        	// If the current URL after treatment, neither return parsed service data , there is no output outlink, then warn warning this meaningless process url
                             if (parsedDBObject == null) {
                                 logger.warn("NO Output after all filter for URL: {}", url);
                             }
                         }
 
-                        //增量更新相关解析属性
+
+                     // Incremental update to resolve property -related
                         DBObject update = new BasicDBObject();
                         update.put("bizSiteName", webPage.getBizSiteName());
                         update.put("bizId", webPage.getBizId());
@@ -891,7 +945,8 @@ public class CrawlService {
                         update.put("parseFailureException", null);
                         fetchObjectCollection.update(urlQuery, new BasicDBObject("$set", update));
                     } catch (Exception e) {
-                        // 解析处理异常, 再次inject尝试重新fetch和parse
+
+                    	// Exception resolution process , inject try to fetch and parse again
                         logger.error("Parse exception for: " + url, e);
                         injectParseFailureRetry(webPage, Exceptions.getStackTraceAsString(e));
                     }
@@ -899,7 +954,8 @@ public class CrawlService {
                     logger.debug("Skipped parse [{}] as HTTP status code is  {}", url, statusCode);
                 }
             } else {
-                //如果无需解析处理，则直接把之前的outlink集合注入下一轮循环处理
+
+            	// If you do not need to resolve the process , directly before the next injection cycle outlink collection process
                 logger.debug("Skipped parse [{}] as last parsed time: {}", url, parseTime);
                 BasicDBList dbList = (BasicDBList) item.get("outlinks");
                 if (dbList != null) {
@@ -911,14 +967,15 @@ public class CrawlService {
                 }
             }
 
-            //把异常记录搬迁到一个指定集合便于快速查询
+
+         // The exception record moved to a designated collection for fast query
             DBCollection failureObjectCollection = buildFailureObjectCollection();
             DBObject fetchItem = fetchObjectCollection.findOne(urlQuery,
                     new BasicDBObject().append("parseFailureTimes", 1).append("fetchFailureTimes", 1));
             Integer fetchFailureTimes = (Integer) fetchItem.get("fetchFailureTimes");
             Integer parseFailureTimes = (Integer) fetchItem.get("parseFailureTimes");
             DBObject failureItem = failureObjectCollection.findOne(urlQuery, urlQuery);
-            //假如失败都为0说明处理成功，移除
+         // If 0 indicates failure are treated successfully removed
             if ((fetchFailureTimes == null || fetchFailureTimes == 0 || statusCode == HttpStatus.SC_OK)
                     && (parseFailureTimes == null || parseFailureTimes == 0)) {
                 if (failureItem != null) {
@@ -930,7 +987,8 @@ public class CrawlService {
                 failureObjectCollection.update(urlQuery, upset, true, false);
             }
 
-            //累加计数器，并打印一些重要的跟踪信息
+
+         // Cumulative counter , and print some important tracking information
             pages.incrementAndGet();
             if (logger.isInfoEnabled()) {
                 long elapsed = (System.currentTimeMillis() - crawlStartTime.getTime()) / 1000;
@@ -942,7 +1000,7 @@ public class CrawlService {
     }
 
     /**
-     * 从MongoDB中查询所有作为种子注入的URL列表
+     * Query a list of all as a seed implanted in the URL from MongoDB
      * @return
      */
     public List<DBObject> findSeedURLs() {
@@ -981,13 +1039,13 @@ public class CrawlService {
 
     public List<String> getAllSiteNameList() {
         DBCollection coll = buildParseObjectCollection();
-        List<String> bizSiteNameList = coll.distinct("站点分组");
+        List<String> bizSiteNameList = coll.distinct("Site packet");
         return bizSiteNameList;
     }
 
     public OperationResult generateThreadStart(String bizSiteName) {
         new Thread(new GenerateThread(this, bizSiteName)).start();
-        return OperationResult.buildSuccessResult("正在生成文件，请稍后刷新");
+        return OperationResult.buildSuccessResult("File being generated , please wait refresh");
     }
 
     private class GenerateThread implements Runnable {
@@ -1008,7 +1066,7 @@ public class CrawlService {
     public String generateFile(String bizSiteName) {
         try {
             DBCollection coll = buildParseObjectCollection();
-            List<String> bizSiteNameList = coll.distinct("站点分组");
+            List<String> bizSiteNameList = coll.distinct("Site packet");
 
             if (CollectionUtils.isEmpty(bizSiteNameList)) {
                 return null;
@@ -1023,14 +1081,14 @@ public class CrawlService {
                 if (!bizSiteNameSet.contains(bizSiteName)) {
                     return null;
                 } else {
-                    query = new BasicDBObject("站点分组", bizSiteName);
+                    query = new BasicDBObject("Site packet", bizSiteName);
                     DBCursor dBCursor = coll.find(query);
                     return exportXls(dBCursor, bizSiteName);
                 }
             } else {
                 List<String> files = Lists.newArrayList();
                 for (String siteName : bizSiteNameList) {
-                    query = new BasicDBObject("站点分组", siteName);
+                    query = new BasicDBObject("Site packet", siteName);
                     DBCursor dBCursor = coll.find(query);
                     files.add(exportXls(dBCursor, siteName));
                 }
@@ -1048,10 +1106,10 @@ public class CrawlService {
             return null;
         }
 
-        //复制DBCursor
+     // Copy DBCursor
         DBCursor dBCursorClone = dBCursor.copy();
 
-        //计算表头
+     // Calculate Header
         Set<String> titleSet = Sets.newHashSet();
         while (dBCursor.hasNext()) {
             BasicDBObject dBObject = (BasicDBObject) dBCursor.next();
@@ -1065,10 +1123,10 @@ public class CrawlService {
         }
         List<String> titleList = Lists.newArrayList(titleSet);
 
-        HSSFWorkbook wb = new HSSFWorkbook();//创建Excel工作簿对象   
-        HSSFSheet sheet = wb.createSheet();//创建Excel工作表对象     
+        HSSFWorkbook wb = new HSSFWorkbook();// Create the Excel Workbook object
+        HSSFSheet sheet = wb.createSheet();// Create an Excel worksheet object    
 
-        HSSFRow titleRow = sheet.createRow(0);//创建表头
+        HSSFRow titleRow = sheet.createRow(0);// Create a table header
         for (int i = 0; i < titleList.size(); i++) {
             HSSFCell hssfCell = titleRow.createCell(i);
             hssfCell.setCellValue(titleList.get(i));

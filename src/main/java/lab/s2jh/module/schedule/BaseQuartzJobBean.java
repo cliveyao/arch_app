@@ -23,9 +23,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 /**
- * 自定义Quartz Job业务对象的基类定义
- * 业务Job继承此抽象基类，获得Spring ApplicationContext的能力从而可以获取Spring声明的Bean对象
- * 同时实现QuartzJobBean约定接口，编写定时处理逻辑
+ *Custom Quartz Job base business object class definition
+ * Business Job inherit this abstract base class , and thus gain the ability to get Spring ApplicationContext Spring Bean declaration objects
+ * While achieving QuartzJobBean agreed interfaces , the preparation of regular processing logic
  */
 public abstract class BaseQuartzJobBean extends QuartzJobBean {
 
@@ -41,7 +41,7 @@ public abstract class BaseQuartzJobBean extends QuartzJobBean {
     private FreemarkerService freemarkerService;
 
     /**
-     * 基于Freemarker组装任务结果数据文本
+     * Based on the results of assembly tasks Freemarker text data
      * @param context
      * @param dataMap
      * @return
@@ -66,7 +66,8 @@ public abstract class BaseQuartzJobBean extends QuartzJobBean {
             // Process @Autowired injection for the given target object, based on the current web application context. 
             SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
 
-            //绑定JPA Session到当前线程
+
+         // JPA Session bound to the current thread
             if (!TransactionSynchronizationManager.hasResource(entityManagerFactory)) {
                 EntityManager entityManager = entityManagerFactory.createEntityManager();
                 TransactionSynchronizationManager.bindResource(entityManagerFactory, new EntityManagerHolder(entityManager));
@@ -74,7 +75,7 @@ public abstract class BaseQuartzJobBean extends QuartzJobBean {
 
             String result = executeInternalBiz(context);
 
-            //解绑JPA Session从当前线程
+         // Unbundling JPA Session from the current thread
             EntityManagerHolder emHolder = (EntityManagerHolder) TransactionSynchronizationManager.unbindResource(entityManagerFactory);
             EntityManagerFactoryUtils.closeEntityManager(emHolder.getEntityManager());
 
@@ -89,9 +90,13 @@ public abstract class BaseQuartzJobBean extends QuartzJobBean {
     }
 
     /**
-     * 定时任务内部逻辑实现，注意整个方法不在事务控制边界，因此如果涉及到多数据更新逻辑注意需要把所有业务逻辑封装到相关Service接口中，然后在此方法中一次性调用确保事务控制
-     * @param context
-     * @return 组装好的任务记录结果信息，可以调用 buildJobResultByTemplate 方法基于Freemarker模板组装复杂的响应文本信息
+     * Timing of realization of the internal logic of the task , not pay attention to the overall process 
+     * control transaction boundaries , so if it comes to multiple data update logic need to pay attention to 
+     * all the business logic is encapsulated into the relevant Service interface , and then call this method 
+     * to ensure that a one-time transaction control
+     * @param Context
+     * @return Assembled task record result information , you can call buildJobResultByTemplate Based 
+     * Freemarker template assembly complex response text message
      */
     protected abstract String executeInternalBiz(JobExecutionContext context);
 }

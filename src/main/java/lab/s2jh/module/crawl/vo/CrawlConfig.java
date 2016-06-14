@@ -21,10 +21,10 @@ public class CrawlConfig {
 
     private Long batchId;
 
-    @MetaData(value = "并发抓取线程数", comments = "对于速度快，没有反爬虫的站点可以根据机器性能设置较大；反正则设置较小一些")
+    @MetaData(value = "Concurrent crawls threads", comments = "For fast, no anti- reptile sites can be set according to a larger machine performance ; anyway, set to a smaller number of")
     private int threadNum = 30;
 
-    @MetaData(value = "抓取访问最小间隔(秒)", comments = "有些站点做了一定反爬虫控制，如限制用户请求间隔不得太快，通过合理设置此参数来规避站点封锁")
+    @MetaData(value = "Crawl Access minimum interval ( in seconds )", comments = "Some sites do a certain anti- crawler control , such as restrictions on user request interval may not be too fast , through a reasonable set this parameter to circumvent the blockade site")
     private int fetchMinInterval = 0;
 
     private Date lastFetchTime;

@@ -16,8 +16,9 @@ import org.quartz.Trigger;
 import org.quartz.plugins.history.LoggingJobHistoryPlugin;
 
 /**
- * 扩展实现LoggingJobHistoryPlugin约定接口
- * 转换Quartz提供的相关接口数据为ScheduleJobRunHist对象并调用对应的Service接口把数据写入数据库表中
+ * Extended achieve LoggingJobHistoryPlugin agreed Interface
+ * Interfaces provide for data conversion Quartz ScheduleJobRunHist object and 
+ * calls the corresponding Service interface to write data to the database table
  */
 public class ExtLoggingJobHistoryPlugin extends LoggingJobHistoryPlugin {
 

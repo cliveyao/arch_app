@@ -28,30 +28,30 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 @Table(name = "sys_ConfigProperty")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "配置属性")
+@MetaData(value = "Configuration Properties")
 @Audited
 public class ConfigProperty extends BaseNativeEntity {
 
     private static final long serialVersionUID = 8136580659799847607L;
 
-    @MetaData(value = "代码")
+    @MetaData(value = "Code")
     @Column(length = 64, unique = true, nullable = false)
     private String propKey;
 
-    @MetaData(value = "名称")
+    @MetaData(value = "name")
     @Column(length = 256, nullable = false)
     private String propName;
 
-    @MetaData(value = "简单属性值")
+    @MetaData(value = "Simple attribute value")
     @Column(length = 256)
     private String simpleValue;
 
-    @MetaData(value = "HTML属性值")
+    @MetaData(value = "HTML attribute values")
     @Lob
     @JsonView(JsonViews.AppDetail.class)
     private String htmlValue;
 
-    @MetaData(value = "参数属性用法说明")
+    @MetaData(value = "Parameter attribute Usage Notes")
     @Column(length = 2000)
     private String propDescn;
 

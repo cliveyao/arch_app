@@ -34,21 +34,21 @@ public class JobBeanCfgController extends BaseController<JobBeanCfg, Long> {
         return jobBeanCfgService;
     }
 
-    @MenuData("配置管理:计划任务管理:可配置任务管理")
-    @RequiresPermissions("配置管理:计划任务管理:可配置任务管理")
+    @MenuData("Configuration Management : Plan Task Management : configurable task management")
+    @RequiresPermissions("Configuration Management : Plan Task Management : configurable task management")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index() {
         return "admin/schedule/jobBeanCfg-index";
     }
 
-    @RequiresPermissions("配置管理:计划任务管理:可配置任务管理")
+    @RequiresPermissions("Configuration Management : Plan Task Management : configurable task management")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
     public Page<JobBeanCfg> findByPage(HttpServletRequest request) {
         return super.findByPage(JobBeanCfg.class, request);
     }
 
-    @RequiresPermissions("配置管理:计划任务管理:可配置任务管理")
+    @RequiresPermissions("Configuration Management : Plan Task Management : configurable task management")
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult editSave(@ModelAttribute("entity") JobBeanCfg entity, HttpServletRequest request) {

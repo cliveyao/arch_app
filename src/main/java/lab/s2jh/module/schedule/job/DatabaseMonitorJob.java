@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 数据库监控统计任务（典型的Quartz集群运行模式的任务）
+ * Database Monitoring statistical tasks ( tasks typical of Quartz cluster operation mode )
  */
-@MetaData("数据库监控统计")
+@MetaData("Database monitoring statistics")
 public class DatabaseMonitorJob extends BaseQuartzJobBean {
 
     private final static Logger logger = LoggerFactory.getLogger(DatabaseMonitorJob.class);

@@ -77,7 +77,7 @@ public class JobBeanCfgService extends BaseService<JobBeanCfg, Long> {
     @Override
     public JobBeanCfg save(JobBeanCfg entity) {
         try {
-            if (!entity.isNew()) {// 新配置任务不做Schedule处理，需要重新启动应用服务器才能生效
+            if (!entity.isNew()) {// New Configuration Task Schedule not deal with the need to restart the application server to take effect
                 Map<Trigger, SchedulerFactoryBean> allTriggers = findAllTriggers();
                 for (Map.Entry<Trigger, SchedulerFactoryBean> me : allTriggers.entrySet()) {
                     CronTrigger cronTrigger = (CronTrigger) me.getKey();

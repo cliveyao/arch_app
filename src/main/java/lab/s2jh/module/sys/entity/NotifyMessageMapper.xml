@@ -9,7 +9,7 @@
 	</resultMap>
 
 	<sql id="sqlReadableMessages">
-		<!-- 已发布的 -->
+		<!-- Published -->
 		(m.publishTime is not null and m.publishTime&lt;=#{now})
 		<!-- 未过期的 -->
 		and (m.expireTime is null or m.expireTime > #{now})

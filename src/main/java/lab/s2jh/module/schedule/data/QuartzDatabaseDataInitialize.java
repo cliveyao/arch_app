@@ -14,7 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 /**
- * Quartz数据库基础数据初始化处理器
+ * Quartz database initialization data base processor
  */
 public class QuartzDatabaseDataInitialize {
 
@@ -31,14 +31,16 @@ public class QuartzDatabaseDataInitialize {
             connection = dataSource.getConnection();
 
             try {
-                //尝试执行查询，如果异常则说明没有初始化
+
+            	// Try to execute the query , if the exception is not initialized Description
                 connection.prepareStatement("select count(1) from QRTZ_TRIGGERS").execute();
                 logger.info("Table QRTZ_TRIGGERS exist, skipped.");
             } catch (Exception e) {
                 DatabaseMetaData databaseMetaData = connection.getMetaData();
                 String name = databaseMetaData.getDatabaseProductName().toLowerCase();
                 logger.info("Table QRTZ_TRIGGERS NOT exist, Initializing DDL for {}...", name);
-                //根据不同数据库类型执行不同初始化SQL脚本
+
+             // Initialize SQL script to perform different types depending on the database
                 ResourceDatabasePopulator resourceDatabasePopulator = null;
                 String sqlFile = null;
                 if (name.indexOf("mysql") > -1) {

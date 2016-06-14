@@ -23,37 +23,37 @@ import org.hibernate.envers.Audited;
 @Access(AccessType.FIELD)
 @Entity
 @Table(name = "sche_JobBeanCfg")
-@MetaData(value = "定时任务配置")
+@MetaData(value = "Timing Task Configuration")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Audited
 public class JobBeanCfg extends BaseNativeEntity {
 
     private static final long serialVersionUID = -416068377592076851L;
 
-    @MetaData(value = "任务类全名", tooltips = "实现QuartzJobBean的类全路径类名 ")
+    @MetaData(value = "Task class full name", tooltips = "Achieve QuartzJobBean class full path name of the class ")
     @Column(length = 128, nullable = false, unique = true)
     private String jobClass;
 
-    @MetaData(value = "CRON表达式", tooltips = "Cron表达式的格式：秒 分 时 日 月 周 年(可选)")
+    @MetaData(value = "CRON expression", tooltips = "Format Cron expression: Second Minute Week Day Month Year ( Optional )")
     @Column(length = 64, nullable = false)
     private String cronExpression;
 
-    @MetaData(value = "自动初始运行")
+    @MetaData(value = "Automatic initial run")
     @Column(nullable = false)
     private Boolean autoStartup = Boolean.TRUE;
 
-    @MetaData(value = "启用运行记录", tooltips = "每次运行会写入历史记录表，对于运行频率很高或业务监控意义不大的任务建议关闭")
+    @MetaData(value = "Enable log", tooltips = "Each run will be written the history table for the operating frequency is high or monitor meaningful business tasks recommendation Close")
     @Column(nullable = false)
     private Boolean logRunHist = Boolean.TRUE;
 
-    @MetaData(value = "集群运行模式", tooltips = "如果为true，则在一组集群部署环境中同一任务只会在一个节点触发<br/>否则在每个节点各自独立运行")
+    @MetaData(value = "Cluster operation mode", tooltips = "If true, then in a clustered environment, the same deployment task will only trigger a node <br/> otherwise, each node independently run")
     private Boolean runWithinCluster = Boolean.TRUE;
 
-    @MetaData(value = "描述")
+    @MetaData(value = "description")
     @Column(length = 1000, nullable = true)
     private String description;
 
-    @MetaData(value = "结果模板文本")
+    @MetaData(value = "Results template text")
     @Lob
     private String resultTemplate;
 }

@@ -34,95 +34,95 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name = "sys_NotifyMessage")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "公告消息")
+@MetaData(value = "Announcement Message")
 public class NotifyMessage extends BaseNativeEntity {
 
     private static final long serialVersionUID = 2544390748513253055L;
 
-    @MetaData(value = "消息类型", comments = "从数据字典定义的消息类型")
+    @MetaData(value = "Message Type", comments = "From the data dictionary definition of the message type")
     @Column(length = 32, nullable = true)
     private String type;
 
-    @MetaData(value = "标题")
+    @MetaData(value = "title")
     @Column(length = 128, nullable = false)
     private String title;
 
-    @MetaData(value = "生效标识", comments = "安排定时任务，基于publishTime和expireTime更新此值")
+    @MetaData(value = "Logo into force", comments = "Arrange regular task , this value is updated based on publishTime and expireTime")
     @Column(nullable = true)
     private Boolean effective;
 
-    @MetaData(value = "标识必须登录才能访问")
+    @MetaData(value = "Identification must be logged in to access")
     @Column(nullable = false)
     private Boolean authRequired = Boolean.FALSE;
 
-    @MetaData(value = "发布时间")
+    @MetaData(value = "release time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(nullable = false)
     @JsonSerialize(using = ShortDateTimeJsonSerializer.class)
     private Date publishTime;
 
-    @MetaData(value = "到期时间", comments = "为空表示永不过期")
+    @MetaData(value = "Expire date", comments = "Blank means never expire")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @JsonSerialize(using = ShortDateTimeJsonSerializer.class)
     private Date expireTime;
 
-    @MetaData(value = "平台设置", comments = "没有值=全部，其他为如下几项逗号分隔组合：web-admin,web-site,ios,android,winphone, @see NotifyMessage#NotifyMessagePlatformEnum")
+    @MetaData(value = "Platform Settings", comments = "No value = all other combinations of the following items separated by commas：web-admin,web-site,ios,android,winphone, @see NotifyMessage#NotifyMessagePlatformEnum")
     @Column(length = 200, nullable = true)
     private String platform;
 
-    @MetaData(value = "消息目标属性OR并集", comments = "用标签来进行大规模的设备属性、用户属性分群，各元素之间为OR取并集。没有值=全部，其他为数据字典项逗号分隔组合，如：student, teacher")
+    @MetaData(value = "Message and set the target attribute OR", comments = "With labels for large-scale equipment properties , user attribute grouping , among the elements OR take the union . = No value all the other data dictionary item comma -separated combinations such as : student, teacher")
     @Column(length = 1000, nullable = true)
     private String audienceTags;
 
-    @MetaData(value = "消息目标属性AND交集", comments = "用标签来进行大规模的设备属性、用户属性分群，各元素之间为AND取交集。没有值=全部，其他为数据字典项逗号分隔组合，如：student, school_01")
+    @MetaData(value = "Message target attribute AND intersection", comments = "With labels for large-scale equipment properties , user attribute grouping for AND intersected between each element. = No value all the other data dictionary item comma -separated combinations such as : student, school_01")
     @Column(length = 1000, nullable = true)
     private String audienceAndTags;
 
-    @MetaData(value = "用户标识列表", comments = "User对象的alias列表，各元素之间为OR取并集。没有值=全部，其他为数据字典项逗号分隔组合，如：user_01,user_02")
+    @MetaData(value = "User ID list", comments = "alias list of User objects , among the elements OR take the union . = No value all the other data dictionary item comma -separated combinations such as : user_01, user_02")
     @Column(length = 1000, nullable = true)
     private String audienceAlias;
 
-    @MetaData(value = "APP弹出提示内容", comments = "如果不为空则触发APP弹出通知，为空则不会弹出而只会推送应用消息")
+    @MetaData(value = "APP prompted content", comments = "If you do not empty the trigger APP pop-up notification , is empty and will not pop up message push applications")
     @Column(length = 200)
     private String notification;
 
-    @MetaData(value = "最近推送时间", comments = "为空表示尚未推送过")
+    @MetaData(value = "Recently Pushed", comments = "Null indicates that no push over")
     private Date lastPushTime;
 
-    @MetaData(value = "消息内容", comments = "可以是无格式的TEXT或格式化的HTMl，一般是在邮件或WEB页面查看的HTML格式详细内容")
+    @MetaData(value = "Message content", comments = "TEXT can be plain or formatted HTMl, generally in the mail or WEB page to view the HTML format details")
     @Lob
     @Column(nullable = false)
     @JsonView(JsonViews.AppDetail.class)
     private String message;
 
-    @MetaData(value = "总计查看用户数")
+    @MetaData(value = "View total number of users")
     private Integer readUserCount = 0;
 
-    @MetaData(value = "排序号", tooltips = "数字越大显示越靠上")
+    @MetaData(value = "queue number", tooltips = "The higher the number the closer the display")
     private Integer orderRank = 100;
 
-    @MetaData(value = "关联附件个数", comments = "用于列表显示和关联处理附件清理判断")
+    @MetaData(value = "The number associated with attachment", comments = "Display a list of attachments and associated clean-up process is determined")
     private Integer attachmentSize;
 
     @Transient
-    @MetaData(value = "标识已读")
+    @MetaData(value = "Read identification")
     private Boolean readed;
 
     public static enum NotifyMessagePlatformEnum {
 
-        @MetaData(value = "后端系统")
+        @MetaData(value = "Back-end systems")
         web_admin,
 
-        @MetaData(value = "前端网站")
+        @MetaData(value = "The front end of the site")
         web_site,
 
-        @MetaData(value = "移动网站")
+        @MetaData(value = "Mobile Website")
         html5_site,
 
-        @MetaData(value = "苹果iOS")
+        @MetaData(value = "Apple iOS")
         ios,
 
-        @MetaData(value = "安卓Android")
+        @MetaData(value = "Android")
         android,
 
         @MetaData(value = "Win Phone")
@@ -141,7 +141,7 @@ public class NotifyMessage extends BaseNativeEntity {
         if (StringUtils.isNotBlank(notification)) {
             return notification;
         } else {
-            //优化为提取HTML内容text摘要
+        	// Extract HTML content optimized for text summary
             if (!StringUtils.isEmpty(message)) {
                 return StringUtils.substring(WebFormatter.html2text(message), 0, 50).trim() + "...";
             } else {
@@ -159,13 +159,13 @@ public class NotifyMessage extends BaseNativeEntity {
         return false;
     }
 
-    @MetaData(value = "辅助方法：用于表单数据绑定")
+    @MetaData(value = "Helper method : Forms for data binding")
     @Transient
     public String[] getPlatformSplit() {
         return StringUtils.isNotBlank(platform) ? platform.split(",") : null;
     }
 
-    @MetaData(value = "辅助方法：用于表单数据绑定")
+    @MetaData(value = "Helper method : Forms for data binding")
     @Transient
     public void setPlatformSplit(String[] platformSplit) {
         platform = platformSplit != null ? StringUtils.join(platformSplit, ",") : null;

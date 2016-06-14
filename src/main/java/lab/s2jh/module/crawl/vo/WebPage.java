@@ -33,7 +33,8 @@ public class WebPage {
         }
         outlinkURL = outlinkURL.trim();
 
-        //转换URL为绝对路径
+
+     // URL to convert to an absolute path
         if (outlinkURL.startsWith("http")) {
 
         } else if (outlinkURL.startsWith("/")) {

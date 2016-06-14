@@ -42,93 +42,100 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name = "sys_DataDict", uniqueConstraints = @UniqueConstraint(columnNames = { "parent_id", "primaryKey", "secondaryKey" }))
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "数据字典")
+@MetaData(value = "Data Dictionary")
 @Audited
 public class DataDict extends BaseNativeEntity {
 
     private static final long serialVersionUID = 5732022663570063926L;
 
     /** 
-     * 字典数据的主标识，绝大部分情况对于单一主标识就能确定唯一性的字典数据只需维护此字段值即可
-     * 注意：primaryKey+secondaryKey+parent唯一性约束
+     * Primary identification dictionary data , the vast majority of cases for a single label will be able to determine the uniqueness of the main dictionary only need to maintain this data field values ​​to
+     * Note : primaryKey + secondaryKey + parent uniqueness constraint
      */
-    @MetaData(value = "主标识")
+    @MetaData(value = "Main Identity")
     @Column(length = 128, nullable = false)
     @JsonView(JsonViews.List.class)
     private String primaryKey;
 
     /** 
-     * 字典数据的secondaryKey值，如果primaryKey值不能单一确定唯一性则可以启用secondaryKey值进行组合唯一控制
+     * secondaryKey dictionary data value , if not the single determining primaryKey value and 
+     * uniqueness of the combined values ​​can be enabled secondaryKey sole control
      */
-    @MetaData(value = "次标识")
+    @MetaData(value = "Secondary logo")
     @Column(length = 128)
     @JsonView(JsonViews.List.class)
     private String secondaryKey;
 
     /**
-     * 字典数据对应的数据Value值
-     * 大部分情况一般都是key-value形式的数据，只需要维护primaryKey和primaryValue即可，
-     * 然后通过{@link DataDictService#findChildrenByPrimaryKey(String)}即可快速返回key-value形式的Map数据
+     * Dictionary data corresponding to the data value of Value
+     * Most cases are generally in the form of key-value data , and only need to maintain primaryKey primaryValue can,
+     * Then {@link DataDictService # findChildrenByPrimaryKey (String)} to quickly return to the form of key-value data Map
      */
-    @MetaData(value = "主要数据")
+    @MetaData(value = "Main data")
     @JsonView(JsonViews.List.class)
     private String primaryValue;
 
     /**
-     * 字典数据对应的补充数据Value值，如果除了primaryValue业务设计需要其他补充数据可启用扩展Value字段存取这些值
-     * 对于扩展数据的获取一般通过{@link lab.s2jh.sys.service.DataDictService#findByPrimaryKey(String)}
-     * 对于返回的数据，根据实际业务定制化使用即可
+     * Dictionary data corresponding supplemental data Value value , if in addition to primaryValue business 
+     * design needs other supplementary data to enable extension Value field access these values
+     * For the extended data acquisition typically by {@link lab.s2jh.sys.service.DataDictService 
+     * #findByPrimaryKey (String)}
+     * For the return of data , based on actual business use can be customized
      */
-    @MetaData(value = "次要数据")
+    @MetaData(value = "Secondary data")
     @JsonView(JsonViews.List.class)
     private String secondaryValue;
 
     /**
-     * 字典数据对应的补充文件类型Value值，页面以文件组件方式维护
-     * 对于扩展数据的获取一般通过{@link lab.s2jh.sys.service.DataDictService#findByPrimaryKey(String)}
-     * 对于返回的数据，根据实际业务定制化使用即可
+     * Dictionary data corresponding to the file type Value added value to the page file component maintenance mode
+     * For the extended data acquisition typically by {@link lab.s2jh.sys.service.DataDictService 
+     * #findByPrimaryKey (String)}
+     * For the return of data , based on actual business use can be customized
      */
-    @MetaData(value = "文件路径数据")
+    @MetaData(value = "File Path")
     @JsonView(JsonViews.List.class)
     @Column(length = 512)
     private String filePathValue;
     
     /**
-     * 字典数据对应的补充图片类型Value值，页面以多图组件方式维护
-     * 对于扩展数据的获取一般通过{@link lab.s2jh.sys.service.DataDictService#findByPrimaryKey(String)}
-     * 对于返回的数据，根据实际业务定制化使用即可
+     * Dictionary data corresponding to the picture type Value added value , multi- page graph component maintenance mode
+     * For the extended data acquisition typically by {@link lab.s2jh.sys.service.DataDictService # findByPrimaryKey (String)}
+     * For the return of data , based on actual business use can be customized
      */
-    @MetaData(value = "图片路径数据")
+    @MetaData(value = "Image Data Path")
     @JsonView(JsonViews.List.class)
     @Column(length = 1024)
     private String imagePathValue;
 
     /**
-     * 字典数据对应的补充数据大文本类型Value值，如果除了primaryValue业务设计需要其他补充数据可启用扩展Value字段存取这些值
-     * 对于扩展数据的获取一般通过{@link lab.s2jh.sys.service.DataDictService#findByPrimaryKey(String)}
-     * 对于返回的数据，根据实际业务定制化使用即可
+     * Dictionary data corresponding supplemental data type Value large text value , 
+     * if in addition to primaryValue business design needs other supplementary data to enable 
+     * extension Value field access these values
+     * For the extended data acquisition typically by {@link lab.s2jh.sys.service.DataDictService 
+     * #findByPrimaryKey (String)}
+     * For the return of data , based on actual business use can be customized
      */
-    @MetaData(value = "大文本数据", tooltips = "以CLOB大文本方式存储用于特定的大文本数据配置")
+    @MetaData(value = "Large text data", tooltips = "CLOB stored in large text for a particular configuration of large text data")
     @Lob
     @JsonView(JsonViews.Detail.class)
     private String richTextValue;
 
-    @MetaData(value = "禁用标识", tooltips = "禁用项目全局不显示")
+    @MetaData(value = "Disable Logo", tooltips = "Disabled items are not displayed globally")
     @JsonView(JsonViews.Admin.class)
     private Boolean disabled = Boolean.FALSE;
 
-    @MetaData(value = "排序号", tooltips = "相对排序号，数字越大越靠上显示")
+    @MetaData(value = "queue number", tooltips = "Relative ranking number, the larger the number, the closer the display")
     @JsonView(JsonViews.Admin.class)
     private Integer orderRank = 10;
 
-    @MetaData(value = "父节点")
+    @MetaData(value = "Parent")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "parent_id", foreignKey = @ForeignKey(name = "none"))
     @JsonSerialize(using = EntityIdDisplaySerializer.class)
     @JsonView(JsonViews.Admin.class)
     private DataDict parent;
 
-    @MetaData(value = "子节点集合")
+    @MetaData(value = "Child nodes")
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     @OrderBy("orderRank desc")
     @JsonIgnore

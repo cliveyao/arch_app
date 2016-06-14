@@ -24,7 +24,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "sys_SmsVerifyCode")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "短信校验码")
+@MetaData(value = "SMS verification code")
 public class SmsVerifyCode extends BaseNativeEntity {
 
     private static final long serialVersionUID = 615208416034164816L;
@@ -38,19 +38,19 @@ public class SmsVerifyCode extends BaseNativeEntity {
     @Column(nullable = false)
     private Date generateTime;
 
-    @MetaData(value = "过期时间", comments = "定时任务定期清理过期的校验码")
+    @MetaData(value = "Expiration", comments = "Timing regular cleaning task expired checksum")
     @Column(nullable = false)
     private Date expireTime;
 
-    @MetaData(value = "首次验证通过时间", comments = "验证通过的手机号保留下来")
+    @MetaData(value = "By the time the first verification", comments = "Phone number verified through preserved")
     @Column(nullable = true)
     private Date firstVerifiedTime;
 
-    @MetaData(value = "最后验证通过时间", comments = "验证通过的手机号保留下来")
+    @MetaData(value = "Last verified by time", comments = "Phone number verified through preserved")
     @Column(nullable = true)
     private Date lastVerifiedTime;
 
-    @MetaData(value = "总计验证通过次数")
+    @MetaData(value = "Total verified by frequency")
     @Column(nullable = true)
     private Integer totalVerifiedCount = 0;
 }

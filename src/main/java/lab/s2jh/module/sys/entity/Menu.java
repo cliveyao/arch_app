@@ -37,61 +37,61 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "sys_Menu")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "菜单")
+@MetaData(value = "menu")
 @Audited
 public class Menu extends BaseNativeEntity {
 
     private static final long serialVersionUID = 2860233299443173932L;
 
-    @MetaData(value = "名称")
+    @MetaData(value = "name")
     @Column(nullable = false, length = 32)
     private String name;
 
-    @MetaData(value = "菜单路径")
+    @MetaData(value = "Menu Path")
     @Column(nullable = false, length = 255, unique = true)
     private String path;
 
-    @MetaData(value = "父节点")
+    @MetaData(value = "Parent")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "parent_id")
     @JsonIgnore
     private Menu parent;
 
-    @MetaData(value = "描述")
+    @MetaData(value = "description")
     @Column(length = 1000)
     @JsonIgnore
     private String description;
 
-    @MetaData(value = "禁用标识", tooltips = "禁用菜单全局不显示")
+    @MetaData(value = "Disable Logo", tooltips = "Global disable menu is not displayed")
     private Boolean disabled = Boolean.FALSE;
 
-    @MetaData(value = "菜单URL")
+    @MetaData(value = "Menu URL")
     @Column(length = 256)
     private String url;
 
-    @MetaData(value = "图标样式")
+    @MetaData(value = "Icon style")
     @Column(length = 128)
     private String style;
 
-    @MetaData(value = "排序号", tooltips = "相对排序号，数字越大越靠上显示")
+    @MetaData(value = "queue number", tooltips = "Relative ranking number, the larger the number, the closer the display")
     @Column(nullable = false)
     private Integer orderRank = 100;
 
-    @MetaData(value = "展开标识", tooltips = "是否默认展开菜单组")
+    @MetaData(value = "Expand logo", tooltips = "Expand the menu if the default group")
     private Boolean initOpen = Boolean.FALSE;
 
-    @MetaData(value = "所在层级")
+    @MetaData(value = "Inherit level")
     private Integer inheritLevel;
 
-    @MetaData(value = "对应Web Controller类名")
+    @MetaData(value = "Web Controller corresponds to the class name")
     @Column(length = 256)
     private String controllerClass;
 
-    @MetaData(value = "对应Web Controller调用方法名")
+    @MetaData(value = "Web Controller calls the corresponding method name")
     @Column(length = 128)
     private String controllerMethod;
 
-    @MetaData(value = "重建时间")
+    @MetaData(value = "Rebuild Time")
     private Date rebuildTime;
 
     @Override
@@ -100,7 +100,7 @@ public class Menu extends BaseNativeEntity {
         return path;
     }
 
-    @MetaData(value = "缓存Web Controller调用方法", comments = "用于缓存记录对应的Controller方法，方便权限判断比较")
+    @MetaData(value = "Cache Web Controller to call methods", comments = "Controller cache entry corresponding method for easy comparison authority to judge")
     @Transient
     private Method mappingMethod;
 
@@ -110,7 +110,7 @@ public class Menu extends BaseNativeEntity {
         if (mappingMethod != null) {
             return mappingMethod;
         }
-        //基于记录的Controller类和方法信息构造MethodInvocation,用于后续调用shiro的拦截器进行访问权限比对
+     // Controller class and method for recording information on construction MethodInvocation for subsequent calls shiro interceptors access than
         if (StringUtils.isNotBlank(getControllerMethod())) {
             final Class<?> clazz = ClassUtils.forName(getControllerClass());
             Method[] methods = clazz.getMethods();

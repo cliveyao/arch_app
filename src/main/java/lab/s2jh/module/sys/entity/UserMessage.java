@@ -39,82 +39,82 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name = "sys_UserMessage")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@MetaData(value = "用户消息", comments = "如果用户消息量担心影响查询效率，可以考虑引入定期归档处理把过期消息搬迁归档")
+@MetaData(value = "User Message", comments = "If you worried about the impact the amount of message query efficiency , we can consider the introduction of a regular process to archive expired messages relocation archive")
 public class UserMessage extends BaseNativeEntity {
 
     private static final long serialVersionUID = 1685596718660284598L;
 
-    @MetaData(value = "消息类型", comments = "从数据字典定义的消息类型")
+    @MetaData(value = "Message Type", comments = "From the data dictionary definition of the message type")
     @Column(length = 32, nullable = true)
     private String type;
 
-    @MetaData(value = "标题")
+    @MetaData(value = "title")
     @Column(nullable = false)
     private String title;
 
-    @MetaData(value = "APP弹出提示内容", comments = "如果不为空则触发APP弹出通知，为空则不会弹出而只会推送应用消息")
+    @MetaData(value = "APP prompted content", comments = "If you do not empty the trigger APP pop-up notification , is empty and will not pop up message push applications")
     @Column(length = 200)
     @JsonView(JsonViews.Admin.class)
     private String notification;
 
-    @MetaData(value = "消息内容", comments = "可以是无格式的TEXT或格式化的HTMl，一般是在邮件或WEB页面查看的HTML格式详细内容")
+    @MetaData(value = "Message content", comments = "TEXT can be plain or formatted HTMl, generally in the mail or WEB page to view the HTML format details")
     @Lob
     @Column(nullable = false)
     @JsonView(JsonViews.AppDetail.class)
     private String message;
 
-    @MetaData(value = "目标用户")
+    @MetaData(value = "Target users")
     @ManyToOne
     @JoinColumn(name = "targetUser_id", nullable = false)
     @JsonSerialize(using = EntityIdDisplaySerializer.class)
     @JsonView(JsonViews.Admin.class)
     private User targetUser;
 
-    @MetaData(value = "发布时间", comments = "全局的消息创建时间")
+    @MetaData(value = "release time", comments = "Global message creation time")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(nullable = false)
     @JsonSerialize(using = ShortDateTimeJsonSerializer.class)
     private Date publishTime;
 
-    @MetaData(value = "邮件推送消息")
+    @MetaData(value = "Push mail message")
     @JsonView(JsonViews.Admin.class)
     private Boolean emailPush = Boolean.FALSE;
 
-    @MetaData(value = "邮件推送消息时间", comments = "为空表示尚未推送过")
+    @MetaData(value = "Push mail message time", comments = "Null indicates that no push over")
     @JsonView(JsonViews.Admin.class)
     private Date emailPushTime;
 
-    @MetaData(value = "短信推送消息")
+    @MetaData(value = "SMS push messages")
     @JsonView(JsonViews.Admin.class)
     private Boolean smsPush = Boolean.FALSE;
 
-    @MetaData(value = "短信推送消息时间", comments = "为空表示尚未推送过")
+    @MetaData(value = "SMS push message time", comments = "Null indicates that no push over")
     @JsonView(JsonViews.Admin.class)
     private Date smsPushTime;
 
-    @MetaData(value = "APP推送消息")
+    @MetaData(value = "APP push message")
     @JsonView(JsonViews.Admin.class)
     private Boolean appPush = Boolean.FALSE;
 
-    @MetaData(value = "APP推送消息时间", comments = "为空表示尚未推送过")
+    @MetaData(value = "APP push message time", comments = "Null indicates that no push over")
     @JsonView(JsonViews.Admin.class)
     private Date appPushTime;
 
-    @MetaData(value = "关联附件个数", comments = "用于列表显示和关联处理附件清理判断")
+    @MetaData(value = "The size associated with attachment", comments = "Display a list of attachments and associated clean-up process is determined")
     @JsonView(JsonViews.Admin.class)
     private Integer attachmentSize;
 
-    @MetaData(value = "首次阅读时间")
+    @MetaData(value = "First reading time")
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     @JsonView(JsonViews.Admin.class)
     private Date firstReadTime;
 
-    @MetaData(value = "最后阅读时间")
+    @MetaData(value = "Last Reading Time")
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     @JsonView(JsonViews.Admin.class)
     private Date lastReadTime;
 
-    @MetaData(value = "总计阅读次数")
+    @MetaData(value = "Total Views")
     @Column(nullable = false)
     private Integer readTotalCount = 0;
 
@@ -130,7 +130,8 @@ public class UserMessage extends BaseNativeEntity {
         if (StringUtils.isNotBlank(notification)) {
             return notification;
         } else {
-            //优化为提取HTML内容text摘要
+
+        	// Extract HTML content optimized for text summary
             if (!StringUtils.isEmpty(message)) {
                 return StringUtils.substring(WebFormatter.html2text(message), 0, 50).trim() + "...";
             } else {

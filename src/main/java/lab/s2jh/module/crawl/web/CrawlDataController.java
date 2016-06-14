@@ -55,21 +55,21 @@ public class CrawlDataController {
     @Value("${crawl_appender_netty_port}")
     private String crawlAppenderNettyPort;
 
-    @MenuData("爬虫数据采集:爬虫数据管理")
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @MenuData("Data acquisition reptiles : reptiles data management")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         return "admin/crawl/crawlData-index";
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/logger", method = RequestMethod.GET)
     public String fetchLogger(Model model, HttpServletRequest request) {
         model.addAttribute("crawlAppenderNettyContextURL", request.getScheme() + "://" + request.getServerName() + ":" + crawlAppenderNettyPort);
         return "admin/crawl/crawlData-crawlerLogger";
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/crawler", method = RequestMethod.GET)
     public String crawlerIndex(Model model) {
         model.addAttribute("crawlConfig", new CrawlConfig());
@@ -78,29 +78,29 @@ public class CrawlDataController {
         return "admin/crawl/crawlData-crawlerIndex";
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/crawler/startup", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult startup(@RequestParam("urls") String urls, @ModelAttribute("crawlConfig") CrawlConfig crawlConfig, Model model) {
         crawlService.startup(crawlConfig, StringUtils.split(urls, ";\n"));
-        return OperationResult.buildSuccessResult("爬虫数据采集任务已提交并开始处理");
+        return OperationResult.buildSuccessResult("Reptile has been submitted and the data acquisition task begins processing");
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/crawler/shutdown", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult shutdown(Model model) {
         crawlService.shutdown();
-        return OperationResult.buildSuccessResult("爬虫数据采集任务已提交终止");
+        return OperationResult.buildSuccessResult("Reptile data acquisition task has been submitted terminated");
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/failure", method = RequestMethod.GET)
     public String failureIndex(Model model) {
         return "admin/crawl/crawlData-failureIndex";
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/failure-data-list", method = RequestMethod.GET)
     @ResponseBody
     @JsonView(JsonViews.Admin.class)
@@ -111,7 +111,7 @@ public class CrawlDataController {
                 new BasicDBObject("httpResponse", 0).append("fetchFailureException", 0).append("fetchParseException", 0));
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/generation-file", method = RequestMethod.GET)
     public String generationFile(Model model) {
         List<Map<String, String>> fileListMap = Lists.newArrayList();
@@ -132,14 +132,14 @@ public class CrawlDataController {
         return "admin/crawl/crawlData-generationFile";
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/generation-file/generate", method = RequestMethod.POST)
     @ResponseBody
     public OperationResult generate(@RequestParam(value = "bizSiteName", required = false) String bizSiteName, Model model) {
         return crawlService.generateThreadStart(bizSiteName);
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/generation-file/download", method = RequestMethod.GET)
     @ResponseBody
     public void download(@RequestParam(value = "fileName") String fileName, Model model, HttpServletResponse response) {
@@ -148,7 +148,7 @@ public class CrawlDataController {
         ServletUtils.renderFileDownload(response, file);
     }
 
-    @RequiresPermissions("爬虫数据采集:爬虫数据管理")
+    @RequiresPermissions("Data acquisition reptiles : reptiles data management")
     @RequestMapping(value = "/failure-detail", method = RequestMethod.GET)
     public String failureDetail(Model model, HttpServletRequest request) {
         DBObject entity = mongoDao.getDB().getCollection(CrawlService.Crawl_Failure_Data_Collection)

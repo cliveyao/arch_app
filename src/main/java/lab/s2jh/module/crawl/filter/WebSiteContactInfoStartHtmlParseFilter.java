@@ -17,9 +17,9 @@ public class WebSiteContactInfoStartHtmlParseFilter extends AbstractHtmlParseFil
         String pageText = webPage.getPageText();
         DocumentFragment df = parse(pageText);
 
-        Node node = selectSingleNode(df, "//A[contains(text(),'联系我们')]");
+        Node node = selectSingleNode(df, "//A[contains(text(),'contact us')]");
         if (node == null) {
-            node = selectSingleNode(df, "//A[contains(text(),'联系方式')]");
+            node = selectSingleNode(df, "//A[contains(text(),'Contact information')]");
         }
         if (node != null) {
             Node hrefAttr = node.getAttributes().getNamedItem("href");
@@ -27,7 +27,7 @@ public class WebSiteContactInfoStartHtmlParseFilter extends AbstractHtmlParseFil
                 String href = hrefAttr.getTextContent();
                 Outlink outlink = webPage.addOutlink(href, WebSiteContactInfoDetailHtmlParseFilter.class);
                 if (outlink != null) {
-                    parsedDBObject.put("联系我们URL", outlink.getUrl());
+                    parsedDBObject.put("Contact URL", outlink.getUrl());
                 }
             }
         }
@@ -36,8 +36,8 @@ public class WebSiteContactInfoStartHtmlParseFilter extends AbstractHtmlParseFil
             title = getXPathValue(df, "//TITLE");
             title = StringUtils.substringBefore(title, "-");
         }
-        parsedDBObject.put("站点名称", title);
-        parsedDBObject.put("站点链接", url);
+        parsedDBObject.put("Site title", title);
+        parsedDBObject.put("Site link", url);
         return parsedDBObject;
     }
 

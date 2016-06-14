@@ -34,33 +34,33 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 @Entity
 @Table(name = "sys_NotifyMessageRead", uniqueConstraints = @UniqueConstraint(columnNames = { "notifyMessage_id", "readUser_id" }))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@MetaData(value = "公告阅读记录")
+@MetaData(value = "Announcement reading record")
 public class NotifyMessageRead extends BaseNativeEntity {
 
     private static final long serialVersionUID = -2680515888038751963L;
 
-    @MetaData(value = "公告")
+    @MetaData(value = "announcement")
     @ManyToOne
     @JoinColumn(name = "notifyMessage_id", nullable = false)
     @JsonIgnore
     private NotifyMessage notifyMessage;
 
-    @MetaData(value = "阅读用户")
+    @MetaData(value = "Read user")
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "readUser_id", nullable = false)
     @JsonIgnore
     private User readUser;
 
-    @MetaData(value = "首次阅读时间")
+    @MetaData(value = "First read time")
     @Column(nullable = false, updatable = false)
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     private Date firstReadTime;
 
-    @MetaData(value = "最后阅读时间")
+    @MetaData(value = "Last Read Time")
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     private Date lastReadTime;
 
-    @MetaData(value = "总计阅读次数")
+    @MetaData(value = "Total Views")
     @Column(nullable = false)
     private Integer readTotalCount = 1;
 

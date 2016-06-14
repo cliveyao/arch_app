@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 用于 @see TableSeqGenerator 所需的数据表结构定义之用
+ * The data table structure definitions required for using @see TableSeqGenerator
  */
 @Getter
 @Setter
