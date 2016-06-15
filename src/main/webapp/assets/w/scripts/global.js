@@ -33,7 +33,7 @@ var Global = function() {
 									var captchaImgId = "ModalView_captchaImg";
 									var captchaImgTemplete = '<div class="model-background" style="z-index: 1050; display: block;" tabindex="-1"></div><div class="text-center" style="position: fixed; top: 30%; right: 0; left: 0; z-index: 1051;"><div class="modal-dialog"><div class="modal-content" style="color: #000000; background: #ffffff!important"><div class="modal-header"><h4 class="modal-title">验证码</h4></div><div class="modal-body"><div class="row"><div class="col-md-12"><div class="input-group"><input class="form-control captcha-text" type="text" autocomplete="off" placeholder="请输入验证码" name="captcha" required="true" data-msg-required="请填写验证码" /><span class="input-group-btn" style="cursor: pointer;"> <img alt="验证码" class="captcha-img" src="'
 											+ WEB_ROOT
-											+ '/assets/img/captcha_placeholder.jpg" title="看不清？点击刷新" /></span></div></div></div></div><div class="modal-footer"><button type="button" class="btn btn-primary btn-block">确定</button></div></div></div></div>';
+											+ '/assets/img/captcha_placeholder.jpg" title="See ? Click Refresh" /></span></div></div></div></div><div class="modal-footer"><button type="button" class="btn btn-primary btn-block">determine</button></div></div></div></div>';
 									$(document.body).append(
 											"<div id='" + captchaImgId + "'>"
 													+ captchaImgTemplete
@@ -56,7 +56,7 @@ var Global = function() {
 																.val();
 														console.log(captcha);
 														if (captcha == "") {
-															alert("验证码不能为空");
+															alert("verification code must be filled");
 															return
 														} else {
 															console
@@ -65,7 +65,7 @@ var Global = function() {
 																	"disabled",
 																	true);
 															$sendCode
-																	.html("正在发送...");
+																	.html("sending...");
 															$sendCode
 																	.closest(
 																			".form-group")
@@ -97,7 +97,7 @@ var Global = function() {
 																								+ captchaImgId)
 																						.remove();
 																				$sendCode
-																						.html("<i>已发送<span class='small'>(<span class='count'> 60 </span>秒后可重发)</span></i>");
+																						.html("<i>Has been sent<span class='small'>(<span class='count'> 60 </span>Seconds after the re- issued)</span></i>");
 																				timer = setInterval(
 																						function() {
 																							var count = $sendCode
@@ -110,14 +110,14 @@ var Global = function() {
 																												"disabled",
 																												false);
 																								$sendCode
-																										.html("获取验证码");
+																										.html("get verification code");
 																								clearInterval(timer)
 																							} else {
 																								count = Number(count) - 1;
 																								$sendCode
-																										.html("<i>已发送<span class='small'>(<span class='count'> "
+																										.html("<i>Has been sent<span class='small'>(<span class='count'> "
 																												+ count
-																												+ " </span>秒后可重发)</span></i>")
+																												+ " </span>Seconds after the re- issued)</span></i>")
 																							}
 																						},
 																						1000)
@@ -128,7 +128,7 @@ var Global = function() {
 																								"disabled",
 																								false);
 																				$sendCode
-																						.html("获取验证码");
+																						.html("get verification code");
 																				$captchaImage
 																						.click()
 																			}
@@ -191,18 +191,18 @@ var Global = function() {
 								$table.removeAttr("data-scroll-loading")
 							},
 							error : function(xhr, ajaxOptions, thrownError) {
-								$content.html("<h4>页面内容加载失败</h4>"
+								$content.html("<h4>Failed to load page content</h4>"
 										+ xhr.responseText);
 								App.unblockUI($target)
 							},
 							statusCode : {
 								403 : function() {
 									Global.notify("error", "URL: " + url,
-											"未授权访问")
+											"Unauthorized access")
 								},
 								404 : function() {
-									Global.notify("error", "页面未找到：" + url
-											+ "，请联系管理员", "请求资源未找到")
+									Global.notify("error", "Page Not Found：" + url
+											+ "，Please contact the administrator", "Requested resource was not found")
 								}
 							}
 						})
@@ -487,13 +487,13 @@ var Global = function() {
 					format : "YYYY-MM-DD",
 					separator : " ~ ",
 					locale : {
-						applyLabel : "确定",
-						fromLabel : "从",
-						toLabel : "到",
-						customRangeLabel : "自由选取",
-						daysOfWeek : [ "日", "一", "二", "三", "四", "五", "六" ],
-						monthNames : [ "1月", "2月", "3月", "4月", "5月", "6月",
-								"7月", "8月", "9月", "10月", "11月", "12月" ],
+						applyLabel : "determine",
+						fromLabel : "From",
+						toLabel : "To",
+						customRangeLabel : "Select free",
+						daysOfWeek : [ "Day" , "one" , " two", " three" , "four" , "five ", " six" ],
+						monthNames : [ " January " , " February " , " March " , " April " , " May " , " June " ,
+						               " July " , "August " , "September " , "October " , "November " , "December " ],
 						firstDay : 1
 					}
 				}
@@ -721,7 +721,7 @@ var Global = function() {
 											},
 											error : function(xhr, e, status) {
 												Global.notify("error",
-														"文件上传处理异常，请联系管理员");
+														"File upload handling exceptions , please contact your administrator");
 												App.unblockUI($b)
 											}
 										});
@@ -782,9 +782,9 @@ var Global = function() {
 		showModel : function(message, opt) {
 			var options = $.extend({
 				icon : "notice.png",
-				title : "提示",
+				title : "prompt",
 				action : WEB_ROOT + "/w",
-				button : "返回首页"
+				button : "Back to Home"
 			}, opt);
 			var modaltemplate = '<div class="model-background" style="z-index: 1050;" tabindex="-1"></div><div class="text-center" style="position: fixed; top: 35%; right: 0; left: 0; z-index: 1051;"><div class="modal-dialog"><div class="modal-content ui-draggable"><div class="modal-body"><h1 class="col-md-12" style="color:white;"><img src="'
 					+ WEB_ROOT
@@ -835,7 +835,7 @@ var Global = function() {
 				title = ""
 			}
 			if (message == null || message == undefined || message == "") {
-				message = "操作已处理完成"
+				message = "Operation has been processed"
 			}
 			toastr[type](message, title)
 		}
