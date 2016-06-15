@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>配置属性管理</title>
+<title>Configuration Properties Management</title>
 </head>
 <body>
 	<div class="row search-form-default">
@@ -15,15 +15,15 @@
 				<div class="form-group">
 					<div class="controls controls-clearfix">
 						<input type="text" name="search['CN_propKey_OR_propName_OR_simpleValue']" class="form-control input-large"
-							placeholder="代码，名称，参数值...">
+							placeholder="Code, name, parameter values...">
 					</div>
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Charles &nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Heavy &nbsp; Set
 					</button>
 				</div>
 			</form>
@@ -40,23 +40,23 @@
             $("#grid-sys-config-property-index").data("gridOptions", {
                 url : WEB_ROOT + '/admin/sys/config-property/list',
                 colModel : [ {
-                    label : '代码',
+                    label : 'Code',
                     name : 'propKey',
                     width : 120,
                     editable : true,
                     align : 'left'
                 }, {
-                    label : '名称',
+                    label : 'name',
                     name : 'propName',
                     width : 100,
                     editable : true,
                 }, {
-                    label : '简单属性值',
+                    label : 'Simple attribute value',
                     name : 'simpleValue',
                     width : 80,
                     editable : true
                 }, {
-                    label : '参数属性用法说明',
+                    label : 'Parameter attribute Usage Notes',
                     name : 'propDescn',
                     sortable : false,
                     editable : true,

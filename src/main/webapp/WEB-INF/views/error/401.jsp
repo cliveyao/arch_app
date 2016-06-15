@@ -8,13 +8,13 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-<title>401 - 未登录验证</title>
+<title>401 - Not signed verification</title>
 </head>
 
 <body>
-	<h2>401 - 未登录验证</h2>
+	<h2>401 - Not signed verification</h2>
 	<p>
-		<a href="<c:url value="/login"/>">登录</a>
+		<a href="<c:url value="/login"/>">Log in</a>
 	</p>
 </body>
 </html>

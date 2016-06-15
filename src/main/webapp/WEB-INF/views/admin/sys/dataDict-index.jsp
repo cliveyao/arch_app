@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>数据字典配置</title>
+<title>Data Dictionary Configuration</title>
 </head>
 <body>
 	<div class="row search-form-default">
@@ -14,15 +14,15 @@
 				data-grid-search="#grid-sys-data-dict-index">
 				<div class="form-group">
 					<div class="controls controls-clearfix">
-						<input type="text" name="search['CN_name']" class="form-control input-large" placeholder="名称...">
+						<input type="text" name="search['CN_name']" class="form-control input-large" placeholder="name...">
 					</div>
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Charles &nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Heavy &nbsp; Set
 					</button>
 				</div>
 			</form>
@@ -39,7 +39,7 @@
             $("#grid-sys-data-dict-index").data("gridOptions", {
                 url : WEB_ROOT + '/admin/sys/data-dict/list',
                 colModel : [ {
-                    label : '主要数据',
+                    label : 'Main data',
                     name : 'primaryValue',
                     editable : true,
                     editoptions : {
@@ -47,28 +47,28 @@
                     },
                     width : 150
                 }, {
-                    label : '主标识',
+                    label : 'Main Identity',
                     name : 'primaryKey',
                     editable : true,
                     width : 100
                 }, {
-                    label : '次标识',
+                    label : 'Secondary logo',
                     name : 'secondaryKey',
                     editable : true,
                     width : 50
                 }, {
-                    label : '次要数据',
+                    label : 'Secondary data',
                     name : 'secondaryValue',
                     hidden : true,
                     editable : true,
                     width : 50
                 }, {
-                    label : '禁用',
+                    label : 'Disable',
                     name : 'disabled',
                     editable : true,
                     formatter : "checkbox"
                 }, {
-                    label : '排序号',
+                    label : 'queue number',
                     name : 'orderRank',
                     width : 60,
                     editable : true,
@@ -77,7 +77,7 @@
                     },
                     formatter : 'integer'
                 }, {
-                    label : '大文本数据',
+                    label : 'Large text data',
                     name : 'richTextValue',
                     width : 200,
                     hidden : true,

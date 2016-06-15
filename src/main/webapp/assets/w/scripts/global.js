@@ -660,7 +660,7 @@ var Global = function() {
 						$btn.popupDialog({
 							url : WEB_ROOT + "/w/image/upload?el=" + id + "&_"
 									+ new Date().getTime(),
-							title : "图片上传",
+							title : "upload picture",
 							size : 600
 						})
 					});

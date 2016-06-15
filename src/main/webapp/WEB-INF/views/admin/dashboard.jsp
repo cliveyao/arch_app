@@ -88,7 +88,7 @@ The following Dashboard content is mainly defined by the demonstration effect , 
 						<H4 class = "list-group-item-heading"> Development Framework Introduction and Development Guide </ h4>
 						<P class = "list-group-item-text"> development framework for the whole overall design description and development guidelines . </ P>
 						</a>
-						<a class="list-group-item" href="javascript:;" rel="address:/docs/ui-feature/items|UI组件用法示例">
+						<a class="list-group-item" href="javascript:;" rel="address:/docs/ui-feature/items|UIComponent Usage Example">
 						<H4 class = "list-group-item-heading"> UI Component Usage Example </ h4>
 						<P class = "list-group-item-text"> typical UI components to provide a basic reference schematic usage , combined with the understanding of the functions corresponding to the document JSDoc attributes UI component usage and support . </ P>
 						</a>

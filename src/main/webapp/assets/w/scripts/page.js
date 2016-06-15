@@ -766,34 +766,34 @@ var Page = function() {
 									if (dateScope == "afterNow") {
 										options.minDate = moment();
 										options.ranges = {
-											"今天" : [ moment(), moment() ],
-											"未来一周" : [ moment(),
+											"Nowadays" : [ moment(), moment() ],
+											"Next week" : [ moment(),
 													moment().add("days", 6) ],
-											"未来一月" : [ moment(),
+											"Next month" : [ moment(),
 													moment().add("days", 29) ],
-											"未来一季度" : [
+											"The next quarter" : [
 													moment().subtract("days",
 															89), moment() ],
-											"未来半年" : [ moment(),
+											"Next six months" : [ moment(),
 													moment().add("days", 179) ],
-											"未来一年" : [ moment(),
+											"Next year" : [ moment(),
 													moment().add("days", 364) ]
 										}
 									} else {
 										if (dateScope == "beforeNow") {
 											options.maxDate = moment();
 											options.ranges = {
-												"今天" : [ moment(), moment() ],
-												"昨天" : [
+												"Nowadays" : [ moment(), moment() ],
+												"yesterday" : [
 														moment().subtract(
 																"days", 1),
 														moment().subtract(
 																"days", 1) ],
-												"本月" : [
+												"this month" : [
 														moment().startOf(
 																"month"),
 														moment().endOf("month") ],
-												"上月" : [
+												"Kozuki" : [
 														moment()
 																.subtract(
 																		"month",
@@ -803,23 +803,23 @@ var Page = function() {
 														moment().subtract(
 																"month", 1)
 																.endOf("month") ],
-												"最近一周" : [
+												"Last week" : [
 														moment().subtract(
 																"days", 6),
 														moment() ],
-												"最近一月" : [
+												"Latest one month" : [
 														moment().subtract(
 																"days", 29),
 														moment() ],
-												"最近一季度" : [
+												"Most recent quarter" : [
 														moment().subtract(
 																"days", 89),
 														moment() ],
-												"最近半年" : [
+												"Past six months" : [
 														moment().subtract(
 																"days", 179),
 														moment() ],
-												"最近一年" : [
+												"The most recent year" : [
 														moment().subtract(
 																"days", 364),
 														moment() ]
@@ -831,25 +831,25 @@ var Page = function() {
 									}
 								} else {
 									options.ranges = {
-										"今天" : [ moment(), moment() ],
-										"昨天" : [ moment().subtract("days", 1),
+										"Nowadays" : [ moment(), moment() ],
+										"yesterday" : [ moment().subtract("days", 1),
 												moment().subtract("days", 1) ],
-										"最近一周" : [
+										"Last week" : [
 												moment().subtract("days", 6),
 												moment() ],
-										"未来一周" : [ moment(),
+										"Next week" : [ moment(),
 												moment().add("days", 6) ],
-										"最近一月" : [
+										"Latest one month" : [
 												moment().subtract("days", 29),
 												moment() ],
-										"未来一月" : [ moment(),
+										"Next January" : [ moment(),
 												moment().add("days", 29) ],
-										"最近一季度" : [
+										"Most recent quarter" : [
 												moment().subtract("days", 89),
 												moment() ],
-										"本月" : [ moment().startOf("month"),
+										"this month" : [ moment().startOf("month"),
 												moment().endOf("month") ],
-										"上月" : [
+										"Kozuki" : [
 												moment().subtract("month", 1)
 														.startOf("month"),
 												moment().subtract("month", 1)
@@ -1100,7 +1100,7 @@ var Page = function() {
 																		Global
 																				.notify(
 																						"error",
-																						"文件上传处理异常，请联系管理员");
+																						"File upload handling exceptions , please contact your administrator");
 																		App
 																				.unblockUI($b)
 																	}
@@ -1172,8 +1172,8 @@ var Page = function() {
 					function() {
 						var $el = $(this);
 						var navs = {
-							"申请" : [ "申请代理", "验证", "签署兼职协议", "填写信息", "提交成功" ],
-							"审核" : [ "查询审核进度", "审核结果", "登录蜡笔分期", "签约",
-									"下载推广APP", "关注蜡笔分期" ]
+							"Application" : [ "Application Agent ", " verification ", " part-time signing of the agreement ", " fill in the information ", " Submit Success " ],
+							"Check" : [ "Query review progress ", " audit results " , "Sign crayon staging " , "contract ",
+							            " Download Promotion APP", " attention crayon staging " ]
 						};
-						var htm = '<span class="active">首页</span>';var steps=("审核"!==$el.data("path"))?navs["申请"]:navs["审核"];var current=$el.data("location")||steps[0];var css=' class="active"';for(var i in steps){htm+='<span class="divider">&gt;</span><span'+css+">"+steps[i]+"</span>";if(current==steps[i]){css=""}if(current=="查询审核进度"||current=="审核结果"){break}}$el.html(htm)})},initAjaxBeforeShow:function($container){if($container==undefined){$container=$("body")}if($.fn.bootstrapSwitch){$(".make-switch:not(.has-switch)")["bootstrapSwitch"]()}Page.initDynamicTable($container);Page.initDropdownSelect($container);Page.initMultiSelectDouble($container);Page.initSelect2Remote($container);Page.initSelect2Tags($container);Page.initSelect2($container);Page.initDatePicker($container);Page.initDateTimePicker($container);Page.initDateRangePicker($container);Page.initControlLabelTooltips($container);Page.initTextareaMaxlength($container);Page.initTextareaHtmleditor($container);Page.initUploadImage($container);Page.initImagePreivew($container);Page.initSlimscroll($container);Page.initNavbar($container);$("form.form-search-auto label.btn",$container).on("click",function(){var $form=$(this).closest("form.form-search-auto");setTimeout(function(){$form.submit()},100)});$("form.form-search-auto select",$container).on("change",function(){var $form=$(this).closest("form.form-search-auto");setTimeout(function(){$form.submit()},100)});$("table.table-sorting",$container).each(function(){var $sortingTable=$(this);var $container=$sortingTable.closest(".ajax-get-container");var url=$container.attr("data-url");var sortName=Util.getParameterFromUrl(url,"sidx");if(sortName&&sortName!=""){var $highlightTh=$sortingTable.find("th[data-sorting-name='"+sortName+"']");var sortDirection=Util.getParameterFromUrl(url,"sord");if(sortDirection=="asc"){$highlightTh.removeClass("sorting");$highlightTh.addClass("sorting_asc")}else{if(sortDirection=="desc"){$highlightTh.removeClass("sorting");$highlightTh.addClass("sorting_desc")}else{}}}$sortingTable.on("click","th[data-sorting-name]",function(){var $th=$(this);var $container=$sortingTable.find("> tbody.ajax-get-container");if($container.size()==0){$container=$sortingTable.closest(".ajax-get-container")}var url=$container.attr("data-url");var desc=false;if($th.hasClass("sorting")){$th.removeClass("sorting");$th.addClass("sorting_asc");desc="asc"}else{if($th.hasClass("sorting_asc")){$th.removeClass("sorting_asc");$th.addClass("sorting_desc");desc="desc"}else{$th.removeClass("sorting_desc");$th.addClass("sorting")}}url=Util.AddOrReplaceUrlParameter(url,"sidx",desc?$th.attr("data-sorting-name"):"");url=Util.AddOrReplaceUrlParameter(url,"sord",desc);$sortingTable.removeAttr("data-scroll-loading").removeAttr("data-scroll-page");$container.ajaxGetUrl(url)})});$('.nav > li > a[href="#tab-auto"]',$container).each(function(){var $link=$(this);var $nav=$link.closest(".nav");var idx=$nav.find("li:not(.tools)").index($link.parent("li"));var $tabPane=$nav.parent().children(".tab-content").find("div.tab-pane").eq(idx);var tabid="__tab-"+new Date().getTime()+idx;$tabPane.attr("id",tabid);$link.attr("href","#"+tabid)});$(".page-container .nav",$container).each(function(){var $nav=$(this);$nav.find("> li.active:first > a").click()});$("input.knob",$container).each(function(){$(this).knob({dynamicDraw:true,thickness:0.2,tickColorizeValues:true,skin:"tron",readOnly:true})})},initAjaxAfterShow:function($container){if($container==undefined){$container=$("body")}var $navTabs=$(".nav-tabs",$container);if($navTabs.size()>0){var active=null;var $lis=$navTabs.children("li:not(.tools):not(.dropdown)");var $actived=$lis.filter(".active");if($actived.size()>0){active=$lis.index($actived)}if(active==null||active==-1){var active=$navTabs.attr("data-active");if(active&&active!=""){active=Number(active)}else{active=0}}$lis.filter(":eq("+active+")").find("> a").click()}$("button:not([type])",$container).each(function(){$(this).attr("type","button")});$('div[data-toggle="ajaxify"]',$container).each(function(){$(this).ajaxGetUrl($(this).attr("data-url"))})},doSomeStuff:function(){myFunc()}}}();
+						var htm = '<span class="active">Home</span>';var steps=("Check"!==$el.data("path"))?navs["Application"]:navs["Check"];var current=$el.data("location")||steps[0];var css=' class="active"';for(var i in steps){htm+='<span class="divider">&gt;</span><span'+css+">"+steps[i]+"</span>";if(current==steps[i]){css=""}if(current=="Query review progress"||current=="Audit results"){break}}$el.html(htm)})},initAjaxBeforeShow:function($container){if($container==undefined){$container=$("body")}if($.fn.bootstrapSwitch){$(".make-switch:not(.has-switch)")["bootstrapSwitch"]()}Page.initDynamicTable($container);Page.initDropdownSelect($container);Page.initMultiSelectDouble($container);Page.initSelect2Remote($container);Page.initSelect2Tags($container);Page.initSelect2($container);Page.initDatePicker($container);Page.initDateTimePicker($container);Page.initDateRangePicker($container);Page.initControlLabelTooltips($container);Page.initTextareaMaxlength($container);Page.initTextareaHtmleditor($container);Page.initUploadImage($container);Page.initImagePreivew($container);Page.initSlimscroll($container);Page.initNavbar($container);$("form.form-search-auto label.btn",$container).on("click",function(){var $form=$(this).closest("form.form-search-auto");setTimeout(function(){$form.submit()},100)});$("form.form-search-auto select",$container).on("change",function(){var $form=$(this).closest("form.form-search-auto");setTimeout(function(){$form.submit()},100)});$("table.table-sorting",$container).each(function(){var $sortingTable=$(this);var $container=$sortingTable.closest(".ajax-get-container");var url=$container.attr("data-url");var sortName=Util.getParameterFromUrl(url,"sidx");if(sortName&&sortName!=""){var $highlightTh=$sortingTable.find("th[data-sorting-name='"+sortName+"']");var sortDirection=Util.getParameterFromUrl(url,"sord");if(sortDirection=="asc"){$highlightTh.removeClass("sorting");$highlightTh.addClass("sorting_asc")}else{if(sortDirection=="desc"){$highlightTh.removeClass("sorting");$highlightTh.addClass("sorting_desc")}else{}}}$sortingTable.on("click","th[data-sorting-name]",function(){var $th=$(this);var $container=$sortingTable.find("> tbody.ajax-get-container");if($container.size()==0){$container=$sortingTable.closest(".ajax-get-container")}var url=$container.attr("data-url");var desc=false;if($th.hasClass("sorting")){$th.removeClass("sorting");$th.addClass("sorting_asc");desc="asc"}else{if($th.hasClass("sorting_asc")){$th.removeClass("sorting_asc");$th.addClass("sorting_desc");desc="desc"}else{$th.removeClass("sorting_desc");$th.addClass("sorting")}}url=Util.AddOrReplaceUrlParameter(url,"sidx",desc?$th.attr("data-sorting-name"):"");url=Util.AddOrReplaceUrlParameter(url,"sord",desc);$sortingTable.removeAttr("data-scroll-loading").removeAttr("data-scroll-page");$container.ajaxGetUrl(url)})});$('.nav > li > a[href="#tab-auto"]',$container).each(function(){var $link=$(this);var $nav=$link.closest(".nav");var idx=$nav.find("li:not(.tools)").index($link.parent("li"));var $tabPane=$nav.parent().children(".tab-content").find("div.tab-pane").eq(idx);var tabid="__tab-"+new Date().getTime()+idx;$tabPane.attr("id",tabid);$link.attr("href","#"+tabid)});$(".page-container .nav",$container).each(function(){var $nav=$(this);$nav.find("> li.active:first > a").click()});$("input.knob",$container).each(function(){$(this).knob({dynamicDraw:true,thickness:0.2,tickColorizeValues:true,skin:"tron",readOnly:true})})},initAjaxAfterShow:function($container){if($container==undefined){$container=$("body")}var $navTabs=$(".nav-tabs",$container);if($navTabs.size()>0){var active=null;var $lis=$navTabs.children("li:not(.tools):not(.dropdown)");var $actived=$lis.filter(".active");if($actived.size()>0){active=$lis.index($actived)}if(active==null||active==-1){var active=$navTabs.attr("data-active");if(active&&active!=""){active=Number(active)}else{active=0}}$lis.filter(":eq("+active+")").find("> a").click()}$("button:not([type])",$container).each(function(){$(this).attr("type","button")});$('div[data-toggle="ajaxify"]',$container).each(function(){$(this).ajaxGetUrl($(this).attr("data-url"))})},doSomeStuff:function(){myFunc()}}}();

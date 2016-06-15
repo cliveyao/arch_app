@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>页面不存在</title>
+<title>Page does not exist</title>
 <link href="${ctx}/assets/admin/css/pages/error.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -13,7 +13,7 @@
 		<div class="col-md-12 page-404">
 			<div class="number">404</div>
 			<div class="details">
-				<h3>请求地址或页面未找到</h3>
+				<h3>Request address or page not found</h3>
 				<p></p>
 			</div>
 		</div>

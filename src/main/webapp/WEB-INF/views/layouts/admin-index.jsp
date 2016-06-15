@@ -136,32 +136,32 @@
 					<span>Page header</span> <select class="header-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_header']}">
 						
-						<Option value = "fixed"> Fixed </ option>
-						<Option value = "default" selected = "selected"> Auto </ option>
+						<Option value = "fixed"> Fixed </option>
+						<Option value = "default" selected = "selected"> Auto </option>
 					</select>
 				</div>
 				<div class="theme-option">
 					<span>Bottom of the page</span> <select class="footer-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_footer']}">
 						
-<Option value = "fixed"> Fixed </ option>
-<Option value = "default" selected = "selected"> Auto </ option>
+						<Option value = "fixed"> Fixed </option>
+						<Option value = "default" selected = "selected"> Auto </option>
 					</select>
 				</div>
 				<div class="theme-option">
 					<span>Right menu</span> <select class="context-menu-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_context_menu']}">
 						
-<Option value = "enable" selected = "selected"> Enable </ option>
-<Option value = "disable"> Disable </ option>
+						<Option value = "enable" selected = "selected"> Enable </option>
+						<Option value = "disable"> Disable </option>
 					</select>
 				</div>
 				<div class="theme-option">
 					<span>Table layout</span> <select class="grid-shrink-option form-control input-small"
 						data-selected="${layoutAttributes['_layout_grid_shrink']}">
 						
-<Option value = "auto"> Auto </ option>
-<Option value = "true" selected = "selected"> shrink </ option>
+							<Option value = "auto"> Auto </option>
+							<Option value = "true" selected = "selected"> shrink </option>
 					</select>
 				</div>
 			</div>

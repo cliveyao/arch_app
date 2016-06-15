@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>系统异常</title>
+<title>System Abnormal</title>
 <link href="${ctx}/assets/admin/css/pages/error.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
 			<div class=" details">
 				<h3><%=request.getAttribute("javax.servlet.error.message")%></h3>
 				<p>
-					请尝试刷新页面或重新登录后再次操作。如果问题依然请将上述错误信息反馈给系统管理员。<br> <br>
+					Try refreshing the page or login again after the operation again . If the problem persists please the above error message back to the system administrator.<br> <br>
 				</p>
 			</div>
 		</div>

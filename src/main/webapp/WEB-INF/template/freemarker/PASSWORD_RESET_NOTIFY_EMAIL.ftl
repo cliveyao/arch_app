@@ -1,8 +1,8 @@
 <html>
 <body>
-<h3> 尊敬的用户  ${user.nickName}，你好：</h3>
+<h3> respected user  ${user.nickName}，你好：</h3>
 <p>
-您已申请找回重置密码邮件，请点击（或拷贝到浏览器）此链接重置密码：
+You have requested to reset your password to retrieve e-mail , please click ( or copy to your browser ) this link to reset your password：
 <a href="${resetPasswordLink}" target="_blank">${resetPasswordLink}</a>
 </p>
 </body>

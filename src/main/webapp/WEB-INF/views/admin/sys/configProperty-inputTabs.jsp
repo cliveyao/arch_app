@@ -10,9 +10,9 @@
 	<div class="tabbable tabbable-custom">
 		<ul class="nav nav-tabs" data-active="${param._tab_active}">
 			<li class="tools pull-right"><a href="javascript:;" class="btn default reload"><i class="fa fa-refresh"></i></a></li>
-			<li><a data-toggle="tab" href="${ctx}/admin/sys/config-property/edit?id=${id}">基本信息</a></li>
+			<li><a data-toggle="tab" href="${ctx}/admin/sys/config-property/edit?id=${id}">Basic Information</a></li>
 			<li><a data-toggle="tab" data-tab-disabled="${entity.isNew()}"
-				href="${ctx}/admin/sys/config-property/revision?id=${id}">变更记录</a></li>
+				href="${ctx}/admin/sys/config-property/revision?id=${id}">Change History</a></li>
 		</ul>
 	</div>
 </body>
