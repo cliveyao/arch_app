@@ -11,12 +11,12 @@
 <body>
 	<div class="form-horizontal form-bordered form-label-stripped form-validation control-label-lg">
 		<div class="form-actions">
-			<button type="button" class="btn default btn-post-url" data-confirm="确认 强制停止爬虫运行？"
-				data-url="${ctx}/admin/crawl/crawl-data/crawler/shutdown">强制停止爬虫运行</button>
-			<button id="toggler-crawl-logger-scroll" data-toggle="button" class="btn btn-default active pull-right" type="button">自动滚动开关</button>
+			<button type="button" class="btn default btn-post-url" data-confirm="Confirm forced stop crawl run ?"
+				data-url="${ctx}/admin/crawl/crawl-data/crawler/shutdown">Forced to stop running crawls</button>
+			<button id="toggler-crawl-logger-scroll" data-toggle="button" class="btn btn-default active pull-right" type="button">Automatic scrolling switch</button>
 			<button data-toggle="button" class="btn btn-default pull-right" type="button"
 				onclick="$('#crawl-logger').toggleClass('crawl-logger-error')">
-				异常日志
+				Exception log
 				<span id="crawl-logger-error-badge" class="badge badge-danger">0</span>
 			</button>
 		</div>

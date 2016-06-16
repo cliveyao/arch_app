@@ -14,9 +14,9 @@
 			<table class="table table-striped table-hover table-bordered">
 				<thead>
 					<tr>
-						<th>消息标题</th>
-						<th>消息摘要</th>
-						<th>发布时间</th>
+						<th>Message header</th>
+						<th>Message Digest</th>
+						<th>release time</th>
 					</tr>
 				</thead>
 				<tbody>

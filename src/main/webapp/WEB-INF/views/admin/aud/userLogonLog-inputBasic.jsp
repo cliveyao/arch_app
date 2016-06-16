@@ -16,17 +16,17 @@
 		<form:hidden path="version" />
 		<div class="form-actions">
 			<button class="btn blue" type="submit" data-grid-reload="#grid-aud-user-logon-log-index">
-				<i class="fa fa-check"></i> 保存
+				<i class="fa fa-check"></i> save
 			</button>
 			<button class="btn green" type="submit" data-grid-reload="#grid-aud-user-logon-log-index" data-post-dismiss="modal">保存并关闭
 			</button>
-			<button class="btn default" type="button" data-dismiss="modal">取消</button>
+			<button class="btn default" type="button" data-dismiss="modal">cancel</button>
 		</div>
 		<div class="form-body">
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">账号全局唯一标识</label>
+						<label class="control-label">Account globally unique identifier</label>
 						<div class="controls">
 			                <form:input path="authGuid" class="form-control"/>
 						</div>
@@ -36,7 +36,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">账号类型所对应唯一标识</label>
+						<label class="control-label">Account type corresponds to a unique identifier</label>
 						<div class="controls">
 			                <form:input path="authUid" class="form-control"/>
 						</div>
@@ -46,7 +46,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">账号类型</label>
+						<label class="control-label">Account Types</label>
 						<div class="controls">
 			                <form:input path="authType" class="form-control"/>
 						</div>
@@ -56,7 +56,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">便于按日汇总统计的冗余属性</label>
+						<label class="control-label">Facilitate daily summary statistics of redundant attributes</label>
 						<div class="controls">
 			                <form:input path="logonYearMonthDay" class="form-control"/>
 						</div>
@@ -66,7 +66,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">登录时间</label>
+						<label class="control-label">Log in time</label>
 						<div class="controls">
 			                <form:input path="logonTime" class="form-control"/>
 						</div>
@@ -76,7 +76,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">登出时间</label>
+						<label class="control-label">Logout Time</label>
 						<div class="controls">
 			                <form:input path="logoutTime" class="form-control"/>
 						</div>
@@ -86,7 +86,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">登录时长</label>
+						<label class="control-label">Log Duration</label>
 						<div class="controls">
 			                <form:input path="logonTimeLength" class="form-control"/>
 						</div>
@@ -96,7 +96,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">登录次数</label>
+						<label class="control-label">Logins</label>
 						<div class="controls">
 			                <form:input path="logonTimes" class="form-control"/>
 						</div>
@@ -196,7 +196,7 @@
 	        <div class="row">
 	            <div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">Session编号</label>
+						<label class="control-label">Session Number</label>
 						<div class="controls">
 			                <form:input path="httpSessionId" class="form-control"/>
 						</div>
@@ -206,11 +206,11 @@
 		</div>
 		<div class="form-actions right">
 			<button class="btn blue" type="submit" data-grid-reload="#grid-aud-user-logon-log-index">
-				<i class="fa fa-check"></i> 保存
+				<i class="fa fa-check"></i> save
 			</button>
-			<button class="btn green" type="submit" data-grid-reload="#grid-aud-user-logon-log-index" data-post-dismiss="modal">保存并关闭
+			<button class="btn green" type="submit" data-grid-reload="#grid-aud-user-logon-log-index" data-post-dismiss="modal">Save and Close
 			</button>
-			<button class="btn default" type="button" data-dismiss="modal">取消</button>
+			<button class="btn default" type="button" data-dismiss="modal">cancel</button>
 		</div>
 	</form:form>
 </body>

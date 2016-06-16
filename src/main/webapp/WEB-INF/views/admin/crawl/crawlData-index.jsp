@@ -12,10 +12,10 @@
 			<li class="tools pull-right"><a href="javascript:;" class="btn default reload">
 					<i class="fa fa-refresh"></i>
 				</a></li>
-			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/crawler">爬虫运行管理</a></li>
-			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/logger" class="tab-crawl-logger">爬虫实时日志</a></li>
-            <li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/generation-file">解析生成文件列表</a></li>
-			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/failure">异常数据列表</a></li>
+			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/crawler">Operation and management of crawls</a></li>
+			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/logger" class="tab-crawl-logger">Crawl real-time log</a></li>
+            <li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/generation-file">Analytical generated file list</a></li>
+			<li><a data-toggle="tab" href="${ctx}/admin/crawl/crawl-data/failure">Abnormal Datasheets</a></li>
 		</ul>
 	</div>
 </body>

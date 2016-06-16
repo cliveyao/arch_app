@@ -845,8 +845,9 @@
 			<div class="row">
 				<div class="col-md-10">
 					<div class="note note-danger">
-						<p>仅作UI效果展示，屏蔽实际提交操作。实际操作可直接访问“菜单管理”功能体验。</p>
-						<p>父子项展开后，点击工具条的十字移动图标，开启鼠标拖放移动行项功能，一般用于类似菜单父子结构数据的管理操作。</p>
+						
+<P> Only for UI display effect , shielding the actual commit. Direct access to the actual operation " menu management " feature experience. </P>
+<P> After the item father opens, click Cross mobile icon toolbar , open the mouse to drag and drop function to move the line item , generally used for parent-child management operations similar menu structure of the data . </P>
 					</div>
 					<div class="row search-form-default">
 						<div class="col-md-12">
@@ -1017,11 +1018,7 @@
                                 loadonce : true,
                                 operations : function(items) {
                                     var $grid = $(this);
-                                    /**
-                                    * @property data-position 在下拉和右键菜单显示操作区域位置，multi=多选操作区域；single=单选操作区域；未定义=无需选取区域
-                                    * @property data-toolbar 工具条显示控制，show=显示在工具条，hide或其他=不显示
-                                    * @property data-text    工具条区域文字显示控制，show=除了显示图标外还显示文字，hide或其他=只显示图标不显示对应文字
-                                    */
+                                   
                                     var $resume = $('<li data-position="multi" data-toolbar="show" data-text="show"><a><i class="fa fa-play"></i> 启动</a></li>');
                                     $resume.children("a").bind("click", function(e) {
                                         e.preventDefault();

@@ -36,10 +36,10 @@
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Charles &nbsp; Inquiry
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; Heavy &nbsp; Set
+						<i class="fa fa-undo"></i>&nbsp; Refresh
 					</button>
 				</div>
 

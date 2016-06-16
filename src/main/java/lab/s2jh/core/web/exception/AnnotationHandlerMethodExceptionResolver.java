@@ -94,7 +94,8 @@ public class AnnotationHandlerMethodExceptionResolver implements HandlerExceptio
             errorMessage = "Access requires login";
             httpStatus = HttpStatus.UNAUTHORIZED;
         } else if (e instanceof UnauthorizedException) {
-            //访问受限或无权限访问，转向403提示页面
+
+        	// Limited access or no access to the steering prompt page 403
             errorMessage = "Unauthorized access";
             httpStatus = HttpStatus.FORBIDDEN;
         } else {

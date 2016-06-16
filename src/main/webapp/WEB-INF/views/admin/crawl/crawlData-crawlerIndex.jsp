@@ -14,22 +14,22 @@
 		data-editrulesurl="false" id="crawlForm">
 		<div class="form-actions">
 			<button class="btn blue" type="submit">
-				<i class="fa fa-check"></i> 开始爬虫采集
+				<i class="fa fa-check"></i> Start collecting Crawls
 			</button>
-			<button type="button" class="btn default btn-post-url" data-confirm="确认 强制停止爬虫运行？"
-				data-url="${ctx}/admin/crawl/crawl-data/crawler/shutdown">强制停止爬虫运行</button>
+			<button type="button" class="btn default btn-post-url" data-confirm="Confirm forced stop crawl run ?"
+				data-url="${ctx}/admin/crawl/crawl-data/crawler/shutdown">Forced to stop running crawls</button>
 		</div>
 		<div class="form-body">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">强制重新抓取页面内容</label>
+						<label class="control-label">Force Recrawl page content</label>
 						<div class="controls controls-radiobuttons">
 							<form:radiobuttons path="forceRefetch" items="${applicationScope.cons.booleanLabelMap}" class="form-control" />
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label">强制重新解析页面内容</label>
+						<label class="control-label">Forced re- parsing page content</label>
 						<div class="controls controls-radiobuttons">
 							<form:radiobuttons path="forceReparse" items="${applicationScope.cons.booleanLabelMap}" class="form-control" />
 						</div>
@@ -37,17 +37,17 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label class="control-label">并发抓取线程数</label>
+						<label class="control-label">Concurrent crawls threads</label>
 						<div class="controls">
 							<form:input path="threadNum" class="form-control" required="true" data-rule-min="1" data-rule-max="100" />
-							<span class="help-block">对于速度快，没有反爬虫的站点可以根据机器性能设置较大；反正则设置较小一些</span>
+							<span class="help-block">For fast, no anti- reptile sites can be set according to a larger machine performance ; anyway, set to a smaller number of</span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label">抓取访问最小间隔(秒)</label>
+						<label class="control-label">Crawl Access minimum interval ( in seconds )</label>
 						<div class="controls">
 							<form:input path="fetchMinInterval" class="form-control" required="true" data-rule-max="300" />
-							<span class="help-block">有些站点做了一定反爬虫控制，如限制用户请求间隔不得太快，通过合理设置此参数来规避站点封锁</span>
+							<span class="help-block">Some sites do a certain anti- crawler control , such as restrictions on user request interval may not be too fast , through a reasonable set this parameter to circumvent the blockade site</span>
 						</div>
 					</div>
 				</div>
@@ -56,14 +56,14 @@
 			<div class="row" data-equal-height="false">
 				<div class="col-md-12">
 					<div class="form-group">
-						<label class="control-label">种子URL</label>
+						<label class="control-label">Seeds URL</label>
 						<div class="controls">
 							<textarea name="urls" rows="6" class="form-control" />
-							<span class="help-block">请填写符合下列正则表达式的URL列表，一行一个URL；留空表示把所有非200成功状态页面重新抓取解析</span>
+							<span class="help-block">Please fill meet the following URL list of regular expressions , one per line URL ; blank for all 200 non- success status page Recrawl resolve</span>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label">有效URL正则列表</label>
+						<label class="control-label">Valid URL regular list</label>
 						<div class="controls">
 							<c:forEach items="${crawlParseFilters}" var="item">
 								<c:if test="${item.urlFilterRegex!=null}">

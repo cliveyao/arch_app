@@ -40,9 +40,9 @@ var Grid = function() {
 		initGridDefault : function() {
 			$.extend($.ui.multiselect, {
 				locale : {
-					addAll : "全部添加",
-					removeAll : "全部移除",
-					itemsCount : "已选择项目列表"
+					addAll : "Add All",
+					removeAll : "Remove all",
+					itemsCount : "Selected items list"
 				}
 			});
 			$.extend($.jgrid.ajaxOptions, {
@@ -97,14 +97,14 @@ var Grid = function() {
 				},
 				loadError : function(g, l, c, f) {
 					try {
-						var d = "表格数据加载处理失败,请尝试刷新或联系管理员";
+						var d = "Tabular data load process failed, please try refreshing or contact your administrator";
 						var b = jQuery.parseJSON(g.responseText);
 						if (b.type == "failure" || b.type == "error") {
 							d = b.message
 						}
 						Global.notify("error", d)
 					} catch (h) {
-						Global.notify("error", "数据处理异常")
+						Global.notify("error", "Data Handling exceptions")
 					}
 					App.unblockUI()
 				},
@@ -121,10 +121,10 @@ var Grid = function() {
 				stringResult : true,
 				searchOnEnter : true,
 				defaultSearch : "bw",
-				operandTitle : "点击选择查询方式",
+				operandTitle : "Click to select query",
 				odata : [ {
 					oper : "eq",
-					text : "等于\u3000\u3000"
+					text : "equal \u3000\u3000"
 				}, {
 					oper : "ne",
 					text : "不等\u3000\u3000"
@@ -459,8 +459,8 @@ var Grid = function() {
 										if (!f.grid) {
 											return
 										}
-										if (!confirm("确认导出当前页面 " + f.p.caption
-												+ " 数据为Excel下载文件？")) {
+										if (!confirm("Confirm the export of the current page " + f.p.caption
+												+ " Download data Excel file ?")) {
 											return
 										}
 										var e = new Array();
@@ -611,7 +611,7 @@ var Grid = function() {
 												})
 							}
 							if (d.length == 0) {
-								Global.notify("error", "请至少选择一条行项目！");
+								Global.notify("error", "Please select at least one line item !");
 								return false
 							} else {
 								return d
@@ -641,12 +641,12 @@ var Grid = function() {
 							}
 							if (d.length == 0) {
 								if (e) {
-									Global.notify("error", "请选取操作项目")
+									Global.notify("error", "Select action items")
 								}
 								return false
 							} else {
 								if (d.length > 1) {
-									Global.notify("error", "只能选择一条操作项目");
+									Global.notify("error", "Choose only one operation item");
 									return false
 								}
 								return d[0]
@@ -816,7 +816,7 @@ var Grid = function() {
 									return true
 								}
 								if (d === true) {
-									alert("请先保存或取消正在编辑的表格数据行项后再操作")
+									alert("Please save or cancel data row table being edited item after the operation")
 								} else {
 									alert(d)
 								}
@@ -1047,7 +1047,7 @@ var Grid = function() {
 																				$(n))
 																				.hasClass(
 																						"not-editable-row")) {
-																			alert("提示：当前行项不可编辑");
+																			alert("Tip : the current line item can not be edited");
 																			return
 																		}
 																		$(n)
@@ -1135,7 +1135,7 @@ var Grid = function() {
 																caption : c.savetext
 																		|| "",
 																title : c.savetitle
-																		|| "保存编辑行项",
+																		|| "Save the edit line item",
 																buttonicon : c.saveicon,
 																id : n.p.id
 																		+ "_ilsave",
@@ -1186,7 +1186,7 @@ var Grid = function() {
 																	caption : c.savetext
 																			|| "",
 																	title : c.savetitle
-																			|| "保存编辑行项",
+																			|| "Save the edit line item",
 																	buttonicon : c.saveicon,
 																	id : e
 																			+ "_ilsave",
@@ -1211,7 +1211,7 @@ var Grid = function() {
 																caption : c.canceltext
 																		|| "",
 																title : c.canceltitle
-																		|| "放弃正在编辑行项",
+																		|| "Give up being edited line item",
 																buttonicon : c.cancelicon,
 																id : n.p.id
 																		+ "_ilcancel",
@@ -1254,7 +1254,7 @@ var Grid = function() {
 																	caption : c.canceltext
 																			|| "",
 																	title : c.canceltitle
-																			|| "放弃正在编辑行项",
+																			|| "Give up being edited line item",
 																	buttonicon : c.cancelicon,
 																	id : e
 																			+ "_ilcancel",
@@ -1277,7 +1277,7 @@ var Grid = function() {
 																caption : c.deltext
 																		|| "",
 																title : c.deltitle
-																		|| "删除所选行项",
+																		|| "Delete selected line item",
 																buttonicon : c.delicon,
 																id : n.p.id
 																		+ "_ildel",
@@ -1416,7 +1416,7 @@ var Grid = function() {
 																																	}
 																																})
 																											},
-																											confirmMsg : "确认批量删除所选记录吗？"
+																											confirmMsg : "Confirm Batch delete the selected records?"
 																										})
 																					}
 																				}
@@ -1454,7 +1454,7 @@ var Grid = function() {
 																	caption : c.deltext
 																			|| "",
 																	title : c.deltitle
-																			|| "删除所选行项",
+																			|| "Delete selected line item",
 																	buttonicon : c.delicon,
 																	id : e
 																			+ "_ildel",
@@ -1664,7 +1664,7 @@ var Grid = function() {
 														Global
 																.notify(
 																		"error",
-																		"数据处理异常，请联系管理员")
+																		"Data processing exceptions, please contact your administrator")
 													}
 												}
 											},
@@ -1725,7 +1725,7 @@ var Grid = function() {
 														Global
 																.notify(
 																		"error",
-																		"数据处理异常，请联系管理员");
+																		"Data processing exceptions, please contact your administrator");
 														ay = false
 													}
 												}
@@ -1766,7 +1766,7 @@ var Grid = function() {
 														.notify(
 																"error",
 																ax.status
-																		+ ": 请求地址未找到")
+																		+ ": The requested address was not found")
 											} else {
 												var c = jQuery
 														.parseJSON(ax.responseText);
@@ -1817,7 +1817,7 @@ var Grid = function() {
 									}
 									if (ax.total == undefined
 											&& ax.totalElements == undefined) {
-										alert("表格数据格式不正确");
+										alert("Tabular data is not formatted correctly");
 										return
 									}
 									if (ax && ax.content) {
@@ -2037,70 +2037,70 @@ var Grid = function() {
 			});
 			if ($.inArray("id", n)) {
 				N.colModel.push({
-					label : "流水号",
+					label : "serial number",
 					name : "id",
 					width : 50,
 					hidden : true
 				});
 				if (N.colNames) {
-					N.colNames.push("流水号")
+					N.colNames.push("serial number")
 				}
 			}
 			if ($.inArray("createdBy", n)) {
 				N.colModel.push({
-					label : "创建者",
+					label : "creator",
 					name : "createdBy",
 					width : 50,
 					align : "center",
 					hidden : true
 				});
 				if (N.colNames) {
-					N.colNames.push("创建者")
+					N.colNames.push("creator")
 				}
 			}
 			if ($.inArray("createdDate", n)) {
 				N.colModel.push({
-					label : "创建时间",
+					label : "Created",
 					name : "createdDate",
 					formatter : "timestamp",
 					hidden : true
 				});
 				if (N.colNames) {
-					N.colNames.push("创建时间")
+					N.colNames.push("Created")
 				}
 			}
 			if ($.inArray("lastModifiedBy", n)) {
 				N.colModel.push({
-					label : "最后更新者",
+					label : "Last updated by",
 					name : "lastModifiedBy",
 					width : 50,
 					align : "center",
 					hidden : true
 				});
 				if (N.colNames) {
-					N.colNames.push("最后更新者")
+					N.colNames.push("Last updated by")
 				}
 			}
 			if ($.inArray("lastModifiedDate", n)) {
 				N.colModel.push({
-					label : "最后更新时间",
+					label : "Last Updated",
 					name : "lastModifiedDate",
 					formatter : "timestamp",
 					hidden : true
 				});
 				if (N.colNames) {
-					N.colNames.push("最后更新时间")
+					N.colNames.push("Last Updated")
 				}
 			}
 			N.colModel.push({
-				label : "标题",
+				label : "title",
 				name : "display",
 				hidden : true,
 				search : false,
 				hidedlg : true
 			});
 			if (N.colNames) {
-				N.colNames.push("标题")
+				N.colNames.push("title")
 			}
 			$
 					.each(
@@ -2371,8 +2371,8 @@ var Grid = function() {
 									}, ax);
 									ax.searchoptions.value = {
 										"" : "",
-										"true" : "是",
-										"false" : "否"
+										"true" : "Yes",
+										"false" : "No"
 									};
 									ax.searchoptions.sopt = [ "eq", "ne" ];
 									ax.editoptions.value = "true:false"
@@ -2420,11 +2420,11 @@ var Grid = function() {
 																		aE
 																				.attr(
 																						"placeholder",
-																						"创建后不可修改");
+																						"After you create can not be modified");
 																		aE
 																				.attr(
 																						"title",
-																						"创建后不可修改")
+																						"After you create can not be modified")
 																	}
 																}
 															}
@@ -2442,7 +2442,7 @@ var Grid = function() {
 																aE
 																		.select2({
 																			openOnEnter : false,
-																			placeholder : "请选择...",
+																			placeholder : "please choose...",
 																			matcher : function(
 																					aI,
 																					aL) {
@@ -2652,8 +2652,8 @@ var Grid = function() {
 			if (N.filterToolbar) {
 				ak.jqGrid("filterToolbar", N.filterToolbar);
 				var F = $("#jqgh_" + ak.attr("id") + "_rn");
-				var R = '<a href="javascript:;" title="显示快速查询"><span class="ui-icon ui-icon-carat-1-s"></span></a>';
-				var Z = '<a href="javascript:;" title="隐藏快速查询"><span class="ui-icon ui-icon-carat-1-n"></span></a>';
+				var R = '<a href="javascript:;" title="Show Quick Query"><span class="ui-icon ui-icon-carat-1-s"></span></a>';
+				var Z = '<a href="javascript:;" title="Hide Quick Search"><span class="ui-icon ui-icon-carat-1-n"></span></a>';
 				if (ak.is(".ui-jqgrid-subgrid") || N.filterToolbar == "hidden") {
 					F.html(R);
 					ak[0].toggleToolbar()
@@ -2718,7 +2718,7 @@ var Grid = function() {
 						caption : "",
 						buttonicon : "ui-icon-battery-2",
 						position : "first",
-						title : "设定显示列和顺序",
+						title : "Setting Display columns and order",
 						onClickButton : function() {
 							var c = ak.jqGrid("getGridParam", "width");
 							ak.jqGrid("columnChooser", {
@@ -2749,7 +2749,7 @@ var Grid = function() {
 						caption : "",
 						buttonicon : "ui-icon-arrowthickstop-1-s",
 						position : "first",
-						title : "导出当前显示数据",
+						title : "Export the currently displayed data",
 						onClickButton : function() {
 							ak.jqGrid("exportExcelLocal", N.exportExcelLocal)
 						}
@@ -2765,7 +2765,7 @@ var Grid = function() {
 					caption : "",
 					buttonicon : "ui-icon-arrowstop-1-w",
 					position : "first",
-					title : "收缩显示模式",
+					title : "Contraction display mode",
 					onClickButton : function() {
 						var c = ak.jqGrid("getGridParam", "width");
 						ak.jqGrid("destroyFrozenColumns");
@@ -2822,7 +2822,7 @@ var Grid = function() {
 						caption : "",
 						buttonicon : "ui-icon-arrow-4",
 						position : "first",
-						title : "开启拖放移动模式",
+						title : "Open drop movement mode",
 						onClickButton : function() {
 							var c = null;
 							if (ak.closest(".ui-subgrid").size() > 0) {
@@ -2883,7 +2883,7 @@ var Grid = function() {
 				var I = [];
 				var B = [];
 				if (N.viewurl) {
-					var t = $('<li><a href="javascript:;"><i class="fa fa-credit-card"></i> 查看详情</a></li>');
+					var t = $('<li><a href="javascript:;"><i class="fa fa-credit-card"></i> see details</a></li>');
 					t.children("a").bind(
 							"click",
 							function(ax) {
@@ -2907,7 +2907,7 @@ var Grid = function() {
 									var aw = Util.AddOrReplaceUrlParameter(
 											N.viewurl, "id", az);
 									t.popupDialog({
-										title : "查看: " + c,
+										title : "Views: " + c,
 										url : aw
 									})
 								}
@@ -2917,17 +2917,17 @@ var Grid = function() {
 				if (N.fullediturl) {
 					if (N.addable == undefined || N.addable != false) {
 						var ae = $(
-								'<li><a href="javascript:;"><i class="fa fa-plus-square"></i> 新增数据</a></li>')
+								'<li><a href="javascript:;"><i class="fa fa-plus-square"></i>New data</a></li>')
 								.appendTo(Y);
 						ae.children("a").bind("click", function(c) {
 							c.preventDefault();
 							av.popupDialog({
-								title : "新增",
+								title : "New",
 								url : N.fullediturl
 							})
 						});
 						Q.push(ae);
-						var av = $('<li><a href="javascript:;"><i class="fa fa-copy"></i> 克隆复制</a></li>');
+						var av = $('<li><a href="javascript:;"><i class="fa fa-copy"></i> Clone Copy</a></li>');
 						av.children("a").bind(
 								"click",
 								function(ax) {
@@ -2940,14 +2940,14 @@ var Grid = function() {
 												c, "id", ay);
 										aw = aw + ("&clone=true");
 										av.popupDialog({
-											title : "克隆复制",
+											title : "Clone Copy",
 											url : aw
 										})
 									}
 								});
 						I.push(av)
 					}
-					var s = $('<li><a href="javascript:;"><i class="fa fa-edit"></i> 编辑数据 <span class="badge badge-info">双击</span></a></li>');
+					var s = $('<li><a href="javascript:;"><i class="fa fa-edit"></i> Edit <span class="badge badge-info">Double-click</span></a></li>');
 					s.children("a").bind(
 							"click",
 							function(ax) {
@@ -2975,7 +2975,7 @@ var Grid = function() {
 											N.fullediturl, "id", az);
 									s.popupDialog({
 										url : aw,
-										title : "编辑：" + c
+										title : "edit:" + c
 									})
 								}
 							});
@@ -3228,7 +3228,7 @@ var Grid = function() {
 					function() {
 						var c = ak.jqGrid("getGridParam", "height");
 						ak.jqGrid("setGridHeight", ak.height() + 17)
-					}).attr("title", "鼠标双击可自动扩展显示区域")
+					}).attr("title", "Double click display area can be automatically extended")
 		},
 		refreshWidth : function() {
 			$("table.ui-jqgrid-btable:visible").each(function() {

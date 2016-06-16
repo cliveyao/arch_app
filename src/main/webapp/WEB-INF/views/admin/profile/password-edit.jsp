@@ -14,19 +14,19 @@
 		action="${ctx}/admin/profile/password" data-editrulesurl="false">
 		<div class="form-body">
 			<div class="form-group">
-				<label class="control-label">输入原密码</label>
+				<label class="control-label">Enter the old password</label>
 				<div class="controls">
 					<input type="password" name="oldpasswd" class="form-control" required="true">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label">输入新密码</label>
+				<label class="control-label">Enter a new password</label>
 				<div class="controls">
 					<input type="password" name="newpasswd" class="form-control" required="true">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label">确认新密码</label>
+				<label class="control-label">Confirm the new password</label>
 				<div class="controls">
 					<input type="password" name="cfmpasswd" class="form-control" required="true" data-rule-equalToByName="newpasswd">
 				</div>
@@ -34,9 +34,9 @@
 		</div>
 		<div class="form-actions right">
 			<button class="btn blue" type="submit" data-post-dismiss="modal">
-				<i class="fa fa-check"></i> 保存
+				<i class="fa fa-check"></i> Save
 			</button>
-			<button class="btn default" type="button" data-dismiss="modal">取消</button>
+			<button class="btn default" type="button" data-dismiss="modal">Cancel</button>
 		</div>
 	</form>
 </body>

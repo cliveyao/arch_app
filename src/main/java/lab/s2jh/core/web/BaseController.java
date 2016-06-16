@@ -169,12 +169,13 @@ public abstract class BaseController<T extends PersistableEntity<ID>, ID extends
         }
         int rejectSize = errorMessageMap.size();
         if (rejectSize == 0) {
-            return OperationResult.buildSuccessResult("成功删除所选选取记录:" + entities.size() + "条");
+            return OperationResult.buildSuccessResult("Successfully deleted selected selected records :" + entities.size() + " Article");
         } else {
             if (rejectSize == entities.size()) {
-                return OperationResult.buildFailureResult("所有选取记录删除操作失败", errorMessageMap);
+                return OperationResult.buildFailureResult("Delete all selected records operation fails", errorMessageMap);
             } else {
-                return OperationResult.buildWarningResult("删除操作已处理. 成功:" + (entities.size() - rejectSize) + "条" + ",失败:" + rejectSize + "条",
+                return OperationResult.buildWarningResult("Delete operation has been successfully processed :" + (entities.size() - rejectSize) + "Article" + " failure:" + rejectSize + 
+                		"Article",
                         errorMessageMap);
             }
         }

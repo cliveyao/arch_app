@@ -15,15 +15,15 @@
 				<div class="form-group">
 					<div class="controls controls-clearfix">
 						<input type="text" name="search['CN_authUid_OR_xforwardFor']" class="form-control input-xlarge"
-							placeholder="登录账号 , xforwardFor...">
+							placeholder="Login account , xforwardFor...">
 					</div>
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Reset
 					</button>
 				</div>
 			</form>
@@ -39,33 +39,33 @@
             $("#grid-aud-user-logon-log-index").data("gridOptions", {
                 url : WEB_ROOT + '/admin/aud/user-logon-log/list',
                 colModel : [ {
-                    label : '登录账号',
+                    label : 'Login account',
                     name : 'authUid',
                     width : 100,
                     align : 'center'
                 }, {
-                    label : '账户编号',
+                    label : 'Account number',
                     name : 'authGuid',
                     width : 100,
                     hidden : true,
                     align : 'left'
                 }, {
-                    label : '登录时间',
+                    label : 'Log in time',
                     name : 'logonTime',
                     formatter : 'timestamp'
                 }, {
-                    label : '登出时间',
+                    label : 'Logout Time',
                     name : 'logoutTime',
                     formatter : 'timestamp'
                 }, {
-                    label : '登录时长',
+                    label : 'Log Duration',
                     name : 'logonTimeLengthFriendly',
                     index : 'logonTimeLength',
                     width : 100,
                     fixed : true,
                     align : 'center'
                 }, {
-                    label : '登录次数',
+                    label : 'Logins',
                     name : 'logonTimes',
                     width : 60,
                     formatter : 'integer',

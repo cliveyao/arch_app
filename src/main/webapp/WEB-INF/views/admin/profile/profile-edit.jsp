@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>个人配置</title>
+<title>Personal configuration</title>
 </head>
 <body>
 	<div class="row">
@@ -96,7 +96,7 @@
 			<div class="portlet box blue">
 				<div class="portlet-title">
 					<div class="caption">
-						<i class="fa fa-reorder"></i> 信息记录
+						<i class="fa fa-reorder"></i> Record information
 					</div>
 					<div class="tools">
 						<a class="collapse" href="javascript:;"></a>
@@ -107,25 +107,25 @@
 						data-editrulesurl="false">
 						<div class="form-body">
 							<div class="form-group">
-								<label class="control-label">登录账号</label>
+								<label class="control-label">Login account</label>
 								<div class="controls">
 									<p class="form-control-static">${user.authUid}</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">移动电话</label>
+								<label class="control-label">mobile phone</label>
 								<div class="controls">
 									<p class="form-control-static">${user.mobile}</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">电子邮件</label>
+								<label class="control-label">e-mail</label>
 								<div class="controls">
 									<p class="form-control-static">${user.email}</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">注册时间</label>
+								<label class="control-label">Registration time</label>
 								<div class="controls">
 									<p class="form-control-static">
 										<fmt:formatDate value="${user.userExt.signupTime}" type="both" />
@@ -133,16 +133,16 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">密码到期日期</label>
+								<label class="control-label">Password expiration date</label>
 								<div class="controls">
 									<p class="form-control-static">
 										<fmt:formatDate value="${user.credentialsExpireTime}" type="date" />
-										<span class="help-block">出于安全考虑系统要求用户在设定的固定周期后更新密码，密码到期后登录系统会提示用户设置新密码</span>
+										<span class="help-block">For security reasons the system requires users after a fixed period set to update your password after password expires the user will be prompted to log into the system to set a new password</span>
 									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label">最近登录时间</label>
+								<label class="control-label">Last logon time</label>
 								<div class="controls">
 									<p class="form-control-static">
 										<fmt:formatDate value="${user.userExt.lastLogonTime}" type="both" />
