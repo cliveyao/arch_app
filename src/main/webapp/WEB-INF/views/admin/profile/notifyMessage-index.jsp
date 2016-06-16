@@ -12,18 +12,18 @@
 				data-div-search=".profile-notify-message-List">
 				<div class="btn-group">
 					<a class="btn btn-default ${empty param.readed?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/notify-message|公告信息列表'>全部</a><a
+						rel='address:/admin/profile/notify-message|Announcement List'>Complete</a><a
 						class="btn btn-default ${param.readed=='no'?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/notify-message?readed=no|未读公告信息列表'>未读</a><a
+						rel='address:/admin/profile/notify-message?readed=no|Unread announcement list'>unread</a><a
 						class="btn btn-default ${param.readed=='yes'?'active':''}" href='javascripts:;'
-						rel='address:/admin/profile/notify-message?readed=yes|已读公告信息列表'>已读</a>
+						rel='address:/admin/profile/notify-message?readed=yes|Read Announcement List'>Have read</a>
 				</div>
 				<div class="form-group search-group-btn hide">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Refresh
 					</button>
 				</div>
 
