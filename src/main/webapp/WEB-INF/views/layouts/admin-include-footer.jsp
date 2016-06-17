@@ -35,11 +35,11 @@
 <link href="${ctx}/assets/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
 
 <script src="${ctx}/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
-<script src="${ctx}/assets/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js" type="text/javascript"></script>
+<script src="${ctx}/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
 <link href="${ctx}/assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
 
 <script src="${ctx}/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
-<script src="${ctx}/assets/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"
+<script src="${ctx}/assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"
 	type="text/javascript"></script>
 <link href="${ctx}/assets/plugins/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css" />
 
@@ -49,7 +49,7 @@
 <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
 <script src="${ctx}/assets/plugins/fullcalendar/lib/moment.min.js"></script>
 <script src="${ctx}/assets/plugins/fullcalendar/fullcalendar.min.js"></script>
-<script src="${ctx}/assets/plugins/fullcalendar/lang/zh-cn.js"></script>
+<script src="${ctx}/assets/plugins/fullcalendar/lang/en-gb.js"></script>
 <link href="${ctx}/assets/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" />
 
 <!-- END PAGE LEVEL PLUGINS -->
@@ -62,7 +62,7 @@
 <script type="text/javascript" src="${ctx}/assets/plugins/bootstrap-contextmenu.js"></script>
 
 <script type="text/javascript" src="${ctx}/assets/plugins/jquery-validation/dist/jquery.validate.js"></script>
-<script type="text/javascript" src="${ctx}/assets/plugins/jquery-validation/localization/messages_zh.js"></script>
+<!-- <script type="text/javascript" src="${ctx}/assets/plugins/jquery-validation/localization/messages_zh.js"></script> -->
 <script src="${ctx}/assets/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js" type="text/javascript"></script>
 
 <script type="text/javascript"
@@ -99,7 +99,7 @@
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <script src="${ctx}/assets/plugins/jquery-jqgrid/plugins/ui.multiselect.js"></script>
-<script src="${ctx}/assets/plugins/jquery-jqgrid/js/i18n/grid.locale-cn.js"></script>
+<script src="${ctx}/assets/plugins/jquery-jqgrid/js/i18n/grid.locale-en.js"></script>
 <script src="${ctx}/assets/plugins/jquery-jqgrid/js/jquery.jqGrid.src.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/plugins/jquery-multi-select/css/multi-select.css" />
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/plugins/jquery-jqgrid/plugins/ui.multiselect.css">
@@ -107,7 +107,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/admin/app/bootstrap-jqgrid.css" />
 
 <script type="text/javascript" src="${ctx}/assets/plugins/select2/select2.js"></script>
-<script type="text/javascript" src="${ctx}/assets/plugins/select2/select2_locale_zh-CN.js"></script>
+<!-- <script type="text/javascript" src="${ctx}/assets/plugins/select2/select2_locale_zh-CN.js"></script> -->
 <link rel="stylesheet" type="text/css" href="${ctx}/assets/plugins/select2/select2_metro.css" />
 
 <script src="${ctx}/assets/plugins/jquery-ztree/js/jquery.ztree.all-3.5.js"></script>

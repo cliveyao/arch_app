@@ -28,6 +28,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +42,8 @@ import com.google.common.collect.Maps;
 
 @Controller
 public class IndexController {
+	
+	 private final static Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private UserService userService;
@@ -76,6 +80,7 @@ public class IndexController {
     @RequiresRoles(AuthUserDetails.ROLE_MGMT_USER)
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminIndex(HttpServletRequest request, Model model) {
+    	logger.info("Bootstrapping the application....");
         model.addAttribute("baiduMapAppkey", dynamicConfigService.getString("baidu_map_appkey"));
         model.addAttribute("buildVersion", dynamicConfigService.getString("build_version"));
         model.addAttribute("buildTimetamp", dynamicConfigService.getString("build_timestamp"));

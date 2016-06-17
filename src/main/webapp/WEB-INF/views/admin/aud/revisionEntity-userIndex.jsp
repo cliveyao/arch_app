@@ -16,15 +16,15 @@
 				<div class="form-group">
 					<div class="controls controls-clearfix">
 						<input type="text" name="search['CN_controllerClassLabel_OR_controllerMethodLabel_OR_authUid']"
-							class="form-control input-xlarge" placeholder="处理类 , 处理方法 , 操作账号标识...">
+							class="form-control input-xlarge" placeholder="Class treatment , treatment methods , operating account identification ...">
 					</div>
 				</div>
 				<div class="form-group search-group-btn">
 					<button class="btn green" type="submmit">
-						<i class="m-icon-swapright m-icon-white"></i>&nbsp; 查&nbsp;询
+						<i class="m-icon-swapright m-icon-white"></i>&nbsp; Inquiry
 					</button>
 					<button class="btn default" type="reset">
-						<i class="fa fa-undo"></i>&nbsp; 重&nbsp;置
+						<i class="fa fa-undo"></i>&nbsp; Refresh
 					</button>
 				</div>
 			</form>
@@ -41,43 +41,33 @@
             $("#grid-aud-revision-entity-user-index").data("gridOptions", {
                 url : WEB_ROOT + '/admin/aud/revision-entity/user/list',
                 colModel : [ {
-                    label : '版本号',
+                    label : 'version number',
                     name : 'rev',
                     width : 60,
                     align : 'center'
                 }, {
-                    label : '记录时间',
+                    label : 'Record Time',
                     name : 'revstmp',
                     formatter : 'timestamp'
                 }, {
-                    label : '处理类',
+                    label : 'Processing class',
                     name : 'controllerClassDisplay',
                     index : 'controllerClassName_OR_controllerClassLabel',
                     width : 250,
                     align : 'left'
                 }, {
-                    label : '处理方法',
+                    label : 'Approach',
                     name : 'controllerMethodDisplay',
                     index : 'controllerMethodName_OR_controllerMethodLabel',
                     width : 150,
                     align : 'center'
                 }, {
-                    label : '操作账号标识',
+                    label : 'Operating Account logo',
                     name : 'authUid',
                     align : 'center',
                     width : 80
                 }, {
-                    label : '操作账号类型',
-                    name : 'authType',
-                    formatter : 'select',
-                    searchoptions : {
-                        valueJsonString : '<tags:json value="${authTypeMap}"/>'
-                    },
-                    hidden : true,                    
-                    align : 'center',
-                    width : 60
-                }, {
-                    label : '方法类型',
+                    label : 'Method Type',
                     name : 'controllerMethodType',
                     width : 60,
                     align : 'center'
@@ -119,10 +109,10 @@
 
                                 $grid.popupDialog({
                                     url : url,
-                                    title : "历史版本数据对比"
+                                    title : "Historical data contrast version"
                                 })
                             } else {
-                                Global.notify("error", "选取行项数据类型不一致");
+                                Global.notify("error", "Select the line item data type inconsistencies");
                             }
                         }
                     });

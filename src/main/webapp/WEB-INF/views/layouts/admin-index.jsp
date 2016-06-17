@@ -70,7 +70,8 @@
 				<!-- END NOTIFICATION DROPDOWN -->
 
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
-				<li class="dropdown" id="header_notification_bar"><a href="javascript:;" class="dropdown-toggle"
+				<li class="dropdown" id="header_notification_bar">
+				<a href="javascript:;" class="dropdown-toggle"
 					data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
 					rel="address:/admin/profile/notify-message|Announcement List"> <i class="fa fa-bullhorn"></i> <span class="badge"
 						style="display: none"></span>

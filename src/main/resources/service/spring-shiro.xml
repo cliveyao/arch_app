@@ -17,7 +17,6 @@
 	</bean>
 	-->
 	
-    <!-- shiro cache using EhCache 设置depends-on="cacheManager"，确保共享模式下优先加载Spring CacheManager -->
 	<bean id="shiroCacheManager" class="lab.s2jh.core.security.SharedEhCacheManager" depends-on="cacheManager">
 		<property name="cacheManagerConfigFile" value="classpath:ehcache-config.xml" />
 		<property name="shared" value="true" />

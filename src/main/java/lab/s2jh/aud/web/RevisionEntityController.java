@@ -74,6 +74,7 @@ public class RevisionEntityController extends BaseController<ExtDefaultRevisionE
     @RequiresPermissions("Configuration Management: The system records : operational record")
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String revisionEntityUserIndex(Model model) throws Exception {
+    	logger.info("Auth Map {}",EnumUtils.getEnumDataMap(AuthTypeEnum.class));
         model.addAttribute("authTypeMap", EnumUtils.getEnumDataMap(AuthTypeEnum.class));
         return "admin/aud/revisionEntity-userIndex";
     }
